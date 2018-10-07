@@ -1,0 +1,480 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CE09239C-7F2F-4A34-9C67-ACDD625C336F}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Barone.api</RootNamespace>
+    <AssemblyName>Barone.api</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.4.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.4.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.4.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.4.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.4.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.4.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.2\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.1.0.0\lib\netstandard1.1\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.1.0.0\lib\netstandard1.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.5.2.4\lib\net451\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.5.2.4\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.2.4\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.OData.Edm, Version=7.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.OData.Edm.7.2.0\lib\portable-net45+win8+wpa81\Microsoft.OData.Edm.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.0\lib\net451\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.0\lib\net451\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.0\lib\net451\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Spatial, Version=7.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Spatial.7.2.0\lib\portable-net45+win8+wpa81\Microsoft.Spatial.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.0\lib\net45\System.Diagnostics.DiagnosticSource.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.2.4\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\angular-material\angular-material.css" />
+    <Content Include="Content\angular-material\angular-material.min.css" />
+    <Content Include="scripts\angular-animate.js" />
+    <Content Include="scripts\angular-animate.min.js" />
+    <Content Include="scripts\angular-aria.js" />
+    <Content Include="scripts\angular-aria.min.js" />
+    <Content Include="scripts\angular-material.js" />
+    <Content Include="scripts\angular-material.min.js" />
+    <Content Include="scripts\angular-mocks.js" />
+    <Content Include="scripts\angular.js" />
+    <Content Include="scripts\angular.min.js" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BarrilModelsController.cs" />
+    <Compile Include="Controllers\ClientesModelsController.cs" />
+    <Compile Include="Controllers\DetallesMovimientosModelsController.cs" />
+    <Compile Include="Controllers\EstilosModelsController.cs" />
+    <Compile Include="Controllers\MovimientosModelsController.cs" />
+    <Compile Include="Controllers\NotificationsController.cs" />
+    <Compile Include="Controllers\PagoModelsController.cs" />
+    <Compile Include="Controllers\PedidoModelsController.cs" />
+    <Compile Include="Controllers\rangosPreciosModelsController.cs" />
+    <Compile Include="Controllers\UserModelsController.cs" />
+    <Compile Include="DTO\BarrilXEstadoReporte.cs" />
+    <Compile Include="DTO\CuentasDebeHaberDTO.cs" />
+    <Compile Include="DTO\NotificationsDTO.cs" />
+    <Compile Include="formats\CustomJwtFormat.cs" />
+    <Compile Include="Migrations\201709221737597_initial.cs" />
+    <Compile Include="Migrations\201709221737597_initial.Designer.cs">
+      <DependentUpon>201709221737597_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710061250579_ChangeRazonSocial.cs" />
+    <Compile Include="Migrations\201710061250579_ChangeRazonSocial.Designer.cs">
+      <DependentUpon>201710061250579_ChangeRazonSocial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710061353167_AddTablePedido.cs" />
+    <Compile Include="Migrations\201710061353167_AddTablePedido.Designer.cs">
+      <DependentUpon>201710061353167_AddTablePedido.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710110156082_AddMovimientos.cs" />
+    <Compile Include="Migrations\201710110156082_AddMovimientos.Designer.cs">
+      <DependentUpon>201710110156082_AddMovimientos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710112021362_Test2.cs" />
+    <Compile Include="Migrations\201710112021362_Test2.Designer.cs">
+      <DependentUpon>201710112021362_Test2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710112024211_test4.cs" />
+    <Compile Include="Migrations\201710112024211_test4.Designer.cs">
+      <DependentUpon>201710112024211_test4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710121653225_DetalleToString.cs" />
+    <Compile Include="Migrations\201710121653225_DetalleToString.Designer.cs">
+      <DependentUpon>201710121653225_DetalleToString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710141557365_AddColumnIdEntrega.cs" />
+    <Compile Include="Migrations\201710141557365_AddColumnIdEntrega.Designer.cs">
+      <DependentUpon>201710141557365_AddColumnIdEntrega.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710231414565_AddColumn_idEntrega.cs" />
+    <Compile Include="Migrations\201710231414565_AddColumn_idEntrega.Designer.cs">
+      <DependentUpon>201710231414565_AddColumn_idEntrega.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710242252095_EstiloenBarril.cs" />
+    <Compile Include="Migrations\201710242252095_EstiloenBarril.Designer.cs">
+      <DependentUpon>201710242252095_EstiloenBarril.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710242304017_EstiloenBarril2.cs" />
+    <Compile Include="Migrations\201710242304017_EstiloenBarril2.Designer.cs">
+      <DependentUpon>201710242304017_EstiloenBarril2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710242351394_EstiloenBarril4.cs" />
+    <Compile Include="Migrations\201710242351394_EstiloenBarril4.Designer.cs">
+      <DependentUpon>201710242351394_EstiloenBarril4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710250214479_IDClienteNew.cs" />
+    <Compile Include="Migrations\201710250214479_IDClienteNew.Designer.cs">
+      <DependentUpon>201710250214479_IDClienteNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710271319424_add PagoModel table.cs" />
+    <Compile Include="Migrations\201710271319424_add PagoModel table.Designer.cs">
+      <DependentUpon>201710271319424_add PagoModel table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710271418508_ClienteTable.cs" />
+    <Compile Include="Migrations\201710271418508_ClienteTable.Designer.cs">
+      <DependentUpon>201710271418508_ClienteTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710271427402_addFechaPagoTOPago.cs" />
+    <Compile Include="Migrations\201710271427402_addFechaPagoTOPago.Designer.cs">
+      <DependentUpon>201710271427402_addFechaPagoTOPago.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710271529464_addFieldSaldoToClient.cs" />
+    <Compile Include="Migrations\201710271529464_addFieldSaldoToClient.Designer.cs">
+      <DependentUpon>201710271529464_addFieldSaldoToClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710311636414_AddTableUser.cs" />
+    <Compile Include="Migrations\201710311636414_AddTableUser.Designer.cs">
+      <DependentUpon>201710311636414_AddTableUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710311653503_AddTableUser1.cs" />
+    <Compile Include="Migrations\201710311653503_AddTableUser1.Designer.cs">
+      <DependentUpon>201710311653503_AddTableUser1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710311700011_AddTableUser5.cs" />
+    <Compile Include="Migrations\201710311700011_AddTableUser5.Designer.cs">
+      <DependentUpon>201710311700011_AddTableUser5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710311704351_AddTableUser6.cs" />
+    <Compile Include="Migrations\201710311704351_AddTableUser6.Designer.cs">
+      <DependentUpon>201710311704351_AddTableUser6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711021731164_addTableToken.cs" />
+    <Compile Include="Migrations\201711021731164_addTableToken.Designer.cs">
+      <DependentUpon>201711021731164_addTableToken.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711021942163_addTableToken2.cs" />
+    <Compile Include="Migrations\201711021942163_addTableToken2.Designer.cs">
+      <DependentUpon>201711021942163_addTableToken2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810022143464_ChangeIdEstilo.cs" />
+    <Compile Include="Migrations\201810022143464_ChangeIdEstilo.Designer.cs">
+      <DependentUpon>201810022143464_ChangeIdEstilo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810051043173_Change.Pagos.cs" />
+    <Compile Include="Migrations\201810051043173_Change.Pagos.Designer.cs">
+      <DependentUpon>201810051043173_Change.Pagos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Audience.cs" />
+    <Compile Include="Models\BaroneapiContext.cs" />
+    <Compile Include="Models\BarrilModel.cs" />
+    <Compile Include="Models\DetallesMovimientosModel.cs" />
+    <Compile Include="Models\EstilosModel.cs" />
+    <Compile Include="Models\MovimientosModel.cs" />
+    <Compile Include="Models\ClientesModel.cs" />
+    <Compile Include="Models\PagoModel.cs" />
+    <Compile Include="Models\PedidoModel.cs" />
+    <Compile Include="Models\rangosPreciosModel.cs" />
+    <Compile Include="Models\Token.cs" />
+    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="providers\SimpleAuthorizationServerProvider.cs" />
+    <Compile Include="Services\ITokenServices.cs" />
+    <Compile Include="Services\IUserServices.cs" />
+    <Compile Include="Services\TokenServices.cs" />
+    <Compile Include="Services\UserServices.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="scripts\angular.min.js.map" />
+    <Content Include="scripts\angular-animate.min.js.map" />
+    <Content Include="scripts\angular-aria.min.js.map" />
+    <None Include="Properties\PublishProfiles\FtpBarone.pubxml" />
+    <None Include="Properties\PublishProfiles\WebApi.pubxml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ActionFilters\" />
+    <Folder Include="App_Data\" />
+    <Folder Include="NewFolder1\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201709221737597_initial.resx">
+      <DependentUpon>201709221737597_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710061250579_ChangeRazonSocial.resx">
+      <DependentUpon>201710061250579_ChangeRazonSocial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710061353167_AddTablePedido.resx">
+      <DependentUpon>201710061353167_AddTablePedido.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710110156082_AddMovimientos.resx">
+      <DependentUpon>201710110156082_AddMovimientos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710112021362_Test2.resx">
+      <DependentUpon>201710112021362_Test2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710112024211_test4.resx">
+      <DependentUpon>201710112024211_test4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710121653225_DetalleToString.resx">
+      <DependentUpon>201710121653225_DetalleToString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710141557365_AddColumnIdEntrega.resx">
+      <DependentUpon>201710141557365_AddColumnIdEntrega.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710231414565_AddColumn_idEntrega.resx">
+      <DependentUpon>201710231414565_AddColumn_idEntrega.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710242252095_EstiloenBarril.resx">
+      <DependentUpon>201710242252095_EstiloenBarril.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710242304017_EstiloenBarril2.resx">
+      <DependentUpon>201710242304017_EstiloenBarril2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710242351394_EstiloenBarril4.resx">
+      <DependentUpon>201710242351394_EstiloenBarril4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710250214479_IDClienteNew.resx">
+      <DependentUpon>201710250214479_IDClienteNew.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710271319424_add PagoModel table.resx">
+      <DependentUpon>201710271319424_add PagoModel table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710271418508_ClienteTable.resx">
+      <DependentUpon>201710271418508_ClienteTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710271427402_addFechaPagoTOPago.resx">
+      <DependentUpon>201710271427402_addFechaPagoTOPago.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710271529464_addFieldSaldoToClient.resx">
+      <DependentUpon>201710271529464_addFieldSaldoToClient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710311636414_AddTableUser.resx">
+      <DependentUpon>201710311636414_AddTableUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710311653503_AddTableUser1.resx">
+      <DependentUpon>201710311653503_AddTableUser1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710311700011_AddTableUser5.resx">
+      <DependentUpon>201710311700011_AddTableUser5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710311704351_AddTableUser6.resx">
+      <DependentUpon>201710311704351_AddTableUser6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711021731164_addTableToken.resx">
+      <DependentUpon>201711021731164_addTableToken.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711021942163_addTableToken2.resx">
+      <DependentUpon>201711021942163_addTableToken2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810022143464_ChangeIdEstilo.resx">
+      <DependentUpon>201810022143464_ChangeIdEstilo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810051043173_Change.Pagos.resx">
+      <DependentUpon>201810051043173_Change.Pagos.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>56770</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:56770/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

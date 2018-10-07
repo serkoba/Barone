@@ -1,0 +1,55 @@
+.component-container {
+    overflow: auto;
+    height: 90%;
+    height: 90vh;
+}
+.body {
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+    color: #474747;
+    -webkit-print-color-adjust:exact;
+    background-color: #B8B8B8;
+   // background: url('../assets/images/barone2.jpg') no-repeat center center fixed; 
+  
+    -webkit-background-size: cover;
+  
+    -moz-background-size: cover;
+  
+    -o-background-size: cover;
+  
+    background-size: cover;
+}
+
+#container {
+    transition: margin-left .5s;
+    padding: 20px;
+}
+
+.success-snackbar {
+    background: #55b559;
+}
+
+.error-snackbar {
+    background: #f55145;
+}
+.warning-snackbar {
+    background: #ff9e0f;
+}
+
+.info-snackbar {
+    background: rgb(7, 99, 236);
+}
+
+.mat-snack-bar-container{
+    background-color: transparent!important;
+    height: 80px!important;
+}
+
+.my-custom-class .tooltip-inner {
+    background-color: darkgreen!important;
+    font-size: 125%;
+  }
+  .my-custom-class .arrow::before {
+    border-top-color: darkgreen;
+  }
+

@@ -1,0 +1,20 @@
+.fa {
+    padding-top: 24px;
+    font-size: 20px;
+    width: 70px;
+    height: 70px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50%;
+}
+.fa-barrel {
+    background:  left 1% / 100% 100% no-repeat  url('../../../../assets/images/icons/IconBeer-al.png') ;
+    color: white;
+}
+
+.fa:hover { 
+    opacity: 0.7;
+}
+.button-row {
+    display: inline-block!important;
+}

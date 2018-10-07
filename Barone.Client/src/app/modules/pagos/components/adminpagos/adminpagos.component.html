@@ -1,0 +1,16 @@
+<div class='panel panel-primary'>
+  <div class='panel-body'>
+
+    <data-grid [columns]="columns"
+               [data]="pagos"
+               [gridbtns]="gridbtns"
+               [hdrbtns]="hdrbtns"
+               [sort]="sorting"
+               [isshowfilter]=true
+               [isExporttoCSV]=false
+               [exportFileName]="exportFileName"
+               [filter]=pagosFilter
+               (btnclick)="gridaction($event)">
+    </data-grid>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<div class='panel panel-primary'>
+  <div class='panel-body'>
+
+    <data-grid [columns]="columns"
+               [data]="clients"
+               [gridbtns]="gridbtns"
+               [hdrbtns]="hdrbtns"
+               [sort]="sorting"
+               [isshowfilter]=true
+               [isExporttoCSV]=false
+               [exportFileName]="exportFileName"
+               [filter]=clientFilter
+               (btnclick)="gridaction($event)">
+    </data-grid>
+  </div>
+</div>

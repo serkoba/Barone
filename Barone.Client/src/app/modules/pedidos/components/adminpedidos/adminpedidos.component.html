@@ -1,0 +1,16 @@
+<div class='panel panel-primary'>
+  <div class='panel-body'>
+      <animated-icon [animate]=true></animated-icon>
+    <data-grid [columns]="columns"
+               [data]="pedidos"
+               [gridbtns]="gridbtns"
+               [hdrbtns]="hdrbtns"
+               [sort]="sorting"
+               [isshowfilter]=true
+               [isExporttoCSV]=false
+               [exportFileName]="exportFileName"
+               [filter]=pedidosFilter
+               (btnclick)="gridaction($event)">
+    </data-grid>
+  </div>
+</div>

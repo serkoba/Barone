@@ -1,0 +1,17 @@
+<div class='panel panel-primary'>
+    <div class='panel-body'>
+        <animated-icon [animate]=true></animated-icon>
+      <data-grid [columns]="columns"
+                 [data]="entregas"
+                 [gridbtns]="gridbtns"
+                 [hdrbtns]="hdrbtns"
+                 [sort]="sorting"
+                 [isshowfilter]=true
+                 [isExporttoCSV]=false
+                 [exportFileName]="exportFileName"
+                 [filter]=entregasFilter
+                 (btnclick)="gridaction($event)">
+      </data-grid>
+    </div>
+  </div>
+  
