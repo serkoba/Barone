@@ -1,35 +1,38 @@
 import { ModuleWithProviders, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import {  ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-import { MatMenuModule, MatIconModule, MatButtonModule, MatProgressSpinnerModule,
-   MatDatepickerModule, MatAutocompleteModule, MatInputModule, MatSelectModule,
-    MatRadioModule, MatNativeDateModule, MatChipsModule, MatSidenavModule, MatBadgeModule
-  } from '@angular/material';
+import {
+  MatMenuModule, MatIconModule, MatButtonModule, MatProgressSpinnerModule,
+  MatDatepickerModule, MatAutocompleteModule, MatInputModule, MatSelectModule,
+  MatRadioModule, MatNativeDateModule, MatChipsModule, MatSidenavModule, MatBadgeModule
+} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {UserService,AdminusersComponent,EditUserComponent,ClientPipe,ClientsService,
-   UserPipe,AdminclientsComponent,EditClientsComponent,AdminbarrilesComponent,EditBarrilesComponent,
-   BarrilPipe,BarrilesService,
-   RangoPipe,RangosService,EditRangosComponent,AdminrangosComponent,BarrilesEstadoComponent, BarrilesEstiloComponent,
-   EditPedidosComponent,
-   AdminpedidosComponent,
-   AdminentregasComponent,
-   EditEntregasComponent,
-   EntregasPipe,
-   PedidosService,
-   PedidosPipe,
-   PagosService,
-   PagosPipe,
-   EditPagosComponent,
-   AdminpagosComponent,
-   EntregasService,
-   EstilosService
-  } from './modules.export';
+import {
+  UserService, AdminusersComponent, EditUserComponent, ClientPipe, ClientsService,
+  UserPipe, AdminclientsComponent, EditClientsComponent, AdminbarrilesComponent, EditBarrilesComponent,
+  BarrilPipe, BarrilesService,
+  RangoPipe, RangosService, EditRangosComponent, AdminrangosComponent, BarrilesEstadoComponent, BarrilesEstiloComponent,
+  EditPedidosComponent,
+  AdminpedidosComponent,
+  AdminentregasComponent,
+  EditEntregasComponent,
+  EntregasPipe,
+  PedidosService,
+  PedidosPipe,
+  PagosService,
+  PagosPipe,
+  EditPagosComponent,
+  AdminpagosComponent,
+  EntregasService,
+  EstilosService
+} from './modules.export';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CoreModule } from '../core/core.module';
 import { AdminestilosComponent } from './estilos/components/adminestilos/adminestilos.component';
 import { EditEstilosComponent } from './estilos/components/edit-estilos/edit-estilos.component';
 import { EstilosPipe } from './shared/filters/estilos.pipe';
+import { AddEntregaComponent } from './entregas/components/add-entrega/add-entrega.component';
 
 
 
@@ -39,17 +42,17 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
  */
 @NgModule({
   imports: [
-      CoreModule,
+    CoreModule,
     NgbModule,
     FormsModule,
     BrowserModule,
     BrowserAnimationsModule, MatDatepickerModule, MatButtonModule,
     MatAutocompleteModule, MatInputModule, MatSelectModule, MatMenuModule, MatIconModule, MatRadioModule,
-     ReactiveFormsModule, MatNativeDateModule,
-     MatProgressSpinnerModule,
-     MatNativeDateModule,
-     MatChipsModule,
-     MatBadgeModule
+    ReactiveFormsModule, MatNativeDateModule,
+    MatProgressSpinnerModule,
+    MatNativeDateModule,
+    MatChipsModule,
+    MatBadgeModule
   ],
   declarations: [
     EditUserComponent,
@@ -78,8 +81,9 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     PagosPipe,
     AdminestilosComponent,
     EditEstilosComponent,
-    EstilosPipe
-   ],
+    EstilosPipe,
+    AddEntregaComponent
+  ],
   exports: [
     EditUserComponent,
     AdminusersComponent,
@@ -100,28 +104,29 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     EditPagosComponent,
     AdminestilosComponent,
     EditEstilosComponent
-    ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    entryComponents: [EditUserComponent,EditClientsComponent, EditBarrilesComponent,EditRangosComponent,EditPagosComponent,
-      BarrilesEstadoComponent,BarrilesEstiloComponent,
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  entryComponents: [EditUserComponent, EditClientsComponent, EditBarrilesComponent, EditRangosComponent, EditPagosComponent,
+    BarrilesEstadoComponent, BarrilesEstiloComponent,
     EditPedidosComponent,
     EditEntregasComponent,
-    EditEstilosComponent],
-    providers: [UserPipe,UserService,ClientsService, ClientPipe, BarrilPipe,
-      BarrilesService,RangosService,RangoPipe,PedidosService,
-      PedidosPipe,
-      EntregasService,
-      EntregasPipe,
-      PagosPipe,
-      PagosService,
+    EditEstilosComponent,
+    AddEntregaComponent],
+  providers: [UserPipe, UserService, ClientsService, ClientPipe, BarrilPipe,
+    BarrilesService, RangosService, RangoPipe, PedidosService,
+    PedidosPipe,
+    EntregasService,
+    EntregasPipe,
+    PagosPipe,
+    PagosService,
     EstilosService,
-  EstilosPipe]
+    EstilosPipe]
 })
 export class ModulesModule {
   public static forRoot(): ModuleWithProviders {
     return {
       ngModule: ModulesModule,
-      providers: [UserService,ClientsService,BarrilesService,RangosService, PedidosService, PagosService,EstilosService]
+      providers: [UserService, ClientsService, BarrilesService, RangosService, PedidosService, PagosService, EstilosService]
     };
   }
 }

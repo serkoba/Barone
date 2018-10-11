@@ -318,6 +318,14 @@
     <Compile Include="Migrations\201810051043173_Change.Pagos.Designer.cs">
       <DependentUpon>201810051043173_Change.Pagos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810102124407_add.Detalle.Entrega.cs" />
+    <Compile Include="Migrations\201810102124407_add.Detalle.Entrega.Designer.cs">
+      <DependentUpon>201810102124407_add.Detalle.Entrega.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810102128119_remove.DetalleEntrega.cs" />
+    <Compile Include="Migrations\201810102128119_remove.DetalleEntrega.Designer.cs">
+      <DependentUpon>201810102128119_remove.DetalleEntrega.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Audience.cs" />
     <Compile Include="Models\BaroneapiContext.cs" />
@@ -436,6 +444,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810051043173_Change.Pagos.resx">
       <DependentUpon>201810051043173_Change.Pagos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810102124407_add.Detalle.Entrega.resx">
+      <DependentUpon>201810102124407_add.Detalle.Entrega.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810102128119_remove.DetalleEntrega.resx">
+      <DependentUpon>201810102128119_remove.DetalleEntrega.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

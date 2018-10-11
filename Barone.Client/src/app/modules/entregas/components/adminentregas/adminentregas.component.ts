@@ -7,6 +7,7 @@ import { ButtonType } from '../../../modules.export';
 import { EntregasService } from '../../services/entregas.service';
 import { EntregasPipe } from '../../../shared/filters/entregas.pipe';
 import { ClientsModel } from '../../../shared/models/clients.model';
+import { SnackManagerService } from '../../../../core/core.module.export';
 
 @Component({
   selector: 'adminentregas',
@@ -81,15 +82,15 @@ export class AdminentregasComponent implements OnInit {
     this.gridbtns = [
       {
         title: 'Editar',
-        icon:'create',
-        keys: ['id'],
+        icon: 'create',
+        keys: ['idEntrega'],
         action: DBOperation.update,
         ishide: this.isREADONLY
       },
       {
         title: 'Borrar',
-        icon:'clear',
-        keys: ["id"],
+        icon: 'clear',
+        keys: ["idEntrega"],
         action: DBOperation.delete,
         ishide: this.isREADONLY
       }
@@ -97,12 +98,13 @@ export class AdminentregasComponent implements OnInit {
     ];
   }
 
-  constructor(private entregaServices: EntregasService, public entregasFilter: EntregasPipe, private dialog: MatDialog) { }
+  constructor(private _snack: SnackManagerService,
+    private entregaServices: EntregasService, public entregasFilter: EntregasPipe, private dialog: MatDialog) { }
   public openDialog() {
     let dialogRef = null;
 
-        dialogRef= this.dialog.open(EditEntregasComponent);
-  
+    dialogRef = this.dialog.open(EditEntregasComponent);
+
     dialogRef.componentInstance.dbops = this.dbops;
     dialogRef.componentInstance.modalTitle = this.modalTitle;
     dialogRef.componentInstance.modalBtnTitle = this.modalBtnTitle;
@@ -135,23 +137,30 @@ export class AdminentregasComponent implements OnInit {
 
   }
   loadEntregas(): void {
-this.entregas =[];
+    this.entregas = [];
     // let video: videos = { id: 23, titulo: "nuevo", video: "rivieramaya.mp4", imagen: "rivera.jpg", fecha: "2012/12/12",pdf:"archivo.pdf",activo:"1",curso:"1",descripcion:"nuevo",modulo:"1"};
     // this.video = video;
     // this.userServices.getAll()
     //   .subscribe(users => { this.users = users; this.initGridButton(); });
-     let entrega: EntregaModel = {
-       id: 1, fechaPactada: "01/01/2018", fecha: "01/01/2018"
-       , TotalBarriles: "70", Barriles: [{  id: 1, NroBarril: "002"
-       , CantidadLitros: "70",  idEstado: 1}], Cliente:{  IdCliente: 1, RazonSocial: "Perez", Telefono: "123123123"
-       , DNI: "123123123", CUIT: "12312312312", ciudad: "Bahia", provincia: "asdasd", pais: "Argentina",
-       SaldoCuenta: "",domicilio:"",margen:"0"},Estado:"1",TotalImporte:"200",TotalLitros:"200",
-       Pedido:{  id: 1, fechaPactada: "01/01/2018", fechaPedido: "01/01/2018", IdCliente:1, Estado:"1"
-       , TotalBarriles: 70, Cliente: new ClientsModel(), DetallePedido: "IPA,HONEY"}
-     }
-    // this.arrVideos = [video];
-     this.initGridButton(); 
-     this.entregas.push(entrega);
+
+    this.entregaServices.getAll()
+      .subscribe(entregas => {
+        this.entregas = entregas;
+        this.initGridButton();
+      });
+
+    //  let entrega: EntregaModel = {
+    //    id: 1, fechaPactada: "01/01/2018", fecha: "01/01/2018"
+    //    , TotalBarriles: "70", Barriles: [{  id: 1, NroBarril: "002"
+    //    , CantidadLitros: "70",  idEstado: 1}], Cliente:{  IdCliente: 1, RazonSocial: "Perez", Telefono: "123123123"
+    //    , DNI: "123123123", CUIT: "12312312312", ciudad: "Bahia", provincia: "asdasd", pais: "Argentina",
+    //    SaldoCuenta: "",domicilio:"",margen:"0"},Estado:"1",TotalImporte:"200",TotalLitros:"200",
+    //    Pedido:{  id: 1, fechaPactada: "01/01/2018", fechaPedido: "01/01/2018", IdCliente:1, Estado:"1"
+    //    , TotalBarriles: 70, Cliente: new ClientsModel(), DetallePedido: "IPA,HONEY"}
+    //  }
+    // // this.arrVideos = [video];
+    //  this.initGridButton(); 
+    //  this.entregas.push(entrega);
     /* this.userServices.getAll()
        .subscribe(users => { this.users = users; this.initGridButton(); }
        );*/
@@ -165,19 +174,27 @@ this.entregas =[];
   }
   EditEntrega(id: number) {
     this.dbops = DBOperation.update;
-      this.modalTitle = "Edit Barril";
-       this.modalBtnTitle = "Update";
+    this.modalTitle = "Editar Entrega";
+    this.modalBtnTitle = "Update";
+
+    this.entrega = this.entregas.find(x => x.idEntrega === id);
+    this.entrega.DetalleEntrega = JSON.parse(this.entrega.DetallePedido.toString());
+    //   this.userServices.getById(id).then(val => { this.user = Object.assign(new User(), val); this.openDialog(); });;
+    this.openDialog();
     //   this.userServices.getById(id).then(val => { this.user = Object.assign(new User(), val); this.openDialog(); });;
     //   this.openDialog();
   }
   DeleteEntrega(id: number) {
     this.dbops = DBOperation.delete;
-    ///   this.modalTitle = "Confirm to Delete?";
-    ///   this.modalBtnTitle = "Delete";
-    ///   this.user = this.users.filter(x => x.Id == id)[0];
-    ///   this.openDialog();
+    this.entregaServices.delete(id).subscribe(() => {
+      // this.dialogRef.close("success");
+      this._snack.openSnackBar("Entrega Eliminado", 'Success');
+      this.loadEntregas();
+    }, error => {
+      this._snack.openSnackBar(error, 'Error');
+    });
   }
- 
+
 
 
   gridaction(gridaction: any): void {
@@ -192,7 +209,7 @@ this.entregas =[];
       case DBOperation.delete:
         this.DeleteEntrega(gridaction.values[0].value);
         break;
-      
+
     }
 
   }

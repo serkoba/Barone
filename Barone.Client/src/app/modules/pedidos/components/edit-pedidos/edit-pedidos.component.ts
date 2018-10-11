@@ -17,11 +17,9 @@ import { EstilosService } from '../../../estilos/services/estilos.service';
 import { PedidosService } from '../../services/pedidos.service';
 import { DBOperation } from '../../../../core/enum/enum.enum';
 import { SnackManagerService } from '../../../../core/core.module.export';
+import { ItemChip } from '../../../shared/models/item-chip';
 
-export class ItemChip  extends Constructable<Partial<ItemChip>>{
-  cantidad:number;
-  nombre:string;
-}
+
 
 @Component({
   selector: 'edit-pedidos',
@@ -191,20 +189,7 @@ cantidad+=barril.cantidad;
          this.dialogRef.close("error");
          
        });
-        /*  this._userService.delete(Global.BASE_USER_ENDPOINT, formData._value.Id).subscribe(
-            data => {
-              if (data == 1) //Success
-              {
-                this.dialogRef.close("success");
-              }
-              else {
-                this.dialogRef.close("error");
-              }
-            },
-            error => {
-              this.dialogRef.close("error");
-            }
-          );*/
+     
         break;
 
     }

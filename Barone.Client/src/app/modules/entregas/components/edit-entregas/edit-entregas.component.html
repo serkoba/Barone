@@ -1,118 +1,117 @@
-<form #videoForm="ngForm" (ngSubmit)="onSubmit()" >
+<form #videoForm="ngForm">
     <div>
-      <h1 mat-dialog-title><span><mat-icon>create</mat-icon>{{modalTitle}}</span></h1>
+        <h1 mat-dialog-title><span>
+                <mat-icon>create</mat-icon>{{modalTitle}}
+            </span></h1>
     </div>
-    
-      <div mat-dialog-content class="mat-dialog-container" flex style="overflow: scroll;  height: 500px;" layout="column" >
+
+    <div mat-dialog-content class="mat-dialog-container" flex style="overflow: scroll;  height: 500px;" layout="column">
         <div style="padding-bottom:1px;background-color:#d8d8d8"></div>
         <div class="row">
-          <div class="col-sm-6">
-          
-       
-          <mat-form-field class="w-100">
-            <input name="fechaPedido" matInput [matDatepicker]="fechaPedido" placeholder="Fecha de Pedido" [(ngModel)]="entrega.fechaPactada">
-            <mat-datepicker-toggle matSuffix [for]="fechaPedido"></mat-datepicker-toggle>
-            <mat-datepicker #fechaPedido></mat-datepicker>
-          </mat-form-field>
-        
-        
-      </div>
-      <div class="col-sm-6">
-     
-  
-        
-          <mat-form-field class="w-100">
-              <input matInput placeholder="Cliente" name="idCliente" [(ngModel)]="entrega.Cliente.RazonSocial" />
-          </mat-form-field>
-        
-        
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-12">
-        
-         
-          <div class="form-group">
-              <div class="col-lg-12">
-                  <label class="control-label">Barriles</label>
-              </div>
-              </div>
-                  <div class="form-group">
-                      <table  class="table table-striped">
-                          <thead>
-                              <tr>
-                                  <th>Tipo</th>
-                                  <th>Cantidad</th>
-                                  <th>Barriles</th>
+            <div class="col-sm-6">
 
-                              </tr>
-                          </thead>
-                          <tbody>
-                              <tr *ngFor="let row of rowCollection">
-                                  <td>{{row.Tipo}}</td>
-                                  <td>{{row.Cantidad}}</td>
-                                  <td ><button-group [buttons]="row.Barriles" (buttonClicked)="subtractCantidad($event)"></button-group>
-                                     </td>
 
-                              </tr>
-                          </tbody>
-                      </table>
-                  </div>
-  
-                  <div style="padding-bottom:1px;background-color:#d8d8d8"></div>
+                <mat-form-field class="w-100">
+                    <input name="fechaPedido" matInput [matDatepicker]="fechaPedido" placeholder="Fecha de Pedido"
+                        [(ngModel)]="entrega.fechaPactada">
+                    <mat-datepicker-toggle matSuffix [for]="fechaPedido"></mat-datepicker-toggle>
+                    <mat-datepicker #fechaPedido></mat-datepicker>
+                </mat-form-field>
+
+
+            </div>
+            <div class="col-sm-6">
+
+
+
+
+                <autocomplete-input [data]="clientes" [cliente]="entrega.Cliente" (itemSelected)="itemSelected($event)"></autocomplete-input>
+
+
+
+            </div>
         </div>
-        </div>
-        <div class="row" *ngIf="PedidoAsignados.Barriles.length>=0">
-  <div class="col-sm-12">
-        
-      <div class="form-group">
-          <div class="col-lg-12">
-              <label class="control-label">Pedido</label>
-          </div>
-      </div>
-      <div class="form-group">
-          <div class="col-lg-12">
-              <div class="table-container">
-                  <table class="table table-striped">
-                      <thead>
-                          <tr>
-                              <th>Tipo</th>
-                              <th>Barriles</th>
-                              <th>Acciones</th>
+        <div class="row">
+            <div class="col-sm-12">
 
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <tr *ngFor="let row of PedidoAsignados.Barriles">
-                              <td>{{row.Estilo}}</td>
-                              <td>{{row.NroBarril}}</td>
-                              <td><button class="btn btn-primary" (click)="removeRowPedido(row)">Borrar</button></td>
 
-                          </tr>
-                      </tbody>
-                  </table>
-              </div>
-          </div>
-      </div>
-    
-          
-       </div>
-       </div>
-       
-       <div class="row mt-5">
-         <div class="col-sm-12">
-        
-            <div class="form-group">
-                <mat-select placeholder="Estado" class="w-75">
-                  <mat-option *ngFor="let estado of Estados" [value]="estado.value">
-                    {{estado.viewValue}}
-                  </mat-option>
-                </mat-select>
-        
-              </div>
-  
-        
+                <div class="form-group">
+                    <div class="col-lg-12">
+                        <label class="control-label">Barriles</label>
+                        <button mat-icon-button color="primary" (click)="openDialog()">
+                            <mat-icon>add_shopping_cart</mat-icon>
+                        </button>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Barriles</th>
+
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="HayPedido()">
+                            <tr *ngFor="let row of rowCollection">
+                                <td>
+                                    <mat-chip-list>
+                                        <mat-chip matBadge="{{row.Cantidad}}" matBadgePosition="before" container="body">{{row.Tipo}}</mat-chip>
+                                    </mat-chip-list>
+                                </td>
+
+                                <td>
+                                    <mat-form-field class="w-75">
+                                        <mat-chip-list #chipList>
+                                            <mat-chip #chip *ngFor="let barril of row.BarrilesEntrega" [selectable]="selectable"
+                                                matBadge="{{barril.cantidad}}" matBadgePosition="before" container="body"
+                                                [removable]="removable" (removed)="remove(barril.nombre,row)">
+                                                {{barril.nombre}}
+                                                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                            </mat-chip>
+                                            <input placeholder="Barriles..." #fruitInput [formControl]="BarrilCtrl"
+                                                [matAutocomplete]="auto" [matChipInputFor]="chipList"
+                                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                                [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event,row)">
+                                        </mat-chip-list>
+                                        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event,row)">
+                                            <mat-option *ngFor="let barrilAutoComplete of filteredBarriles | async"
+                                                [value]="barrilAutoComplete.NroBarril">
+                                                {{barrilAutoComplete.NroBarril}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+
+
+
+                                    <!-- <button-group [buttons]="row.Barriles" (buttonClicked)="subtractCantidad($event)"></button-group> -->
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="padding-bottom:1px;background-color:#d8d8d8"></div>
+            </div>
         </div>
+
+
+        <div class="row mt-5">
+            <div class="col-sm-12">
+
+                <div class="form-group">
+                    <mat-select placeholder="Estado" class="w-75">
+                        <mat-option *ngFor="let estado of Estados" [value]="estado.value">
+                            {{estado.viewValue}}
+                        </mat-option>
+                    </mat-select>
+
+                </div>
+
+
+            </div>
         </div>
         <div class="row mt-5">
             <div class="col-sm-4">
@@ -127,25 +126,25 @@
         </div>
         <div class="row">
             <div class="col-sm-4">
-                <input matInput disabled placeholder="Cantidad de Litros" name="CantidadLitros" [(ngModel)]="entrega.TotalBarriles" />
+                <input matInput disabled placeholder="Total Barriles" name="TotalBarriles" [(ngModel)]="entrega.TotalBarriles" />
             </div>
             <div class="col-sm-4">
-                <input matInput disabled placeholder="Cantidad de Litros" name="CantidadLitros" [(ngModel)]="entrega.TotalLitros" />
+                <input matInput disabled placeholder="Total de Litros" name="TotalLitros" [(ngModel)]="entrega.TotalLitros" />
             </div>
             <div class="col-sm-4">
-                <input matInput disabled placeholder="Cantidad de Litros" name="CantidadLitros" [(ngModel)]="entrega.TotalImporte" />
+                <input matInput disabled placeholder="Total de importe" name="TotalImporte" [(ngModel)]="entrega.TotalImporte" />
             </div>
         </div>
-      
+
         <div class="row">
             <div class="col-sm-12">
-          
+
+            </div>
         </div>
-      </div>
-    
+
     </div>
-      <mat-dialog-actions class="mat-dialog-footer" align="end">
+    <mat-dialog-actions class="mat-dialog-footer" align="end">
         <button color="warn" type="button" mat-raised-button (click)="dialogRef.close()">Cancel</button>&nbsp;
-        <button type="submit" color="primary" mat-raised-button>{{modalBtnTitle}}</button>
-      </mat-dialog-actions>
-  </form>
+        <button type="button" color="primary" mat-raised-button (click)="onSubmit()">{{modalBtnTitle}}</button>
+    </mat-dialog-actions>
+</form>

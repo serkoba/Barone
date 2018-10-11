@@ -31,7 +31,7 @@ export * from './shared/filters/pedidos.pipe';
 export * from './shared/models/pedido.model';
 export * from './shared/enum/enums';
 
-
+export * from './entregas/components/add-entrega/add-entrega.component';
 export * from './entregas/components/edit-entregas/edit-entregas.component';
 export * from './entregas/components/adminentregas/adminentregas.component';
 export * from './entregas/services/entregas.service';
