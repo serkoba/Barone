@@ -28,32 +28,38 @@ export class AdminentregasComponent implements OnInit {
     {
       display: 'Fecha ',
       variable: 'fecha',
-      filter: 'text',
+      filter: 'date',
+      template: 'text'
     },
     {
       display: 'Fecha Pactada',
       variable: 'fechaPactada',
-      filter: 'text'
+      filter: 'date',
+      template: 'text'
     },
     {
       display: 'Cliente',
-      variable: 'RazonSocial',
-      filter: 'text'
+      variable: 'Cliente',
+      filter: 'Cliente',
+      template: 'text'
     },
     {
       display: 'Nro de Remito',
       variable: 'idEntrega',
-      filter: 'text'
+      filter: 'text',
+      template: 'text'
     },
     {
       display: 'Total',
       variable: 'TotalImporte',
-      filter: 'text'
+      filter: 'text',
+      template: 'text'
     },
     {
       display: 'Estado',
       variable: 'Estado',
-      filter: 'text'
+      filter: 'text',
+      template: 'estado'
     }
   ];
   sorting: any = {
@@ -69,13 +75,6 @@ export class AdminentregasComponent implements OnInit {
         title: 'Nueva Entrega',
         keys: [''],
         action: DBOperation.create,
-        ishide: this.isREADONLY
-
-      },
-      {
-        title: 'Comenzar entrega',
-        keys: [''],
-        action: DBOperation.ComenzarEntrega,
         ishide: this.isREADONLY
 
       }];

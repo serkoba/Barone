@@ -20,17 +20,17 @@ namespace Barone.api.Controllers
         private BaroneapiContext db = new BaroneapiContext();
 
         // GET: api/MovimientosModels
-        public IQueryable<MovimientosModel> GetMovimientosModels( string idEstado = "all", string fechaDesde = "all", string fechaHasta = "all")
+        public IQueryable<MovimientosModel> GetMovimientosModels( int? idEstado = 0, string fechaDesde = "all", string fechaHasta = "all")
         {
             var param = ParameterExpression.Parameter(typeof(MovimientosModel), "x");
 
             //////PARAMETER of Estado
             var lenEstado = Expression.PropertyOrField(param, "Estado");
-            var bodyEstado = Expression.Equal(lenEstado, Expression.Constant(idEstado));
+            var bodyEstado = Expression.Equal(lenEstado, Expression.Convert(Expression.Constant(idEstado.Value), typeof(int)));
 
             Expression AllBody = Expression.Equal(Expression.Constant("all"), Expression.Constant("all"));
 
-            if (idEstado != "all")
+            if (idEstado != 0)
                 AllBody = Expression.AndAlso(AllBody, bodyEstado);
 
             ////PARAMETER of NroBarril
@@ -88,17 +88,14 @@ namespace Barone.api.Controllers
 
         // PUT: api/MovimientosModels/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutMovimientosModel(long id, MovimientosModel movimientosModel)
+        public IHttpActionResult PutMovimientosModel( MovimientosModel movimientosModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != movimientosModel.idEntrega)
-            {
-                return BadRequest();
-            }
+           
 
             db.Entry(movimientosModel).State = EntityState.Modified;
 
@@ -106,19 +103,12 @@ namespace Barone.api.Controllers
             {
                 db.SaveChanges();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException ex)
             {
-                if (!MovimientosModelExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return BadRequest(ex.Message);
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return StatusCode(HttpStatusCode.OK);
         }
 
         // POST: api/MovimientosModels

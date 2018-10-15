@@ -262,3 +262,4 @@ C:\proyecto\Barone.dev\Barone\Barone.api\obj\Debug\Barone.api.dll
 C:\proyecto\Barone.dev\Barone\Barone.api\obj\Debug\Barone.api.pdb
 C:\proyecto\Barone.dev\Barone\Barone.api\obj\Debug\Barone.api.Migrations.addDetalleEntrega.resources
 C:\proyecto\Barone.dev\Barone\Barone.api\obj\Debug\Barone.api.Migrations.removeDetalleEntrega.resources
+C:\proyecto\Barone.dev\Barone\Barone.api\obj\Debug\Barone.api.Migrations.addcolumnEstadoDelivery.resources

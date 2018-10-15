@@ -24,7 +24,8 @@ import {
   EditPagosComponent,
   AdminpagosComponent,
   EntregasService,
-  EstilosService
+  EstilosService,
+  BarrilEstadoReporteComponent
 } from './modules.export';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -33,6 +34,8 @@ import { AdminestilosComponent } from './estilos/components/adminestilos/admines
 import { EditEstilosComponent } from './estilos/components/edit-estilos/edit-estilos.component';
 import { EstilosPipe } from './shared/filters/estilos.pipe';
 import { AddEntregaComponent } from './entregas/components/add-entrega/add-entrega.component';
+import { TestComponent } from './reportes/components/test/test.component';
+
 
 
 
@@ -82,7 +85,9 @@ import { AddEntregaComponent } from './entregas/components/add-entrega/add-entre
     AdminestilosComponent,
     EditEstilosComponent,
     EstilosPipe,
-    AddEntregaComponent
+    AddEntregaComponent,
+    TestComponent,
+    BarrilEstadoReporteComponent
   ],
   exports: [
     EditUserComponent,
@@ -103,7 +108,9 @@ import { AddEntregaComponent } from './entregas/components/add-entrega/add-entre
     AdminpagosComponent,
     EditPagosComponent,
     AdminestilosComponent,
-    EditEstilosComponent
+    EditEstilosComponent,
+    TestComponent,
+    BarrilEstadoReporteComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [EditUserComponent, EditClientsComponent, EditBarrilesComponent, EditRangosComponent, EditPagosComponent,

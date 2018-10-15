@@ -1,41 +1,41 @@
-<nav *ngIf="!hideNav" class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-        <div *ngIf="logo!==undefined">
-          <a class="navbar-brand" href="" routerLink="{{logo.routerPath}}">
-            <img src="{{logo.imageUrl}}" alt="">
-            <span>{{logo.text}}</span>
-          </a>
-        </div>
-        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" aria-controls="topNavBarContent" aria-expanded="false"
-          aria-label="Toggle navigation" (click)="collapsed=!collapsed" [ngClass]="{'collapsed': collapsed}">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <div class="collapse navbar-collapse" id="topNavBarContent" *ngIf="!hideNav" [ngClass]="{'show': !collapsed}">
-                <div id="hamburger" class="hamburger hamburger--spring" (click)="openNav()">
-                        <div class="hamburger-box">
-                          <div class="hamburger-inner"></div>
-                        </div>
-                      </div>
-      
+<nav *ngIf="!hideNav" class="navbar sticky-top navbar-expand-lg navbar-dark bg-grey">
+  <div *ngIf="logo!==undefined">
+    <a class="navbar-brand" href="" routerLink="{{logo.routerPath}}">
+      <img src="{{logo.imageUrl}}" alt="">
+      <span>{{logo.text}}</span>
+    </a>
+  </div>
+  <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" aria-controls="topNavBarContent"
+    aria-expanded="false" aria-label="Toggle navigation" (click)="collapsed=!collapsed" [ngClass]="{'collapsed': collapsed}">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-            <span *ngFor="let button of actionButtons; let i=index">
-              <!-- <div [ngClass]="{'dropdown': button.hasChildren}"> -->
-                <!-- <button class="btn {{button.className}} btn-sm dropdown-toggle" [autoReset]="true" ClassToggler="#actionMenu_{{i}}" *ngIf="button.icon === ''">{{button.text}}</button>
+  <div class="collapse navbar-collapse" id="topNavBarContent" *ngIf="!hideNav" [ngClass]="{'show': !collapsed}">
+    <div id="hamburger" class="hamburger hamburger--spring" (click)="openNav()">
+      <div class="hamburger-box">
+        <div class="hamburger-inner"></div>
+      </div>
+    </div>
+
+
+    <span *ngFor="let button of actionButtons; let i=index">
+      <!-- <div [ngClass]="{'dropdown': button.hasChildren}"> -->
+      <!-- <button class="btn {{button.className}} btn-sm dropdown-toggle" [autoReset]="true" ClassToggler="#actionMenu_{{i}}" *ngIf="button.icon === ''">{{button.text}}</button>
                 <span class="btn p-0" [autoReset]="true" ClassToggler="actionMenu_{{i}}">
                   <i class="fa {{button.icon}} {{button.className}} dropdown-toggle fa-lg" aria-hidden="true" *ngIf="button.icon !== ''"></i>
                 </span> -->
-                <button mat-icon-button [matMenuTriggerFor]="menuNav">
-                    <mat-icon>{{button.icon}}</mat-icon>
-                  </button>
-                  <mat-menu #menuNav="matMenu">
-                      
-                      <button mat-menu-item (click)="buttonClicked(child.routerPath)" *ngFor="let child of button.children">
-                        <mat-icon>{{child.icon}}</mat-icon>
-                        <span>{{child.text}}</span>
-                      </button>
-                      <!--  <button type="button" class="btn btn-primary" (click)="click(btn,row)">{{btn.title}}</button>-->
-                  </mat-menu>
-                <!-- <div id="actionMenu_{{i}}" class="dropdown-menu">
+      <button mat-icon-button [matMenuTriggerFor]="menuNav">
+        <mat-icon>{{button.icon}}</mat-icon>
+      </button>
+      <mat-menu #menuNav="matMenu">
+
+        <button mat-menu-item (click)="buttonClicked(child.routerPath)" *ngFor="let child of button.children">
+          <mat-icon>{{child.icon}}</mat-icon>
+          <span>{{child.text}}</span>
+        </button>
+        <!--  <button type="button" class="btn btn-primary" (click)="click(btn,row)">{{btn.title}}</button>-->
+      </mat-menu>
+      <!-- <div id="actionMenu_{{i}}" class="dropdown-menu">
                   <div >
                     <a class="dropdown-item" *ngIf="child.kind === 'link'" routerLink="{{child.routerPath}}">
                       <i class="fa {{child.icon}} {{child.className}} fa-lg" aria-hidden="true" *ngIf="child.icon !== ''"></i> {{child.text}}</a>
@@ -43,15 +43,15 @@
                       <i class="fa {{child.icon}} {{child.className}} fa-lg" aria-hidden="true" *ngIf="child.icon !== ''"></i> {{child.text}}</a>
                   </div>
                 </div> -->
-              <!-- </div> -->
-            </span>
-        
-        </div>
-      </nav>
+      <!-- </div> -->
+    </span>
+
+  </div>
+</nav>
 
 <div id="mySidenav" class="sidenav">
 
-         <!-- <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+  <!-- <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
                 <ngb-panel id="panel_{{i}}" *ngFor="let item of navigation;let i=index">
                         <ng-template ngbPanelTitle>
                             <div id="items" >
@@ -72,7 +72,7 @@
               </ngb-accordion>  -->
 
 
-               <!-- <mat-accordion class="example-headers-align">
+  <!-- <mat-accordion class="example-headers-align">
                 <mat-expansion-panel  *ngFor="let item of navigation">
                   <mat-expansion-panel-header>
 
@@ -96,7 +96,7 @@
                 
               
               </mat-accordion>  -->
-              <!-- <aside id='sidebar'>
+  <!-- <aside id='sidebar'>
                   <nav id='mobile-nav'>
                     <h1 class="mobile-logo">Burgers & Sliders</h1>
                     <ul>
@@ -158,63 +158,63 @@
                   </div> -->
 
 
-                  <mat-sidenav-container class="container">
-  <mat-sidenav #sidenav mode="over" opened="opened" class="bottom-to-top">
-    <div class="my-2" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
-      <div class="with-bg"></div>
-      <div>
-        <a>
-          <img class="circle" src="./assets/images/profile.jpg" width="100">
-        </a>
+  <mat-sidenav-container class="container">
+    <mat-sidenav #sidenav mode="over" opened="opened" class="bottom-to-top">
+      <div class="my-2" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+        <div class="with-bg"></div>
+        <div>
+          <a>
+            <img class="circle" src="./assets/images/profile.jpg" width="100">
+          </a>
+        </div>
       </div>
-    </div>
-    <div style="background-color: #3e50b5 !important;" class="mt-2 py-3 text-white" fxLayout="column" fxLayoutAlign="center center"
-      fxLayoutGap="7px">
-      <div>
-      
+      <div style="background-color: #3e50b5 !important;" class="mt-2 py-3 text-white" fxLayout="column" fxLayoutAlign="center center"
+        fxLayoutGap="7px">
+        <div>
+
+        </div>
+        <div>
+
+        </div>
       </div>
-      <div>
-      
-      </div>
-    </div>
-    <div class="mt-3" *ngFor="let item of navigations">
-        <mat-nav-list *ngIf="!item.hasChildren"  class="ml-0" dense >
-            <a class="item"  mat-list-item class="ml-2" routerLink="{{item.routerPath}}" >
-              
-                <mat-icon *ngIf="item.icon !== ''">{{item.icon}}</mat-icon>
-                <span> {{item.text}}</span>
-              </a>
+      <div class="mt-3" *ngFor="let item of navigations">
+        <mat-nav-list *ngIf="!item.hasChildren" class="ml-0" dense>
+          <a class="item" mat-list-item class="ml-2" routerLink="{{item.routerPath}}">
+
+            <mat-icon *ngIf="item.icon !== ''">{{item.icon}}</mat-icon>
+            <span> {{item.text}}</span>
+          </a>
         </mat-nav-list>
-      <mat-accordion *ngIf="item.hasChildren" multi="true" [displayMode]="displayMode">
-        <mat-expansion-panel class="no-shadow" >
-          <mat-expansion-panel-header fxLayout="row" [expandedHeight]="expandHeight" [collapsedHeight]="collapseHeight">
-            <mat-panel-title>
-               
-              <span> <mat-icon *ngIf="item.icon !== ''">{{item.icon}}</mat-icon>{{item.text}}</span>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <mat-nav-list  class="ml-0" dense *ngFor="let child of item.children">
-            <mat-list-item *ngIf="item.hasChildren">
-              <a class="item" routerLink="{{child.routerPath}}">
-                      <mat-icon *ngIf="child.icon !== ''">{{child.icon}}</mat-icon>
-                 <span> {{child.text}}</span></a>
-              <!-- <button mat-icon-button class="mr-3">
+        <mat-accordion *ngIf="item.hasChildren" multi="true" [displayMode]="displayMode">
+          <mat-expansion-panel class="no-shadow">
+            <mat-expansion-panel-header fxLayout="row" [expandedHeight]="expandHeight" [collapsedHeight]="collapseHeight">
+              <mat-panel-title>
+
+                <span>
+                  <mat-icon *ngIf="item.icon !== ''">{{item.icon}}</mat-icon>{{item.text}}
+                </span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="ml-0" dense *ngFor="let child of item.children">
+              <mat-list-item *ngIf="item.hasChildren">
+                <a class="item" routerLink="{{child.routerPath}}">
+                  <mat-icon *ngIf="child.icon !== ''">{{child.icon}}</mat-icon>
+                  <span> {{child.text}}</span>
+                </a>
+                <!-- <button mat-icon-button class="mr-3">
               <mat-icon>info</mat-icon>
             </button> -->
-            </mat-list-item>
-            
-           
-          </mat-nav-list>
-        
-        </mat-expansion-panel>
-      </mat-accordion>
-    </div>
-  </mat-sidenav>
-</mat-sidenav-container>
-          
-      </div>
-      
-      <!-- Use any element to open the sidenav -->
+              </mat-list-item>
 
-    
-      
+
+            </mat-nav-list>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </mat-sidenav>
+  </mat-sidenav-container>
+
+</div>
+
+<!-- Use any element to open the sidenav -->

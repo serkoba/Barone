@@ -11,7 +11,8 @@ export class EntregaModel extends Constructable<Partial<EntregaModel>> {
     IdCliente: number;
     Cliente: ClientsModel;
     Barriles: BarrilModel[];
-    Estado: string;
+    Estado: number;
+    EstadoDelivery: number;
     TotalBarriles: string;
     TotalLitros: string;
     TotalImporte: string;

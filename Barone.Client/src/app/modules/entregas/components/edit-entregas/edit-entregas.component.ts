@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { EntregaModel } from '../../../shared/models/entrega.model';
 import { MatDialogRef, MatChipInputEvent, MatAutocompleteSelectedEvent, MatDialog } from '@angular/material';
 import { SelectItem } from '../../../shared/models/select-item';
@@ -59,7 +59,8 @@ export class EditEntregasComponent implements OnInit {
     estilo: EstilosModel;
 
 
-    constructor(public _snack: SnackManagerService,
+    constructor(private chgRef: ChangeDetectorRef,
+        public _snack: SnackManagerService,
         public entregaServices: EntregasService,
         public dialog: MatDialog,
         private barrilesServices: BarrilesService,
@@ -88,13 +89,6 @@ export class EditEntregasComponent implements OnInit {
 
         dialogRef = this.dialog.open(AddEntregaComponent);
 
-        // dialogRef.componentInstance.dbops = this.dbops;
-        // dialogRef.componentInstance.modalTitle = this.modalTitle;
-        // dialogRef.componentInstance.modalBtnTitle = this.modalBtnTitle;
-        // dialogRef.componentInstance. = this.entrega;
-        // const sub = dialogRef.componentInstance.DialogSaved.subscribe((data) => {
-        //     this.rowCollection.push(new RowEntrega({ id: 0, Cantidad: data.Cantidad, Tipo: data.Estilo.Nombre, Barriles: [] }))
-        // });
         dialogRef.beforeClose().subscribe(() => {
             this.rowCollection.push(new RowEntrega({
                 id: 0,
@@ -166,7 +160,6 @@ export class EditEntregasComponent implements OnInit {
 
     }
     private reCalculateBarriles() {
-        let cantidad = 0;
         let TotalBarriles = 0;
         let TotalLitros = 0;
         let TotalImporte = 0;
@@ -193,6 +186,8 @@ export class EditEntregasComponent implements OnInit {
 
 
     ngOnInit() {
+        this.chgRef.detach();
+
         if (typeof (this.pedido) != "undefined") {
             this.InicializarEntrega();
         }
@@ -202,20 +197,27 @@ export class EditEntregasComponent implements OnInit {
 
         }
         else {
+
             this.rowCollection = this.entrega.DetalleEntrega;
-            this.rowCollection.map(row => {
-                row.BarrilesEntrega = row.Barriles.map(barril => { return new ItemChip({ cantidad: 1, nombre: barril.NroBarril }) });
-            })
+            if (this.dbops != DBOperation.update) {
+                this.rowCollection.map(row => {
+                    row.BarrilesEntrega = row.Barriles.map(barril => { return new ItemChip({ cantidad: 1, nombre: barril.NroBarril }) });
+                })
+            }
         }
+
+        this.chgRef.detectChanges();
+        this.chgRef.reattach();
     }
     public InicializarEntrega() {
         this.entrega = new EntregaModel({
             fechaPactada: this.pedido.fechaPactada,
             DetalleEntrega: this.generateDetallePedido(JSON.parse(this.pedido.DetallePedido)),
             Cliente: this.pedido.Cliente,
-            IdCliente: this.pedido.IdCliente
+            IdCliente: this.pedido.IdCliente,
+            Estado: 1,
+            EstadoDelivery: 1
         });
-        this.cliente = this.entrega.Cliente;
 
     }
 
@@ -224,11 +226,11 @@ export class EditEntregasComponent implements OnInit {
         this.entrega.fecha = new Date().toLocaleDateString();
         switch (this.dbops) {
             case DBOperation.create:
-                this.entrega.Estado = "1";
+                this.entrega.Estado = 1;
                 this.entregaServices.insert(this.entrega).subscribe((result) => {
                     this.entrega.idEntrega = result.idEntrega;
                     this.dialogRef.close("success");
-                    this._snack.openSnackBar("Rango Creado Exitosamente", 'Success');
+                    this._snack.openSnackBar("Entrega Creada Exitosamente", 'Success');
 
                 }, error => {
                     this._snack.openSnackBar(error, 'Error');
@@ -240,7 +242,7 @@ export class EditEntregasComponent implements OnInit {
             case DBOperation.update:
                 this.entregaServices.update(this.entrega).subscribe(() => {
                     this.dialogRef.close("success");
-                    this._snack.openSnackBar("Rango Actualizado", 'Success');
+                    this._snack.openSnackBar("Entrega Actualizada", 'Success');
 
                 }, error => {
                     this._snack.openSnackBar(error, 'Error');

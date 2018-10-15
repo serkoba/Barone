@@ -1,0 +1,48 @@
+<div class="panel-body-reporte">
+  <div class="row">
+    <div class="w-95">
+      <h1>Barriles <span>por</span> <span>Estado</span></h1>
+      <h3>Filtro</h3>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-sm-4">
+
+
+      <mat-form-field>
+        <mat-select name="idEstado" placeholder="Estado" [(ngModel)]="barril.idEstado">
+          <mat-option *ngFor="let estado of Estados" [value]="estado.value">
+            {{estado.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+    <div class="col-sm-4">
+      <mat-form-field>
+        <mat-select name="IdEstilo" placeholder="Estilo" [(ngModel)]="barril.IdEstilo" (ngModelChange)="changeSelect($event)">
+          <mat-option *ngFor="let estilo of estilosSelect" [value]="estilo.value">
+            {{estilo.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-4">
+      <autocomplete-input [data]="clientes" [cliente]="Cliente" (itemSelected)="itemSelected($event)"></autocomplete-input>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12"><br />
+      <button class="btn btn-primary" (click)="FiltrarInfo()" id="btnEditarEnvio">Filtrar</button>
+      <button class="btn btn-primary" id="btnExportar">Exportar a Excel</button>
+    </div>
+  </div>
+  <div class="row-reporte">
+    <div class="w-95">
+      <data-grid-view></data-grid-view>
+    </div>
+  </div>
+</div>

@@ -326,6 +326,10 @@
     <Compile Include="Migrations\201810102128119_remove.DetalleEntrega.Designer.cs">
       <DependentUpon>201810102128119_remove.DetalleEntrega.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810110812207_add column EstadoDelivery.cs" />
+    <Compile Include="Migrations\201810110812207_add column EstadoDelivery.Designer.cs">
+      <DependentUpon>201810110812207_add column EstadoDelivery.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Audience.cs" />
     <Compile Include="Models\BaroneapiContext.cs" />
@@ -450,6 +454,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810102128119_remove.DetalleEntrega.resx">
       <DependentUpon>201810102128119_remove.DetalleEntrega.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810110812207_add column EstadoDelivery.resx">
+      <DependentUpon>201810110812207_add column EstadoDelivery.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

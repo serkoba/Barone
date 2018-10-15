@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
@@ -19,10 +19,13 @@ export class AutocompleteInputComponent implements OnInit {
   public clienteCtrl = new FormControl();
 
   public filteredClientes: Observable<ClientsModel[]>;
-  constructor() { }
+  constructor(private chgRef: ChangeDetectorRef) { }
 
   ngOnInit() {
+    this.chgRef.detach();
     this.init();
+    this.chgRef.detectChanges();
+    this.chgRef.reattach();
   }
 
   public init() {
@@ -41,13 +44,14 @@ export class AutocompleteInputComponent implements OnInit {
   }
 
   displayFn(cliente: ClientsModel): string {
-    console.log(cliente);
-    return cliente ? cliente.RazonSocial : '';
+    console.log(this.cliente);
+    return cliente ? cliente.RazonSocial : this.cliente.RazonSocial;
   }
 
   setCliente(clienteSelected: ClientsModel) {
     if (clienteSelected instanceof Object)
       this.itemSelected.emit(clienteSelected.IdCliente);
+
     //this.pago.IdCliente=clienteSelected.IdCliente.toString();
   }
 

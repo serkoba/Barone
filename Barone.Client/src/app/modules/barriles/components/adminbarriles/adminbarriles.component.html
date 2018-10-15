@@ -1,16 +1,9 @@
-<div class='panel panel-primary'>
-  <div class='panel-body'>
+<div class="row">
+  <div class="w-95">
 
-    <data-grid [columns]="columns"
-               [data]="barriles"
-               [gridbtns]="gridbtns"
-               [hdrbtns]="hdrbtns"
-               [sort]="sorting"
-               [isshowfilter]=true
-               [isExporttoCSV]=false
-               [exportFileName]="exportFileName"
-               [filter]=barrilFilter
-               (btnclick)="gridaction($event)">
+    <data-grid [columns]="columns" [data]="barriles" [gridbtns]="gridbtns" [hdrbtns]="hdrbtns" [sort]="sorting"
+      [isshowfilter]=true [isExporttoCSV]=false [exportFileName]="exportFileName" [filter]=barrilFilter (btnclick)="gridaction($event)">
     </data-grid>
+    <!-- <data-grid-view #grid [data]="barriles" [columnsToDisplay]="columns"></data-grid-view> -->
   </div>
 </div>

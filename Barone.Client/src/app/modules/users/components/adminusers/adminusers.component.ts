@@ -3,7 +3,7 @@ import { DBOperation } from '../../../../core/enum/enum.enum';
 import { User } from '../../../shared/models/user.model';
 import { UserService } from '../../services/users.service';
 import { UserPipe } from '../../../shared/filters/user.pipe';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { EditUserComponent } from '../edit-user/edit-user.component';
 
 @Component({
@@ -26,11 +26,13 @@ export class AdminusersComponent implements OnInit {
       display: 'User Profile',
       variable: 'userProfile',
       filter: 'text',
+      template: 'text'
     },
     {
       display: 'Tipo de Usuario',
       variable: 'Role',
-      filter: 'text'
+      filter: 'text',
+      template: 'text'
     }
   ];
   sorting: any = {
@@ -101,11 +103,11 @@ export class AdminusersComponent implements OnInit {
 
   }
   LoadUsers(): void {
-this.users =[];
+    this.users = [];
     // let video: videos = { id: 23, titulo: "nuevo", video: "rivieramaya.mp4", imagen: "rivera.jpg", fecha: "2012/12/12",pdf:"archivo.pdf",activo:"1",curso:"1",descripcion:"nuevo",modulo:"1"};
     // this.video = video;
-     this.userServices.getAll()
-       .subscribe(users => { this.users = users; this.initGridButton(); });
+    this.userServices.getAll()
+      .subscribe(users => { this.users = users; this.initGridButton(); });
     //  let user: User = {
     //    id: 1, apellido: "Perez", mail: "karinaperez@gmail.com", nombre: "Karina", sexo: "famel", telefono: "123123123", celular: "123123123", facebook: "asf"
     //    , foto: "asdasd", dni: "123123123", cuilCuit: "12312312312", ciudad: "Bahia", provincia: "asdasd", pais: "Argentina", pass: "123123", tipoUsuario: "admin", activo: "asdasd", fecha: "2012/12/12", inicioSesion: "", comentarios: "",
@@ -127,8 +129,8 @@ this.users =[];
   }
   EditUser(id: number) {
     this.dbops = DBOperation.update;
-      this.modalTitle = "Edit User";
-       this.modalBtnTitle = "Update";
+    this.modalTitle = "Edit User";
+    this.modalBtnTitle = "Update";
     //   this.userServices.getById(id).then(val => { this.user = Object.assign(new User(), val); this.openDialog(); });;
     //   this.openDialog();
   }

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, TemplateRef, ElementRef, ViewChild } from '@angular/core';
 import { DataGridUtil } from './datagrid.util'
 import { Format } from './format';
 
@@ -17,7 +17,7 @@ export interface GridAction {
   styleUrls: ['./datagrid.component.scss']
 })
 export class DataGrid {
-  
+
   //Input Variables
   @Input() columns: any[];
   @Input() data: any[];
@@ -28,17 +28,20 @@ export class DataGrid {
   @Input() isExporttoCSV: boolean;
   @Input() exportFileName: string;
   @Input() filter: any;
+  @ViewChild('text') public text: TemplateRef<ElementRef>;
+  @ViewChild('estado') public estado: TemplateRef<ElementRef>;
+  @ViewChild('detallePedido') public detallePedido: TemplateRef<ElementRef>;
 
   //Output Variable
   @Output()
   btnclick: EventEmitter<GridAction> = new EventEmitter<GridAction>();
-  
+
   //Local Variable
   pdata: any[] = this.data;
   listFilter: string;
   searchTitle: string = "Search:";
 
-  
+
   ngOnChanges(changes: any) {
     if (JSON.stringify(changes).indexOf("data") != -1)
       this.pdata = this.data;

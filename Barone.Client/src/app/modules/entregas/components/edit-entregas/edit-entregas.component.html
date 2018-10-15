@@ -102,7 +102,7 @@
             <div class="col-sm-12">
 
                 <div class="form-group">
-                    <mat-select placeholder="Estado" class="w-75">
+                    <mat-select placeholder="Estado" class="w-75" name="EstadoDelivery" [(ngModel)]="entrega.EstadoDelivery">
                         <mat-option *ngFor="let estado of Estados" [value]="estado.value">
                             {{estado.viewValue}}
                         </mat-option>

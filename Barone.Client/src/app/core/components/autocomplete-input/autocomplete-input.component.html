@@ -1,8 +1,11 @@
-<input matInput placeholder="Cliente" name="IdCliente" [(ngModel)]="cliente" (ngModelChange)="setCliente(cliente)"  [matAutocomplete]="auto" [formControl]="clienteCtrl" />
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-              <mat-option *ngFor="let cliente of filteredClientes | async" [value]="cliente">
-                <mat-icon aria-label="Example icon-button with a heart icon">account_box</mat-icon>
-                <span>{{cliente.RazonSocial}}</span> |
-                <small>CUIT: {{cliente.CUIT}}</small>
-              </mat-option>
-            </mat-autocomplete>
+<mat-form-field>
+  <input matInput placeholder="Cliente" name="IdCliente" [(ngModel)]="cliente" (ngModelChange)="setCliente(cliente)"
+    [matAutocomplete]="auto" [formControl]="clienteCtrl" />
+  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+    <mat-option *ngFor="let cliente of filteredClientes | async" [value]="cliente">
+      <mat-icon aria-label="Example icon-button with a heart icon">account_box</mat-icon>
+      <span>{{cliente.RazonSocial}}</span> |
+      <small>CUIT: {{cliente.CUIT}}</small>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

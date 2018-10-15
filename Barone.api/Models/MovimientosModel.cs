@@ -20,7 +20,8 @@ namespace Barone.api.Models
         public string TotalBarriles { set; get; }
         public string bonificacionCliente { set; get; }
         public string TotalImporte { set; get; }
-        public string Estado { set; get; }
+        public int Estado { set; get; }
+        public int EstadoDelivery { set; get; }
         public ClientesModel Cliente { set; get; }
 
 

@@ -28,13 +28,13 @@ import { ItemChip } from '../../../shared/models/item-chip';
 })
 export class EditPedidosComponent implements OnInit {
 
- 
+
   Estilos: SelectItem[] = [
-    {value: 0, viewValue: 'Seleccione Categoria'},
-    {value: 1, viewValue: 'IPA'},
-    {value: 2, viewValue: 'Honey'},
-    {value: 3, viewValue: 'Banana'},
-    {value: 4, viewValue: 'Winer'}
+    { value: 0, viewValue: 'Seleccione Categoria' },
+    { value: 1, viewValue: 'IPA' },
+    { value: 2, viewValue: 'Honey' },
+    { value: 3, viewValue: 'Banana' },
+    { value: 4, viewValue: 'Winer' }
   ];
   msg: string;
   indLoading: boolean = false;
@@ -44,7 +44,7 @@ export class EditPedidosComponent implements OnInit {
   listFilter: string;
   selectedOption: string;
   pedido: PedidoModel;
-  public Cantidad:number;
+  public Cantidad: number;
 
   visible = true;
   selectable = true;
@@ -53,45 +53,45 @@ export class EditPedidosComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   fruitCtrl = new FormControl();
 
-  clientes: ClientsModel[]=[];
-  cliente:ClientsModel;
-  estilos:EstilosModel[];
-  
+  clientes: ClientsModel[] = [];
+  cliente: ClientsModel;
+  estilos: EstilosModel[];
+
   filteredEstilos: Observable<EstilosModel[]>;
   barrilesPedidos: ItemChip[] = [];
 
   @ViewChild('fruitInput') fruitInput: ElementRef;
 
-  constructor(private pedidosServices:PedidosService,private _snack:SnackManagerService,
-    private estilosServices:EstilosService,private clientesServices:ClientsService,public dialogRef: MatDialogRef<EditPedidosComponent>) {
+  constructor(private pedidosServices: PedidosService, private _snack: SnackManagerService,
+    private estilosServices: EstilosService, private clientesServices: ClientsService, public dialogRef: MatDialogRef<EditPedidosComponent>) {
 
-    this.clientesServices.getAll().subscribe(clientes=>{
-      this.clientes=clientes;
-    
-
-   });
-   this.estilosServices.getAll().subscribe(estilos=>{
-     this.estilos=estilos;
-     this.filteredEstilos = this.fruitCtrl.valueChanges.pipe(
-      startWith(null),
-      map((fruit: string | null) => fruit ? this._filter(fruit) : this.estilos.slice()));
-   })
-
-}
-
-public recordHidden(item: ItemChip) {
-  item.cantidad=this.Cantidad;
-  this.reCalculateBarriles();
-}
-
-public itemSelected(idCliente:number){
-  this.pedido.IdCliente=idCliente;
-  this.pedido.Cliente=this.clientes.find(x=>x.IdCliente===idCliente);
-}
+    this.clientesServices.getAll().subscribe(clientes => {
+      this.clientes = clientes;
 
 
+    });
+    this.estilosServices.getAll().subscribe(estilos => {
+      this.estilos = estilos;
+      this.filteredEstilos = this.fruitCtrl.valueChanges.pipe(
+        startWith(null),
+        map((fruit: string | null) => fruit ? this._filter(fruit) : this.estilos.slice()));
+    })
 
-  
+  }
+
+  public recordHidden(item: ItemChip) {
+    item.cantidad = this.Cantidad;
+    this.reCalculateBarriles();
+  }
+
+  public itemSelected(idCliente: number) {
+    this.pedido.IdCliente = idCliente;
+    this.pedido.Cliente = this.clientes.find(x => x.IdCliente === idCliente);
+  }
+
+
+
+
 
   add(event: MatChipInputEvent): void {
     const input = event.input;
@@ -99,7 +99,7 @@ public itemSelected(idCliente:number){
 
     // Add our fruit
     if ((value || '').trim()) {
-      this.barrilesPedidos.push(new ItemChip({cantidad:1,nombre:value.trim()}));
+      this.barrilesPedidos.push(new ItemChip({ cantidad: 1, nombre: value.trim() }));
       this.reCalculateBarriles();
     }
 
@@ -112,7 +112,7 @@ public itemSelected(idCliente:number){
   }
 
   remove(fruit: string): void {
-    const index = this.barrilesPedidos.findIndex(x=>x.nombre===fruit);
+    const index = this.barrilesPedidos.findIndex(x => x.nombre === fruit);
 
     if (index >= 0) {
       this.barrilesPedidos.splice(index, 1);
@@ -121,18 +121,18 @@ public itemSelected(idCliente:number){
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.barrilesPedidos.push(new ItemChip({cantidad:1,nombre:event.option.viewValue}));
+    this.barrilesPedidos.push(new ItemChip({ cantidad: 1, nombre: event.option.viewValue }));
     this.fruitInput.nativeElement.value = '';
     this.fruitCtrl.setValue(null);
     this.reCalculateBarriles();
-    
+
   }
-  private reCalculateBarriles(){
-    let cantidad=0;
-    this.barrilesPedidos.forEach(barril=>{
-cantidad+=barril.cantidad;
+  private reCalculateBarriles() {
+    let cantidad = 0;
+    this.barrilesPedidos.forEach(barril => {
+      cantidad += barril.cantidad;
     })
-    this.pedido.TotalBarriles=cantidad;
+    this.pedido.TotalBarriles = cantidad;
   }
 
   private _filter(value: string): EstilosModel[] {
@@ -143,56 +143,56 @@ cantidad+=barril.cantidad;
 
   ngOnInit() {
     if (typeof (this.pedido) == "undefined")
-    this.pedido = new PedidoModel();
+      this.pedido = new PedidoModel();
 
-    if (typeof (this.pedido) != "undefined" && this.pedido.DetallePedido!='')
-    this.barrilesPedidos=JSON.parse(this.pedido.DetallePedido);
+    if (typeof (this.pedido) != "undefined" && this.pedido.DetallePedido != '')
+      this.barrilesPedidos = JSON.parse(this.pedido.DetallePedido);
   }
 
   onSubmit() {
-    this.pedido.DetallePedido=JSON.stringify(this.barrilesPedidos);
+    this.pedido.DetallePedido = JSON.stringify(this.barrilesPedidos);
     switch (this.dbops) {
       case DBOperation.create:
-      this.pedido.Estado="1";
-      this.pedidosServices.insert(this.pedido).subscribe((result)=>{
-        this.pedido.id=result.id;
-        this.dialogRef.close("success");
-        this._snack.openSnackBar("Rango Creado Exitosamente",'Success');
-       
-       },error =>{
-        this._snack.openSnackBar(error,'Error');
-         this.dialogRef.close("error");
-         
-       });
+        this.pedido.Estado = "1";
+        this.pedidosServices.insert(this.pedido).subscribe((result) => {
+          this.pedido.id = result.id;
+          this.dialogRef.close("success");
+          this._snack.openSnackBar("Rango Creado Exitosamente", 'Success');
+
+        }, error => {
+          this._snack.openSnackBar(error, 'Error');
+          this.dialogRef.close("error");
+
+        });
 
         break;
       case DBOperation.update:
-           this.pedidosServices.update(this.pedido).subscribe(()=>{
-            this.dialogRef.close("success");
-            this._snack.openSnackBar("Rango Actualizado",'Success');
-           
-           },error =>{
-            this._snack.openSnackBar(error,'Error');
-             this.dialogRef.close("error");
-             
-           });
-       
+        this.pedidosServices.update(this.pedido).subscribe(() => {
+          this.dialogRef.close("success");
+          this._snack.openSnackBar("Rango Actualizado", 'Success');
+
+        }, error => {
+          this._snack.openSnackBar(error, 'Error');
+          this.dialogRef.close("error");
+
+        });
+
         break;
       case DBOperation.delete:
 
-      this.pedidosServices.delete(this.pedido.id).subscribe(()=>{
-        this.dialogRef.close("success");
-        this._snack.openSnackBar("Rango Eliminado",'Success');
-       
-       },error =>{
-        this._snack.openSnackBar(error,'Error');
-         this.dialogRef.close("error");
-         
-       });
-     
+        this.pedidosServices.delete(this.pedido.id).subscribe(() => {
+          this.dialogRef.close("success");
+          this._snack.openSnackBar("Rango Eliminado", 'Success');
+
+        }, error => {
+          this._snack.openSnackBar(error, 'Error');
+          this.dialogRef.close("error");
+
+        });
+
         break;
 
     }
-   
+
   }
 }

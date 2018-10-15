@@ -13,7 +13,7 @@ import { SnackManagerService } from '../../../../core/core.module.export';
   styleUrls: ['./adminestilos.component.scss']
 })
 export class AdminestilosComponent implements OnInit {
-  estilos:EstilosModel[];
+  estilos: EstilosModel[];
   isREADONLY: boolean = false;
   exportFileName: string = "clients_";
   dbops: DBOperation;
@@ -27,21 +27,25 @@ export class AdminestilosComponent implements OnInit {
       display: 'Nombre Rango',
       variable: 'Nombre',
       filter: 'text',
+      template: 'text'
     },
     {
       display: 'Fecha Desde',
-      variable: 'rangoPrecio.fechaDesde',
-      filter: 'text'
+      variable: 'rangoPrecio',
+      filter: 'rangoPrecio.fechaDesde',
+      template: 'text'
     },
     {
       display: 'Fecha Hasta',
-      variable: 'rangoPrecio.fechaHasta',
-      filter: 'text'
+      variable: 'rangoPrecio',
+      filter: 'rangoPrecio.fechaHasta',
+      template: 'text'
     },
     {
       display: 'Precio',
-      variable: 'rangoPrecio.precio',
-      filter: 'text'
+      variable: 'rangoPrecio',
+      filter: 'rangoPrecio.precio',
+      template: 'text'
     }
   ];
   sorting: any = {
@@ -64,13 +68,13 @@ export class AdminestilosComponent implements OnInit {
       {
         title: 'Editar',
         keys: ['IdEstilo'],
-        icon:'create',
+        icon: 'create',
         action: DBOperation.update,
         ishide: this.isREADONLY
       },
       {
         title: 'Borrar',
-        icon:'clear',
+        icon: 'clear',
         keys: ["IdEstilo"],
         action: DBOperation.delete,
         ishide: this.isREADONLY
@@ -79,7 +83,7 @@ export class AdminestilosComponent implements OnInit {
     ];
   }
 
-  constructor(private estilosServices: EstilosService, public rangoFilter: EstilosPipe, private dialog: MatDialog, private _snack:SnackManagerService) { }
+  constructor(private estilosServices: EstilosService, public estiloFilter: EstilosPipe, private dialog: MatDialog, private _snack: SnackManagerService) { }
   openDialog() {
     let dialogRef = this.dialog.open(EditEstilosComponent);
     dialogRef.componentInstance.dbops = this.dbops;
@@ -114,7 +118,7 @@ export class AdminestilosComponent implements OnInit {
 
   }
   loadEstilos(): void {
-this.estilos =[];
+    this.estilos = [];
     // let video: videos = { id: 23, titulo: "nuevo", video: "rivieramaya.mp4", imagen: "rivera.jpg", fecha: "2012/12/12",pdf:"archivo.pdf",activo:"1",curso:"1",descripcion:"nuevo",modulo:"1"};
     // this.video = video;
     this.estilosServices.getAll()
@@ -139,23 +143,23 @@ this.estilos =[];
   }
   editEstilos(id: number) {
     this.dbops = DBOperation.update;
-      this.modalTitle = "Edit Rango";
-       this.modalBtnTitle = "Update";
-       this.estilo= this.estilos.find(x=> x.IdEstilo===id);
+    this.modalTitle = "Edit Rango";
+    this.modalBtnTitle = "Update";
+    this.estilo = this.estilos.find(x => x.IdEstilo === id);
     //   this.userServices.getById(id).then(val => { this.user = Object.assign(new User(), val); this.openDialog(); });;
-       this.openDialog();
+    this.openDialog();
   }
   deleteEstilos(id: number) {
     this.dbops = DBOperation.delete;
-    this.estilosServices.delete(id).subscribe(()=>{
-     // this.dialogRef.close("success");
-      this._snack.openSnackBar("Estilos Eliminado",'Success');
+    this.estilosServices.delete(id).subscribe(() => {
+      // this.dialogRef.close("success");
+      this._snack.openSnackBar("Estilos Eliminado", 'Success');
       this.loadEstilos();
-     },error =>{
-      this._snack.openSnackBar(error,'Error');
-     //  this.dialogRef.close("error");
-       
-     });
+    }, error => {
+      this._snack.openSnackBar(error, 'Error');
+      //  this.dialogRef.close("error");
+
+    });
   }
 
   gridaction(gridaction: any): void {

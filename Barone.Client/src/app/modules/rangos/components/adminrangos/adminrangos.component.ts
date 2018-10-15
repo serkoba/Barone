@@ -28,21 +28,25 @@ export class AdminrangosComponent implements OnInit {
       display: 'Nombre Rango',
       variable: 'NombreRango',
       filter: 'text',
+      template: 'text'
     },
     {
       display: 'Fecha Desde',
       variable: 'fechaDesde',
-      filter: 'text'
+      filter: 'date',
+      template: 'text'
     },
     {
       display: 'Fecha Hasta',
       variable: 'fechaHasta',
-      filter: 'text'
+      filter: 'date',
+      template: 'text'
     },
     {
       display: 'Precio',
       variable: 'precio',
-      filter: 'text'
+      filter: 'text',
+      template: 'text'
     }
   ];
   sorting: any = {
@@ -65,13 +69,13 @@ export class AdminrangosComponent implements OnInit {
       {
         title: 'Editar',
         keys: ['idRango'],
-        icon:'create',
+        icon: 'create',
         action: DBOperation.update,
         ishide: this.isREADONLY
       },
       {
         title: 'Borrar',
-        icon:'clear',
+        icon: 'clear',
         keys: ["idRango"],
         action: DBOperation.delete,
         ishide: this.isREADONLY
@@ -80,7 +84,7 @@ export class AdminrangosComponent implements OnInit {
     ];
   }
 
-  constructor(private rangosServices: RangosService, public rangoFilter: RangoPipe, private dialog: MatDialog, private _snack:SnackManagerService) { }
+  constructor(private rangosServices: RangosService, public rangoFilter: RangoPipe, private dialog: MatDialog, private _snack: SnackManagerService) { }
   openDialog() {
     let dialogRef = this.dialog.open(EditRangosComponent);
     dialogRef.componentInstance.dbops = this.dbops;
@@ -115,7 +119,7 @@ export class AdminrangosComponent implements OnInit {
 
   }
   loadRangos(): void {
-this.rangos =[];
+    this.rangos = [];
     // let video: videos = { id: 23, titulo: "nuevo", video: "rivieramaya.mp4", imagen: "rivera.jpg", fecha: "2012/12/12",pdf:"archivo.pdf",activo:"1",curso:"1",descripcion:"nuevo",modulo:"1"};
     // this.video = video;
     this.rangosServices.getAll()
@@ -140,23 +144,23 @@ this.rangos =[];
   }
   EditRango(id: number) {
     this.dbops = DBOperation.update;
-      this.modalTitle = "Edit Rango";
-       this.modalBtnTitle = "Update";
-       this.rango= this.rangos.find(x=> x.idRango===id);
+    this.modalTitle = "Edit Rango";
+    this.modalBtnTitle = "Update";
+    this.rango = this.rangos.find(x => x.idRango === id);
     //   this.userServices.getById(id).then(val => { this.user = Object.assign(new User(), val); this.openDialog(); });;
-       this.openDialog();
+    this.openDialog();
   }
   deleteRango(id: number) {
     this.dbops = DBOperation.delete;
-    this.rangosServices.delete(id).subscribe(()=>{
-     // this.dialogRef.close("success");
-      this._snack.openSnackBar("Rango Eliminado",'Success');
+    this.rangosServices.delete(id).subscribe(() => {
+      // this.dialogRef.close("success");
+      this._snack.openSnackBar("Rango Eliminado", 'Success');
       this.loadRangos();
-     },error =>{
-      this._snack.openSnackBar(error,'Error');
-     //  this.dialogRef.close("error");
-       
-     });
+    }, error => {
+      this._snack.openSnackBar(error, 'Error');
+      //  this.dialogRef.close("error");
+
+    });
   }
 
   gridaction(gridaction: any): void {

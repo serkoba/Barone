@@ -18,13 +18,13 @@ namespace Barone.api.Controllers
         [Route("api/Notificaciones")]
         public IEnumerable<NotificationsDTO> GetBarrilModelsAgrupados()
         {
-            string[] EstadoPosible ={ "1","2"};
+            int[] EstadoPosible ={ 1,2};
             IList<NotificationsDTO> newList = new List<NotificationsDTO>();
             NotificationsDTO item = null;
             var FechaLimite = DateTime.Now.AddDays(2);
             /////Traer Pedidos demorados
             var result = (from b in db.PedidoModels
-                          where (b.fechaPactada <= FechaLimite) && (EstadoPosible.Contains(b.Estado))
+                          where (b.fechaPactada <= FechaLimite) && (EstadoPosible.Equals(b.Estado))
                           select b);
             if (result.Count() > 0) { 
             item = new NotificationsDTO() { Message = String.Format("Hay {0} Pedidos a Punto de Vencer",result.Count()), LinkToDirect = "Pedido", count = result.Count() };
@@ -35,7 +35,7 @@ namespace Barone.api.Controllers
             ///
             var resultBarriles = (from b in db.BarrilModels
                                   join x in db.MovimientosModels on b.idEntrega.Value equals x.idEntrega
-                          where (x.fechaPactada >= FechaLimite) && (EstadoPosible.Contains(x.Estado))
+                          where (x.fechaPactada >= FechaLimite) && (EstadoPosible.Equals(x.Estado))
                           select b);
 
             if (resultBarriles.Count() > 0)

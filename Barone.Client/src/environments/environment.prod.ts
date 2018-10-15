@@ -1,10 +1,10 @@
 export const environment = {
   production: true,
-  apiUrl:'http://localhost:56770/api',
+  apiUrl: 'http://www.baronearg.com/api/api',
   loginUrl: '',
-  logoutUrl: '',
-  rootStore:'',
-  relativeRoot:'',
-  logoUrl:'',
+  logoutUrl: 'logoff',
+  rootStore: '',
+  relativeRoot: '',
+  logoUrl: '',
   cachePrefix: 'Barone',
 };

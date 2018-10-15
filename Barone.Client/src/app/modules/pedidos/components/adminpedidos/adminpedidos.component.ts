@@ -31,32 +31,38 @@ export class AdminpedidosComponent implements OnInit {
     {
       display: 'Fecha Pactada',
       variable: 'fechaPactada',
-      filter: 'text',
+      filter: 'date',
+      template: 'text'
     },
     {
       display: 'Fecha Pedido',
       variable: 'fechaPedido',
-      filter: 'text'
+      filter: 'date',
+      template: 'text'
     },
     {
       display: 'Cliente',
-      variable: 'RazonSocial',
-      filter: 'text'
+      variable: 'Cliente',
+      filter: 'Cliente',
+      template: 'text'
     },
     {
       display: 'Detalle',
       variable: 'DetallePedido',
-      filter: 'text'
+      filter: 'detallePedido',
+      template: 'detallePedido'
     },
     {
       display: 'Total Barriles',
       variable: 'TotalBarriles',
-      filter: 'text'
+      filter: 'text',
+      template: 'text'
     },
     {
       display: 'Estado',
       variable: 'Estado',
-      filter: 'text'
+      filter: 'Estado',
+      template: 'estado'
     }
   ];
   sorting: any = {
@@ -208,6 +214,7 @@ export class AdminpedidosComponent implements OnInit {
     });
   }
   public AsignarEntregaAPedido(id: number) {
+    this.dbops = DBOperation.create;
     this.modalTitle = "Asignar Entrega a Pedido";
     this.modalBtnTitle = "Guardar";
     this.pedido = this.pedidos.find(x => x.id === id);

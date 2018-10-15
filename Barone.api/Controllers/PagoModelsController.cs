@@ -101,7 +101,7 @@ namespace Barone.api.Controllers
                                                                  .ToList().Select
                                                      (item => new CuentasDebeHaberDTO()
                                                      {
-                                                         Descripcion = "Nro Remito: " + item.idEntrega + ", " + (item.Estado=="1"? "Pendiente" : item.Estado == "2" ? "En Progreso" : item.Estado == "3" ? "Entregado" : "Incompleto"),
+                                                         Descripcion = "Nro Remito: " + item.idEntrega + ", " + (item.Estado==1? "Pendiente" : item.Estado == 2 ? "En Progreso" : item.Estado == 3 ? "Entregado" : "Incompleto"),
                                                          HaberImporte = Convert.ToDouble(item.TotalImporte.ToString()),
                                                          Fecha = item.fechaPactada,
                                                          IdCliente = item.IdCliente,

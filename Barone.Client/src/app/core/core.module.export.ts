@@ -16,3 +16,7 @@ export * from './components/button-group/button-group.component';
 export * from './services/snack-manager.service';
 export * from './components/snack-bar/snack-bar.component';
 export * from './components/autocomplete-input/autocomplete-input.component';
+export * from './services/loader.service';
+export * from './services/loader-interceptor.service';
+export * from './components/loader/loader.component';
+export * from './components/grid/grid.component';

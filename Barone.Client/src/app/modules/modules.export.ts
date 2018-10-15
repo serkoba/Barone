@@ -53,3 +53,6 @@ export * from './estilos/services/estilos.service';
 export * from './shared/filters/estilos.pipe';
 export * from './shared/models/estilos.model';
 
+export * from './reportes/components/test/test.component';
+export * from './reportes/components/barril-estado/barril-estado.component';
+

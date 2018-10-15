@@ -1,16 +1,8 @@
 <div class='panel panel-primary'>
   <div class='panel-body'>
 
-    <data-grid [columns]="columns"
-               [data]="estilos"
-               [gridbtns]="gridbtns"
-               [hdrbtns]="hdrbtns"
-               [sort]="sorting"
-               [isshowfilter]=true
-               [isExporttoCSV]=false
-               [exportFileName]="exportFileName"
-               [filter]=EstilosPipe
-               (btnclick)="gridaction($event)">
+    <data-grid [columns]="columns" [data]="estilos" [gridbtns]="gridbtns" [hdrbtns]="hdrbtns" [sort]="sorting"
+      [isshowfilter]=true [isExporttoCSV]=false [exportFileName]="exportFileName" [filter]=estiloFilter (btnclick)="gridaction($event)">
     </data-grid>
   </div>
 </div>

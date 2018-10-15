@@ -7,7 +7,8 @@
     <ng-container *ngFor="let hdrbtn of hdrbtns">
       <button *ngIf="!hdrbtn.ishide" type="button" class="btn btn-primary" (click)="click(hdrbtn,null)">{{hdrbtn.title}}</button>
     </ng-container>
-    <button *ngIf="isExporttoCSV && (data!=null && data.length>0)" type="button" class="btn btn-primary" (click)="exporttoCSV()">Export to Excel</button>
+    <button *ngIf="isExporttoCSV && (data!=null && data.length>0)" type="button" class="btn btn-primary" (click)="exporttoCSV()">Export
+      to Excel</button>
   </div>
 </div>
 
@@ -15,8 +16,7 @@
   <table class="table table-hover table-striped table-sortable" *ngIf='data ; else loadingScreen;'>
     <thead>
       <tr>
-        <th *ngFor="let column of columns" [class]="selectedClass(column.variable)" 
-            (click)="changeSorting(column.variable)">
+        <th *ngFor="let column of columns" [class]="selectedClass(column.variable)" (click)="changeSorting(column.variable)">
           {{column.display}}
         </th>
         <th>Acciones</th>
@@ -28,26 +28,21 @@
     <tbody>
       <tr *ngFor="let row of pdata | orderby : convertSorting()">
         <td *ngFor="let column of columns">
-          {{row[column.variable] | format : column.filter}}
-        </td>
-       
-        <td>
-          <button mat-icon-button [matMenuTriggerFor]="menu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu">
-            <ng-container *ngFor="let btn of gridbtns">
+          <ng-container *ngTemplateOutlet="this[column.template]; context: {column:column, row:row}"></ng-container>
 
-              <button *ngIf="!btn.ishide" mat-menu-item (click)="click(btn,row)">
-                <mat-icon>{{btn.icon}}</mat-icon>
-                <span>{{btn.title}}</span>
-              </button>
-              <!--  <button type="button" class="btn btn-primary" (click)="click(btn,row)">{{btn.title}}</button>-->
-            </ng-container>
-          </mat-menu>
         </td>
-        
-</tr>
+
+        <td>
+
+          <ng-container *ngFor="let btn of gridbtns">
+
+            <button *ngIf="!btn.ishide" mat-icon-button (click)="click(btn,row)" matTooltip="{{btn.title}}">
+              <mat-icon>{{btn.icon}}</mat-icon>
+            </button>
+          </ng-container>
+        </td>
+
+      </tr>
     </tbody>
   </table>
   <div *ngIf='data && data.length==0' class="alert alert-info" role="alert">no hay registros...</div>
@@ -57,3 +52,30 @@
     </div>
   </ng-template>
 </div>
+<ng-template #text let-column="column" let-row="row">
+  {{row[column.variable] | format : column.filter}}
+</ng-template>
+
+<ng-template #estado let-column="column" let-row="row">
+  <mat-chip-list>
+    <mat-chip color="accent">
+      <mat-icon matChipAvatar>
+        {{row[column.variable] | format : 'estadoicono'}}
+      </mat-icon>
+      {{row[column.variable] | format : column.filter}}
+    </mat-chip>
+  </mat-chip-list>
+</ng-template>
+
+
+<ng-template #detallePedido let-column="column" let-row="row">
+  <mat-chip-list #chipList>
+    <mat-chip #chip *ngFor="let barril of (row[column.variable] | format: column.filter)">
+      <span class="spanBadge" matChipAvatar>
+        {{barril.cantidad}}
+      </span>
+
+      {{barril.nombre}}
+    </mat-chip>
+  </mat-chip-list>
+</ng-template>

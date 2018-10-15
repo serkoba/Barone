@@ -27,7 +27,8 @@ export class AdminpagosComponent implements OnInit {
     {
       display: 'Fecha Pago',
       variable: 'FechaPago',
-      filter: 'text',
+      filter: 'date',
+      template: 'text'
     },
     {
       display: 'Tipo',
@@ -37,17 +38,20 @@ export class AdminpagosComponent implements OnInit {
     {
       display: 'Fecha Vencimiento',
       variable: 'fechaVencimiento',
-      filter: 'text'
+      filter: 'date',
+      template: 'text'
     },
     {
       display: 'Cliente',
-      variable: 'Cliente.RazonSocial',
-      filter: 'text'
+      variable: 'Cliente',
+      filter: 'Cliente',
+      template: 'text'
     },
     {
       display: 'Importe',
       variable: 'Importe',
-      filter: 'text'
+      filter: 'text',
+      template: 'text'
     }
   ];
   sorting: any = {
@@ -69,14 +73,14 @@ export class AdminpagosComponent implements OnInit {
     this.gridbtns = [
       {
         title: 'Editar',
-        icon:'create',
+        icon: 'create',
         keys: ['idPago'],
         action: DBOperation.update,
         ishide: this.isREADONLY
       },
       {
         title: 'Borrar',
-        icon:'clear',
+        icon: 'clear',
         keys: ["idPago"],
         action: DBOperation.delete,
         ishide: this.isREADONLY
@@ -85,7 +89,7 @@ export class AdminpagosComponent implements OnInit {
     ];
   }
 
-  constructor(private _snack:SnackManagerService,
+  constructor(private _snack: SnackManagerService,
     private pagosServices: PagosService, public pagosFilter: PagosPipe, private dialog: MatDialog) { }
   openDialog() {
     let dialogRef = this.dialog.open(EditPagosComponent);
@@ -121,7 +125,7 @@ export class AdminpagosComponent implements OnInit {
 
   }
   LoadPagos(): void {
-this.pagos =[];
+    this.pagos = [];
     // let video: videos = { id: 23, titulo: "nuevo", video: "rivieramaya.mp4", imagen: "rivera.jpg", fecha: "2012/12/12",pdf:"archivo.pdf",activo:"1",curso:"1",descripcion:"nuevo",modulo:"1"};
     // this.video = video;
     // this.userServices.getAll()
@@ -141,23 +145,23 @@ this.pagos =[];
   }
   EditPago(id: number) {
     this.dbops = DBOperation.update;
-      this.modalTitle = "Edit Pago";
-       this.modalBtnTitle = "Update";
-       this.pago= this.pagos.find(x=> x.idPago===id);
+    this.modalTitle = "Edit Pago";
+    this.modalBtnTitle = "Update";
+    this.pago = this.pagos.find(x => x.idPago === id);
     //   this.userServices.getById(id).then(val => { this.user = Object.assign(new User(), val); this.openDialog(); });;
-       this.openDialog();
+    this.openDialog();
   }
   deletePago(id: number) {
     this.dbops = DBOperation.delete;
-    this.pagosServices.delete(id).subscribe(()=>{
-     // this.dialogRef.close("success");
-      this._snack.openSnackBar("Pago Eliminado",'Success');
+    this.pagosServices.delete(id).subscribe(() => {
+      // this.dialogRef.close("success");
+      this._snack.openSnackBar("Pago Eliminado", 'Success');
       this.LoadPagos();
-     },error =>{
-      this._snack.openSnackBar(error,'Error');
-     //  this.dialogRef.close("error");
-       
-     });
+    }, error => {
+      this._snack.openSnackBar(error, 'Error');
+      //  this.dialogRef.close("error");
+
+    });
   }
 
   gridaction(gridaction: any): void {

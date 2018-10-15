@@ -27,21 +27,25 @@ export class AdminclientsComponent implements OnInit {
       display: 'Razon Social',
       variable: 'RazonSocial',
       filter: 'text',
+      template: 'text'
     },
     {
       display: 'CUIT',
       variable: 'CUIT',
-      filter: 'text'
+      filter: 'text',
+      template: 'text'
     },
     {
       display: 'domicilio',
       variable: 'domicilio',
-      filter: 'text'
+      filter: 'text',
+      template: 'text'
     },
     {
       display: 'Saldo',
       variable: 'SaldoCuenta',
-      filter: 'text'
+      filter: 'text',
+      template: 'text'
     }
   ];
   sorting: any = {
@@ -63,14 +67,14 @@ export class AdminclientsComponent implements OnInit {
     this.gridbtns = [
       {
         title: 'Editar',
-        icon:'create',
+        icon: 'create',
         keys: ['IdCliente'],
         action: DBOperation.update,
         ishide: this.isREADONLY
       },
       {
         title: 'Borrar',
-        icon:'clear',
+        icon: 'clear',
         keys: ["IdCliente"],
         action: DBOperation.delete,
         ishide: this.isREADONLY
@@ -79,7 +83,7 @@ export class AdminclientsComponent implements OnInit {
     ];
   }
 
-  constructor(private _snack:SnackManagerService,
+  constructor(private _snack: SnackManagerService,
     private clientsServices: ClientsService, public clientFilter: ClientPipe, private dialog: MatDialog) { }
   openDialog() {
     let dialogRef = this.dialog.open(EditClientsComponent);
@@ -115,11 +119,11 @@ export class AdminclientsComponent implements OnInit {
 
   }
   LoadClients(): void {
-this.clients =[];
+    this.clients = [];
     // let video: videos = { id: 23, titulo: "nuevo", video: "rivieramaya.mp4", imagen: "rivera.jpg", fecha: "2012/12/12",pdf:"archivo.pdf",activo:"1",curso:"1",descripcion:"nuevo",modulo:"1"};
     // this.video = video;
     this.clientsServices.getAll()
-     .subscribe(clients => { this.clients = clients; this.initGridButton(); });
+      .subscribe(clients => { this.clients = clients; this.initGridButton(); });
     //  let client: ClientsModel = {
     //    IdCliente: 1, RazonSocial: "Perez", Telefono: "123123123"
     //    , DNI: "123123123", CUIT: "12312312312", ciudad: "Bahia", provincia: "asdasd", pais: "Argentina",
@@ -141,23 +145,23 @@ this.clients =[];
   }
   EditClient(id: number) {
     this.dbops = DBOperation.update;
-      this.modalTitle = "Edit Client";
-       this.modalBtnTitle = "Update";
-       this.client=this.clients.find(x=> x.IdCliente===id);
+    this.modalTitle = "Edit Client";
+    this.modalBtnTitle = "Update";
+    this.client = this.clients.find(x => x.IdCliente === id);
     //   this.userServices.getById(id).then(val => { this.user = Object.assign(new User(), val); this.openDialog(); });;
-       this.openDialog();
+    this.openDialog();
   }
   deleteClient(id: number) {
     this.dbops = DBOperation.delete;
-    this.clientsServices.delete(id).subscribe(()=>{
-     // this.dialogRef.close("success");
-      this._snack.openSnackBar("Estilos Eliminado",'Success');
+    this.clientsServices.delete(id).subscribe(() => {
+      // this.dialogRef.close("success");
+      this._snack.openSnackBar("Estilos Eliminado", 'Success');
       this.LoadClients();
-     },error =>{
-      this._snack.openSnackBar(error,'Error');
-     //  this.dialogRef.close("error");
-       
-     });
+    }, error => {
+      this._snack.openSnackBar(error, 'Error');
+      //  this.dialogRef.close("error");
+
+    });
   }
 
   gridaction(gridaction: any): void {
