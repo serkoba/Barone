@@ -52,7 +52,14 @@ export class AdminbarrilesComponent implements OnInit {
       variable: 'CantidadLitros',
       filter: 'text',
       template: 'text'
+    },
+    {
+      display: 'Acciones',
+      variable: 'acciones',
+      filter: 'text',
+      template: 'acciones'
     }
+
   ];
   sorting: any = {
     column: 'NroBarril',

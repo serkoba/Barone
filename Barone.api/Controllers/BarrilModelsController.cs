@@ -76,6 +76,65 @@ namespace Barone.api.Controllers
                 return result;
             
         }
+
+        // GET: api/BarrilModels
+        [Route("FiltrarBarriles")]
+        public IQueryable<BarrilModel> GetBarrilModels(BarrilModel model)
+        {
+            var param = ParameterExpression.Parameter(typeof(BarrilModel), "x");
+
+            ////PARAMETER of NroBarril
+            var lenNroBarril = Expression.PropertyOrField(param, "NroBarril");
+            var bodyNroBarril = Expression.Equal(lenNroBarril, Expression.Constant(model.NroBarril));
+
+            //////PARAMETER of Estado
+            var lenEstado = Expression.PropertyOrField(param, "idEstado");
+            var bodyEstado = Expression.Equal(lenEstado, Expression.Convert(Expression.Constant(model.idEstado), typeof(int)));
+
+            //////PARAMETER Tipo Barril 
+            var lenTipoBarril = Expression.PropertyOrField(param, "IdEstilo");
+            var bodyTipoBarril = Expression.Equal(lenTipoBarril, Expression.Convert(Expression.Constant(model.IdEstilo), typeof(int?)));
+
+            ////PARAMETER of NroBarril
+            //  var lenRazonSocial = Expression.PropertyOrField(param, "RazonSocial");
+            //   var bodyRazonSocial = Expression.Equal(lenRazonSocial, Expression.Constant(razonSocial));
+
+
+            Expression AllBody = Expression.Equal(Expression.Constant(model.NroBarril), Expression.Constant(model.NroBarril));
+            if (model.NroBarril != "all")
+                AllBody = Expression.AndAlso(AllBody, bodyNroBarril);
+            if (model.idEstado != 0)
+                AllBody = Expression.AndAlso(AllBody, bodyEstado);
+            if (model.IdEstilo != 0)
+                AllBody = Expression.AndAlso(AllBody, bodyTipoBarril);
+            //  if (razonSocial != "all")
+            //      AllBody = Expression.AndAlso(AllBody, bodyRazonSocial);
+
+            Expression<Func<BarrilModel, bool>> lambda = Expression.Lambda<Func<BarrilModel, bool>>(AllBody, new ParameterExpression[] { param });
+
+
+            var result = db.BarrilModels.Where(lambda).Include(x => x.Estilo).Include(x => x.Estilo.rangoPrecio);
+
+            //if (model.razonSocial != null)
+            //{
+            //    var result2 = result.Where(x => x.Entrega.Cliente.RazonSocial.Equals(razonSocial));
+            //    result = result2;
+            //}
+
+            /*    var resultFilter = from b in result
+                                   select new BarrilModel()
+                                   {
+                                       CantidadLitros = b.CantidadLitros,
+                                       id = b.id,
+                                       idEntrega = b.idEntrega,
+                                       idEstado = b.idEstado,
+                                       IdEstilo = b.IdEstilo,
+                                       Estilo = db.EstilosModels.Where(x => x.IdEstilo == b.IdEstilo).FirstOrDefault()
+
+                                   };*/
+            return result;
+
+        }
         // GET: api/BarrilModels
         [Route("api/BarrilesAgrupados")]
         public IEnumerable<BarrilXEstadoReporte> GetBarrilModelsAgrupados()

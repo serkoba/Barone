@@ -1,7 +1,7 @@
-<div class='panel panel-primary'>
-  <div class='panel-body'>
+<div class="row">
+  <div class="w-95">
 
-    <data-grid [columns]="columns"
+    <!-- <data-grid [columns]="columns"
                [data]="users"
                [gridbtns]="gridbtns"
                [hdrbtns]="hdrbtns"
@@ -11,6 +11,10 @@
                [exportFileName]="exportFileName"
                [filter]=userFilter
                (btnclick)="gridaction($event)">
-    </data-grid>
+    </data-grid> -->
+
+
+    <data-grid-view #grid [data]="users" [columnsToDisplay]="columns" [gridbtns]="gridbtns" [hdrbtns]="hdrbtns"
+      (btnclick)="gridaction($event)"></data-grid-view>
   </div>
 </div>

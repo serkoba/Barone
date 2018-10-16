@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild, TemplateRef, ElementRef, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, ElementRef, Input, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { DataTableDataSource } from '../../models/data-table-data-source';
 import { Observable, from } from 'rxjs';
+import { GridAction } from '../datagrid/datagrid.component';
 
 @Component({
   selector: 'data-grid-view',
@@ -15,6 +16,8 @@ export class GridComponent implements OnInit {
 
   @Input() columnsToDisplay: any[] = [];
   public displayedColumns: string[];
+  @Input() gridbtns: any[];
+  @Input() hdrbtns: any[];
   @Input() data: any[];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -22,12 +25,15 @@ export class GridComponent implements OnInit {
   @ViewChild('text') public text: TemplateRef<ElementRef>;
   @ViewChild('estado') public estado: TemplateRef<ElementRef>;
   @ViewChild('detallePedido') public detallePedido: TemplateRef<ElementRef>;
+  @ViewChild('acciones') public acciones: TemplateRef<ElementRef>;
+  @Output()
+  btnclick: EventEmitter<GridAction> = new EventEmitter<GridAction>();
   constructor(private _ref: ChangeDetectorRef) {
 
   }
   ngOnInit() {
-    this.displayedColumns = this.columnsToDisplay.map(column => column.variable);
-
+    this.displayedColumns = this.columnsToDisplay.map(column => column.variable + column.filter);
+    this.paginator._intl.itemsPerPageLabel = 'items por pagina';
 
 
     // this.dataSource.paginator = this.paginator;
@@ -37,11 +43,14 @@ export class GridComponent implements OnInit {
     //this.dataSource = new DataTableDataSource(this.data, this.paginator, this.sort);
     //}, 2000);
     this._ref.detectChanges();
-    this.dataBind();
+
     // setTimeout(() => {
     //   this.dataSource.paginator = this.paginator;
     //   this.dataSource.sort = this.sort;
     // });
+  }
+  ngOnChanges(changes: any) {
+    this.dataBind();
   }
   public dataBind() {
 
@@ -51,6 +60,18 @@ export class GridComponent implements OnInit {
 
 
 
+  }
+  click(btn: any, row: any): void {
+    let keyds = <GridAction>{};
+    keyds.action = btn.action;
+
+    if (row != null) {
+      keyds.values = [];
+      btn.keys.forEach((key: any) => {
+        keyds.values.push({ key: key, value: row[key] });
+      });
+    }
+    this.btnclick.emit(keyds);
   }
 
 }

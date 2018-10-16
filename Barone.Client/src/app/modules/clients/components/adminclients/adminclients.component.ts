@@ -46,6 +46,12 @@ export class AdminclientsComponent implements OnInit {
       variable: 'SaldoCuenta',
       filter: 'text',
       template: 'text'
+    },
+    {
+      display: 'Acciones',
+      variable: 'acciones',
+      filter: 'text',
+      template: 'acciones'
     }
   ];
   sorting: any = {

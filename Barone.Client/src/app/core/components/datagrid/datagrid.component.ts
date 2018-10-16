@@ -31,7 +31,6 @@ export class DataGrid {
   @ViewChild('text') public text: TemplateRef<ElementRef>;
   @ViewChild('estado') public estado: TemplateRef<ElementRef>;
   @ViewChild('detallePedido') public detallePedido: TemplateRef<ElementRef>;
-
   //Output Variable
   @Output()
   btnclick: EventEmitter<GridAction> = new EventEmitter<GridAction>();
@@ -51,6 +50,10 @@ export class DataGrid {
   selectedClass(columnName: string): any {
     return columnName == this.sort.column ? 'sort-' + this.sort.descending : false;
   }
+
+
+
+
 
   changeSorting(columnName: string): void {
     var sort = this.sort;

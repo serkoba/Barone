@@ -47,6 +47,12 @@ export class AdminrangosComponent implements OnInit {
       variable: 'precio',
       filter: 'text',
       template: 'text'
+    },
+    {
+      display: 'Acciones',
+      variable: 'acciones',
+      filter: 'text',
+      template: 'acciones'
     }
   ];
   sorting: any = {

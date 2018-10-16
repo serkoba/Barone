@@ -63,6 +63,12 @@ export class AdminpedidosComponent implements OnInit {
       variable: 'Estado',
       filter: 'Estado',
       template: 'estado'
+    },
+    {
+      display: 'Acciones',
+      variable: 'acciones',
+      filter: 'text',
+      template: 'acciones'
     }
   ];
   sorting: any = {

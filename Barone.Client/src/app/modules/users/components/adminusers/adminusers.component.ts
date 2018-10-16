@@ -33,6 +33,12 @@ export class AdminusersComponent implements OnInit {
       variable: 'Role',
       filter: 'text',
       template: 'text'
+    },
+    {
+      display: 'Acciones',
+      variable: 'acciones',
+      filter: 'text',
+      template: 'acciones'
     }
   ];
   sorting: any = {

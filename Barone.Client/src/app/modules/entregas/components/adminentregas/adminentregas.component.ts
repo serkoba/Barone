@@ -60,6 +60,12 @@ export class AdminentregasComponent implements OnInit {
       variable: 'Estado',
       filter: 'text',
       template: 'estado'
+    },
+    {
+      display: 'Acciones',
+      variable: 'acciones',
+      filter: 'text',
+      template: 'acciones'
     }
   ];
   sorting: any = {

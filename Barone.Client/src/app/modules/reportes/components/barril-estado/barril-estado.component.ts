@@ -20,10 +20,37 @@ export class BarrilEstadoReporteComponent implements OnInit {
     { value: 3, viewValue: 'En Progreso' },
     { value: 4, viewValue: 'Reservado' }
   ];
+  columns: any[] = [
+    {
+      display: 'Nro de Barril',
+      variable: 'NroBarril',
+      filter: 'text',
+      template: 'text'
+    },
+    {
+      display: 'Estado',
+      variable: 'idEstado',
+      filter: 'estadobarril',
+      template: 'text'
+    },
+    {
+      display: 'Estilo',
+      variable: 'Estilo',
+      filter: 'estilo',
+      template: 'text'
+    },
+    {
+      display: 'Cant. Litros',
+      variable: 'CantidadLitros',
+      filter: 'text',
+      template: 'text'
+    }
+
+  ];
   estilos: EstilosModel[] = [];
   estilosSelect: SelectItem[] = [];
   barril: BarrilModel;
-
+  barriles: BarrilModel[];
   clientes: ClientsModel[] = [];
   Cliente: ClientsModel;
   constructor(public barrilServices: BarrilesService, public estilosServices: EstilosService, private clientesServices: ClientsService) { }
@@ -38,6 +65,15 @@ export class BarrilEstadoReporteComponent implements OnInit {
 
 
     });
+    this.loadBarriles();
+  }
+  loadBarriles(): void {
+    this.barriles = [];
+    this.barrilServices.getAll()
+      .subscribe(barriles => {
+        this.barriles = barriles;
+      });
+
   }
 
   public itemSelected(idCliente: number) {

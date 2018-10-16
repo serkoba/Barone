@@ -1,7 +1,7 @@
-<div class='panel panel-primary'>
-  <div class='panel-body'>
+<div class="row">
+  <div class="w-95">
 
-    <data-grid [columns]="columns"
+    <!-- <data-grid [columns]="columns"
                [data]="rangos"
                [gridbtns]="gridbtns"
                [hdrbtns]="hdrbtns"
@@ -11,6 +11,9 @@
                [exportFileName]="exportFileName"
                [filter]=rangoFilter
                (btnclick)="gridaction($event)">
-    </data-grid>
+    </data-grid> -->
+
+    <data-grid-view #grid [data]="rangos" [columnsToDisplay]="columns" [gridbtns]="gridbtns" [hdrbtns]="hdrbtns"
+      (btnclick)="gridaction($event)"></data-grid-view>
   </div>
 </div>
