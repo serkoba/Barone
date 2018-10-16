@@ -13,6 +13,8 @@ import { ClientsService } from '../../../clients/services/clients.service';
   styleUrls: ['./barril-estado.component.scss']
 })
 export class BarrilEstadoReporteComponent implements OnInit {
+  gridbtns: any[] = [];
+  hdrbtns: any[] = [];
   Estados: SelectItem[] = [
     { value: 0, viewValue: 'Seleccione Categoria' },
     { value: 1, viewValue: 'Para Despacho' },
