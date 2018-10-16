@@ -78,8 +78,8 @@ namespace Barone.api.Controllers
         }
 
         // GET: api/BarrilModels
-        [Route("FiltrarBarriles")]
-        public IQueryable<BarrilModel> GetBarrilModels(BarrilModel model)
+        [Route("api/FiltrarBarriles")]
+        public IQueryable<BarrilModel> PostFiltrarBarriles([FromBody]BarrilModel model)
         {
             var param = ParameterExpression.Parameter(typeof(BarrilModel), "x");
 
@@ -101,11 +101,11 @@ namespace Barone.api.Controllers
 
 
             Expression AllBody = Expression.Equal(Expression.Constant(model.NroBarril), Expression.Constant(model.NroBarril));
-            if (model.NroBarril != "all")
+            if (model.NroBarril != null)
                 AllBody = Expression.AndAlso(AllBody, bodyNroBarril);
             if (model.idEstado != 0)
                 AllBody = Expression.AndAlso(AllBody, bodyEstado);
-            if (model.IdEstilo != 0)
+            if (model.IdEstilo != null)
                 AllBody = Expression.AndAlso(AllBody, bodyTipoBarril);
             //  if (razonSocial != "all")
             //      AllBody = Expression.AndAlso(AllBody, bodyRazonSocial);

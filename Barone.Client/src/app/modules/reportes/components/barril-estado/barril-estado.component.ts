@@ -92,6 +92,11 @@ export class BarrilEstadoReporteComponent implements OnInit {
 
   public FiltrarInfo() {
 
+    this.barrilServices.filtrar(this.barril)
+      .subscribe(barriles => {
+        this.barriles = barriles;
+      });
+
   }
 
 
