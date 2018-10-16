@@ -2,36 +2,41 @@
     <div class="container-login100">
         <div class="wrap-login100">
             <form class="login100-form validate-form">
-                <img src="../../assets/images/baronecomp.png">
 
+                <div class="container w-100 text-center">
+                    <img class="w-50 m-5" src="../../assets/images/logoB-b.png">
+                </div>
 
-                <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                    <input class="input100" type="text" #txtUser (blur)="change()" name="user" [(ngModel)]="user">
+                <!-- <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                    <input class="input100" type="text" autocomplete="off" #txtUser (blur)="change()" name="user" [(ngModel)]="user">
                     <span class="focus-input100"></span>
                     <span class="label-input100">Usuario</span>
-                </div>
+                </div> -->
 
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Email" #txtUser name="user" [(ngModel)]="user">
+                </mat-form-field>
 
-                <div class="wrap-input100 validate-input" data-validate="Password is required">
-                    <input class="input100" type="password" #passowrd (blur)="changePass()" name="passowrd" [(ngModel)]="password">
+                <!-- <div class="wrap-input100 validate-input" data-validate="Password is required">
+                    <input class="input100" type="password" #passowrd (blur)="changePass()" name="password" [(ngModel)]="password">
                     <span class="focus-input100"></span>
                     <span class="label-input100">Password</span>
-                </div>
+                </div> -->
 
-
+                <mat-form-field class="example-full-width">
+                    <input matInput color="acent" placeholder="Password" #passowrd name="password" [(ngModel)]="password">
+                </mat-form-field>
 
 
                 <div class="container-login100-form-btn">
-                    <button class="login100-form-btn" (click)="login()">
-                        Ingresar
+                    <button mat-raised-button color="primary" class="w-100" (click)="login()">
+                        INGRESAR
                     </button>
                 </div>
 
-
-
             </form>
 
-            <div class="login100-more" style="background-image: url('../../../../assets/images/barone.jpg');">
+            <div class="login100-more" style="background-image: url('../../../../assets/images/fondo4.jpg');">
             </div>
         </div>
     </div>

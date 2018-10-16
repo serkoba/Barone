@@ -31,7 +31,7 @@
 @import "../../node_modules/bootstrap/scss/popover";
 @import "../../node_modules/bootstrap/scss/carousel";
 @import "../../node_modules/bootstrap/scss/utilities";
-@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "../styles/barone-app-theme.scss";
 @import "../../node_modules/material-design-icons/iconfont/material-icons.css";
 @import "fonts/font-awesome";
 @import '_custom';
@@ -39,4 +39,11 @@
 @import 'line-icons';
 @import 'nav-menu';
 @import 'hamburguer';
+@font-face {
+    font-family: Monserrat;
+    src: url('/src/assets/fonts/montserrat/Montserrat-Light.ttf');
+}
 
+* {
+    font-family: 'Monserrat'
+}
