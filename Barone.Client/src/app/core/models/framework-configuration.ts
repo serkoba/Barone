@@ -8,5 +8,6 @@ export class FrameworkConfiguration extends Constructable<FrameworkConfiguration
   public logoUrl: string;
   public rootStore: string;
   public relativeRoot: string;
-  public cachePrefix:string;
+  public cachePrefix: string;
+  public backgroundLogin: string;
 }

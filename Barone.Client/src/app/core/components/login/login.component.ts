@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { SessionDataService } from '../../services/session-data.service';
 import { SnackManagerService } from '../../services/snack-manager.service';
+import { FrameworkConfigurationService } from '../../services/framework-configuration.service';
 
 @Component({
   selector: 'app-login',
@@ -14,19 +15,32 @@ export class LoginComponent implements OnInit {
   @ViewChild('passowrd') public txtPassword: ElementRef<any>;
   public user: string;
   public password: string;
+  public logoUrl: string;
+  public backgroundLogo: string;
   constructor(
     private _route: Router,
     private _auth: AuthService,
     private _session: SessionDataService,
     private renderer: Renderer2,
     private _snack: SnackManagerService,
+    private _configuration: FrameworkConfigurationService
 
   ) { }
 
   ngOnInit() {
     this.user = '';
     this.password = '';
-    this._session.logOff();
+    this.logoUrl = this._configuration.configuration.logoUrl;
+    this.backgroundLogo = this._configuration.configuration.backgroundLogin;
+    if (this._route.url.includes('logoff')) {
+      this._session.logOff();
+    }
+    else {
+      if (this._session.loggedIn()) {
+        this._route.navigate(['/Barriles']);
+      }
+    }
+
   }
   public change() {
 

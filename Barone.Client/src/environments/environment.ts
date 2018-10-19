@@ -4,12 +4,13 @@
 
 export const environment = {
   production: false,
-  apiUrl:'http://localhost:56770/api',
-  loginUrl: '',
+  apiUrl: 'http://localhost:56770/api',
+  loginUrl: '/login',
+  backgroundLogin: '../../assets/images/fondo4.jpg',
   logoutUrl: 'logoff',
-  rootStore:'',
-  relativeRoot:'',
-  logoUrl:'',
+  rootStore: '',
+  relativeRoot: '',
+  logoUrl: '../../assets/images/logoB-b.png',
   cachePrefix: 'Barone',
 };
 

@@ -71,7 +71,8 @@ export class Format implements PipeTransform {
         }
     }
     private returnEstado(input: any) {
-        switch (input) {
+        const inputString = input.toString();
+        switch (inputString) {
             case "1":
                 return 'Pendiente'
             case "2":
@@ -84,7 +85,8 @@ export class Format implements PipeTransform {
         }
     }
     private returnEstadoIcono(input: any) {
-        switch (input) {
+        const inputString = input.toString();
+        switch (inputString) {
             case "1":
                 return 'access_time'
             case "2":

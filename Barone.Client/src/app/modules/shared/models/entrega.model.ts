@@ -7,7 +7,7 @@ import { Constructable } from "../../../core/models/constructable";
 export class EntregaModel extends Constructable<Partial<EntregaModel>> {
     idEntrega: number;
     fecha: string;
-    fechaPactada: string;
+    fechaPactada: number;
     IdCliente: number;
     Cliente: ClientsModel;
     Barriles: BarrilModel[];

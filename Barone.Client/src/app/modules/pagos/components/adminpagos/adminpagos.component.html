@@ -13,7 +13,7 @@
                (btnclick)="gridaction($event)">
     </data-grid> -->
 
-    <data-grid-view #grid [data]="pagos" [columnsToDisplay]="columns" [gridbtns]="gridbtns" [hdrbtns]="hdrbtns"
-      (btnclick)="gridaction($event)"></data-grid-view>
+    <data-grid-view #grid [data]="pagos" [PaginatorEnabled]="true" [columnsToDisplay]="columns" [gridbtns]="gridbtns"
+      [hdrbtns]="hdrbtns" (btnclick)="gridaction($event)"></data-grid-view>
   </div>
 </div>

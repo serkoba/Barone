@@ -4,7 +4,7 @@
             <form class="login100-form validate-form">
 
                 <div class="container w-100 text-center">
-                    <img class="w-50 m-5" src="../../assets/images/logoB-b.png">
+                    <img class="w-50 m-5" src="{{logoUrl}}">
                 </div>
 
                 <!-- <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
@@ -24,7 +24,8 @@
                 </div> -->
 
                 <mat-form-field class="example-full-width">
-                    <input matInput color="acent" placeholder="Password" #passowrd name="password" [(ngModel)]="password">
+                    <input type="password" matInput color="acent" placeholder="Password" #passowrd name="password"
+                        [(ngModel)]="password">
                 </mat-form-field>
 
 
@@ -36,7 +37,7 @@
 
             </form>
 
-            <div class="login100-more" style="background-image: url('../../../../assets/images/fondo4.jpg');">
+            <div class="login100-more">
             </div>
         </div>
     </div>

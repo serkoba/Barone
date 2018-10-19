@@ -14,7 +14,7 @@
       </data-grid> -->
 
 
-    <data-grid-view #grid [data]="entregas" [columnsToDisplay]="columns" [gridbtns]="gridbtns" [hdrbtns]="hdrbtns"
-      (btnclick)="gridaction($event)"></data-grid-view>
+    <data-grid-view #grid [data]="entregas" [PaginatorEnabled]="true" [columnsToDisplay]="columns" [gridbtns]="gridbtns"
+      [hdrbtns]="hdrbtns" (btnclick)="gridaction($event)"></data-grid-view>
   </div>
 </div>

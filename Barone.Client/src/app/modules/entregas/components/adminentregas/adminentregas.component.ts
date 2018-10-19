@@ -58,7 +58,7 @@ export class AdminentregasComponent implements OnInit {
     {
       display: 'Estado',
       variable: 'Estado',
-      filter: 'text',
+      filter: 'Estado',
       template: 'estado'
     },
     {

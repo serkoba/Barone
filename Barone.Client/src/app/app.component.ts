@@ -19,6 +19,8 @@ export class AppComponent implements OnInit {
   constructor(private session: SessionDataService, private _frameworkConfiguration: FrameworkConfigurationService, private _router: Router) { }
 
   ngOnInit() {
+    this._router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this._router.onSameUrlNavigation = 'reload';
     const buttons = [];
     buttons.push(
       new NavItem({

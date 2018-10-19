@@ -11,7 +11,6 @@ export class EntregasPipe implements PipeTransform {
     filter = filter ? filter.toLocaleLowerCase() : null;
     return filter ? value.filter((app: EntregaModel) =>
       app.Cliente.RazonSocial != null && app.Cliente.RazonSocial.toLocaleLowerCase().indexOf(filter) != -1
-      || app.fecha != null && app.fecha.toLocaleLowerCase().indexOf(filter) != -1
       || app.idEntrega != null && app.idEntrega.toString().toLocaleLowerCase().indexOf(filter) != -1
     ) : value;
   }

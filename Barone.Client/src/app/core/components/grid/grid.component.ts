@@ -16,6 +16,7 @@ export class GridComponent implements OnInit {
 
   @Input() columnsToDisplay: any[] = [];
   public displayedColumns: string[];
+  @Input() PaginatorEnabled: boolean = true;
   @Input() gridbtns: any[];
   @Input() hdrbtns: any[];
   @Input() data: any[];
@@ -33,7 +34,7 @@ export class GridComponent implements OnInit {
   }
   ngOnInit() {
     this.displayedColumns = this.columnsToDisplay.map(column => column.variable + column.filter);
-    this.paginator._intl.itemsPerPageLabel = 'items por pagina';
+
 
 
     // this.dataSource.paginator = this.paginator;
@@ -55,7 +56,10 @@ export class GridComponent implements OnInit {
   public dataBind() {
 
     this.dataSource.data = this.data;
-    this.dataSource.paginator = this.paginator;
+    if (this.paginator != undefined && this.PaginatorEnabled) {
+      this.paginator._intl.itemsPerPageLabel = 'items por pagina';
+      this.dataSource.paginator = this.paginator;
+    }
     this.dataSource.sort = this.sort;
 
 

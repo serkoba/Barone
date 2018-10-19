@@ -17,7 +17,8 @@ export class FrameworkConfigurationService {
       logoUrl: environment.logoUrl,
       rootStore: environment.rootStore,
       relativeRoot: environment.relativeRoot,
-      cachePrefix: environment.cachePrefix
+      cachePrefix: environment.cachePrefix,
+      backgroundLogin: environment.backgroundLogin
     }));
   }
 

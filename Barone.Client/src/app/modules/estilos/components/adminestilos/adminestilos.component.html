@@ -5,8 +5,8 @@
       [isshowfilter]=true [isExporttoCSV]=false [exportFileName]="exportFileName" [filter]=estiloFilter (btnclick)="gridaction($event)">
     </data-grid> -->
 
-    <data-grid-view #grid [data]="estilos" [columnsToDisplay]="columns" [gridbtns]="gridbtns" [hdrbtns]="hdrbtns"
-      (btnclick)="gridaction($event)"></data-grid-view>
+    <data-grid-view #grid [data]="estilos" [PaginatorEnabled]="true" [columnsToDisplay]="columns" [gridbtns]="gridbtns"
+      [hdrbtns]="hdrbtns" (btnclick)="gridaction($event)"></data-grid-view>
 
   </div>
 </div>

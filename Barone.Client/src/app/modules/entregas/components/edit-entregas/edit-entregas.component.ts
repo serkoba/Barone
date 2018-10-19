@@ -11,13 +11,14 @@ import { ItemChip } from '../../../shared/models/item-chip';
 import { BarrilesService } from '../../../barriles/services/barriles.service';
 import { FormControl } from '@angular/forms';
 import { Observable, from } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
+import { startWith, map, concatMap, mergeMap, last } from 'rxjs/operators';
 import { RowEntrega } from '../../../shared/models/row-entrega';
 import { AddEntregaComponent } from '../add-entrega/add-entrega.component';
 import { EstilosModel } from '../../../shared/models/estilos.model';
 import { DBOperation } from '../../../../core/enum/enum.enum';
 import { EntregasService } from '../../services/entregas.service';
 import { SnackManagerService } from '../../../../core/services/snack-manager.service';
+import { PedidosService } from 'src/app/modules/pedidos/services/pedidos.service';
 
 @Component({
     selector: 'edit-entregas',
@@ -62,6 +63,7 @@ export class EditEntregasComponent implements OnInit {
     constructor(private chgRef: ChangeDetectorRef,
         public _snack: SnackManagerService,
         public entregaServices: EntregasService,
+        public pedidosServices: PedidosService,
         public dialog: MatDialog,
         private barrilesServices: BarrilesService,
         private clientesServices: ClientsService, public dialogRef: MatDialogRef<EditEntregasComponent>) {
@@ -211,7 +213,7 @@ export class EditEntregasComponent implements OnInit {
     }
     public InicializarEntrega() {
         this.entrega = new EntregaModel({
-            fechaPactada: this.pedido.fechaPactada,
+            fechaPactada: Number.parseInt(this.pedido.fechaPactada),
             DetalleEntrega: this.generateDetallePedido(JSON.parse(this.pedido.DetallePedido)),
             Cliente: this.pedido.Cliente,
             IdCliente: this.pedido.IdCliente,
@@ -223,32 +225,26 @@ export class EditEntregasComponent implements OnInit {
 
     onSubmit() {
         this.entrega.DetallePedido = JSON.stringify(this.rowCollection);
-        this.entrega.fecha = new Date().toLocaleDateString();
+        var currentDate = new Date();
+        this.entrega.fecha = currentDate.getFullYear().toString() + "/" + currentDate.getMonth().toString() + "/" + currentDate.getDay().toString();
         switch (this.dbops) {
             case DBOperation.create:
-                this.entrega.Estado = 1;
-                this.entregaServices.insert(this.entrega).subscribe((result) => {
-                    this.entrega.idEntrega = result.idEntrega;
-                    this.dialogRef.close("success");
-                    this._snack.openSnackBar("Entrega Creada Exitosamente", 'Success');
+                this.saveEntrega();
 
-                }, error => {
-                    this._snack.openSnackBar(error, 'Error');
-                    this.dialogRef.close("error");
-
-                });
 
                 break;
             case DBOperation.update:
-                this.entregaServices.update(this.entrega).subscribe(() => {
-                    this.dialogRef.close("success");
-                    this._snack.openSnackBar("Entrega Actualizada", 'Success');
+                this.entregaServices.update(this.entrega)
 
-                }, error => {
-                    this._snack.openSnackBar(error, 'Error');
-                    this.dialogRef.close("error");
+                    .subscribe(() => {
+                        this.dialogRef.close("success");
+                        this._snack.openSnackBar("Entrega Actualizada", 'Success');
 
-                });
+                    }, error => {
+                        this._snack.openSnackBar(error, 'Error');
+                        this.dialogRef.close("error");
+
+                    });
 
                 break;
             case DBOperation.delete:
@@ -271,6 +267,44 @@ export class EditEntregasComponent implements OnInit {
         return detallePedido.map(pedido => {
             return new RowEntrega({ id: 0, Tipo: pedido.nombre, Cantidad: pedido.cantidad, Barriles: [] })
         })
+    }
+    private saveEntrega() {
+        const HayPedido = this.pedido != undefined;
+        this.entrega.Estado = 1;
+
+        this.entregaServices.insert(this.entrega)
+            .pipe(concatMap((entregaInserted) => {
+                if (HayPedido) {
+                    this.pedido.Estado = "2";
+                    this.pedido.idEntrega = entregaInserted.idEntrega;
+                    return this.pedidosServices.update(this.pedido).pipe(map(() => { return this.entrega.DetalleEntrega; }))
+                } else {
+                    return from(this.entrega.DetalleEntrega);
+                }
+            }), concatMap((detalleEntrega) => {
+                let BarrilesAfectados: ItemChip[] = [];
+                detalleEntrega.forEach(entrega => BarrilesAfectados = BarrilesAfectados.concat(entrega.BarrilesEntrega));
+                BarrilesAfectados
+
+                return from(BarrilesAfectados).pipe(concatMap(barrilEntregado => {
+                    const barril = this.barriles.find(x => x.NroBarril === barrilEntregado.nombre);
+                    barril.idEstado = 2;
+                    return this.barrilesServices.updatePartial(barril)
+
+                }));
+
+
+
+            }), last())
+            .subscribe((result) => {
+                this.dialogRef.close("success");
+                this._snack.openSnackBar("Entrega Creada Exitosamente", 'Success');
+
+            }, error => {
+                this._snack.openSnackBar(error, 'Error');
+                this.dialogRef.close("error");
+
+            });
     }
 
 }
