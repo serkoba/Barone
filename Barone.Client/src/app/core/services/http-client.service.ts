@@ -6,13 +6,18 @@ import { FrameworkConfigurationService } from './framework-configuration.service
 import { Observable, Observer } from 'rxjs';
 import { ValidationUtilities } from '../utilities/validation.utilities';
 import { SessionDataService } from './session-data.service';
+import { LoaderService } from './loader.service';
+import { SnackManagerService } from './snack-manager.service';
 
 
 @Injectable()
 export class HttpClientService {
   public BaseUrl: string;
 
-  constructor(private _http: HttpClient, private _config: FrameworkConfigurationService,private _session:SessionDataService) {
+  constructor(private _http: HttpClient, private _config: FrameworkConfigurationService,
+    private _snack: SnackManagerService,
+    private _loader: LoaderService,
+    private _session: SessionDataService) {
     this.BaseUrl = _config.configuration.apiUrl;
   }
 
@@ -49,7 +54,7 @@ export class HttpClientService {
   }
 
   public post<TRequest, TResponse>(url: string, body: TRequest): Observable<TResponse> {
-    
+    //  let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return Observable.create(observer => {
       this._http.post(this.getUrl(url), body, { observe: 'response', responseType: 'text' })
         .subscribe(response => this.processHttpResponse(response, observer, url),
@@ -59,7 +64,7 @@ export class HttpClientService {
   }
 
   public put<TRequest, TResponse>(url: string, body: TRequest): Observable<TResponse> {
-    
+
     return Observable.create(observer => {
       this._http.put(this.getUrl(url), body, { observe: 'response', responseType: 'text' })
         .subscribe(response => this.processHttpResponse(response, observer, url),
@@ -69,7 +74,7 @@ export class HttpClientService {
   }
 
   public patch<TRequest, TResponse>(url: string, body: TRequest): Observable<TResponse> {
-    
+
     return Observable.create(observer => {
       this._http.patch(this.getUrl(url), body, { observe: 'response', responseType: 'text' })
         .subscribe(response => this.processHttpResponse(response, observer, url),
@@ -106,7 +111,7 @@ export class HttpClientService {
   }
 
   public delete<TResponse>(url: string): Observable<TResponse> {
-    
+
     return Observable.create(observer => {
       this._http.delete(this.getUrl(url), { observe: 'response', responseType: 'text' })
         .subscribe(response => this.processHttpResponse(response, observer, url),
@@ -174,7 +179,7 @@ export class HttpClientService {
     if (response instanceof HttpErrorResponse) {
       if (response.status === 401) {
         this.processHttpError(observer, url, response);
-          this._session.logOff();
+        this._session.logOff();
         return;
       }
     }
@@ -240,8 +245,8 @@ export class HttpClientService {
   }
 
   private processHttpError(observer: Observer<any>, url: string, error: any): void {
-   // this._loader.stop();
-
+    this._loader.stop();
+    this._snack.openSnackBar(error.message, 'Error');
     error.url = this.getUrl(url);
 
     observer.error(error);

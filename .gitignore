@@ -1,4 +1,7 @@
 nodes_modules
 packages
+bin
+obj
+Migrations
 *.zip
 *.exe

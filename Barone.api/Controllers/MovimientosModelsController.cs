@@ -88,7 +88,7 @@ namespace Barone.api.Controllers
 
         // PUT: api/MovimientosModels/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutMovimientosModel( MovimientosModel movimientosModel)
+        public IHttpActionResult PutMovimientosModel([FromBody] MovimientosModel movimientosModel)
         {
             if (!ModelState.IsValid)
             {

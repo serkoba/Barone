@@ -13,7 +13,7 @@ using System.Linq.Expressions;
 
 namespace Barone.api.Controllers
 {
-    [Authorize]
+   // [Authorize]
     public class rangosPreciosModelsController : ApiController
     {
         private BaroneapiContext db = new BaroneapiContext();

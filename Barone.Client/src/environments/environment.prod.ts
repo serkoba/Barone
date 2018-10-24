@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   apiUrl: 'http://www.baronearg.com/api/api',
-  loginUrl: '',
+  loginUrl: '/login',
   backgroundLogin: './assets/images/fondo4.jpg',
   logoutUrl: 'logoff',
   rootStore: '',

@@ -3,9 +3,10 @@ export enum DBOperation {
   update = 2,
   delete = 3,
   CambiarEstadoBarriles = 4,
-  CambiarEstiloBarriles=5,
-  AsignarEntregaAPedido=6,
-  ComenzarEntrega=7
+  CambiarEstiloBarriles = 5,
+  AsignarEntregaAPedido = 6,
+  ComenzarEntrega = 7,
+  ver = 8
 };
 export enum Options {
   default = 1,

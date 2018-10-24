@@ -330,6 +330,18 @@
     <Compile Include="Migrations\201810110812207_add column EstadoDelivery.Designer.cs">
       <DependentUpon>201810110812207_add column EstadoDelivery.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810241926024_test.cs" />
+    <Compile Include="Migrations\201810241926024_test.Designer.cs">
+      <DependentUpon>201810241926024_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810241941163_test1.cs" />
+    <Compile Include="Migrations\201810241941163_test1.Designer.cs">
+      <DependentUpon>201810241941163_test1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810242000445_test41.cs" />
+    <Compile Include="Migrations\201810242000445_test41.Designer.cs">
+      <DependentUpon>201810242000445_test41.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Audience.cs" />
     <Compile Include="Models\BaroneapiContext.cs" />
@@ -457,6 +469,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810110812207_add column EstadoDelivery.resx">
       <DependentUpon>201810110812207_add column EstadoDelivery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810241926024_test.resx">
+      <DependentUpon>201810241926024_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810241941163_test1.resx">
+      <DependentUpon>201810241941163_test1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810242000445_test41.resx">
+      <DependentUpon>201810242000445_test41.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -84,14 +84,17 @@ namespace Barone.api.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult PatchPedidoModel(PedidoModel pedido)
         {
-            PedidoModel serverDocument = db.PedidoModels.Find(pedido.id);
+            PedidoModel serverDocument = db.PedidoModels.Where(x=>x.idEntrega==pedido.idEntrega).FirstOrDefault();
+            if (serverDocument != null) { 
             if (pedido.Estado!=null)
             serverDocument.Estado = pedido.Estado;
             if (pedido.idEntrega != null)
                 serverDocument.idEntrega = pedido.idEntrega;
 
             db.SaveChanges();
-            return StatusCode(HttpStatusCode.NoContent);
+            return StatusCode(HttpStatusCode.OK);
+            }
+            return StatusCode(HttpStatusCode.NotModified);
         }
 
         // PUT: api/PedidoModels/5

@@ -42,11 +42,13 @@ export class EditEntregasComponent implements OnInit {
     public rowCollection: RowEntrega[] = [];
     Barriles: BarrilModel[];
     public pedido: PedidoModel;
+    enabled: boolean;
+    removable = true;
 
     @ViewChild('fruitInput') fruitInput: ElementRef;
     visible = true;
     selectable = true;
-    removable = true;
+
     addOnBlur = false;
     BarrilCtrl = new FormControl();
     filteredBarriles: Observable<BarrilModel[]>;
@@ -123,6 +125,47 @@ export class EditEntregasComponent implements OnInit {
     public HayPedido(): boolean {
         return this.rowCollection.length > 0;
     }
+    public EsUpdate(): boolean {
+        return this.dbops === DBOperation.update;
+    }
+    public finishEntrega() {
+        const HayPedido = this.pedido != undefined;
+        this.entrega.Estado = 3;
+
+        this.entregaServices.update(this.entrega)
+            .pipe(concatMap((entregaInserted) => {
+                const pedido = new PedidoModel({ Estado: "3", idEntrega: this.entrega.idEntrega });
+                return this.pedidosServices.updateByEntrega(pedido).pipe(map(() => { return this.entrega.DetalleEntrega; }))
+
+            }), concatMap((detalleEntrega) => {
+                let BarrilesAfectados: ItemChip[] = [];
+                detalleEntrega.forEach(entrega => BarrilesAfectados = BarrilesAfectados.concat(entrega.BarrilesEntrega));
+                BarrilesAfectados
+
+                return from(BarrilesAfectados).pipe(concatMap(barrilEntregado => {
+                    const barril = this.barriles.find(x => x.NroBarril === barrilEntregado.nombre);
+                    barril.idEstado = 2;
+                    return this.barrilesServices.updatePartial(barril)
+
+                }));
+
+
+
+            }), last())
+            .subscribe((result) => {
+                this.dialogRef.close("success");
+
+                this._snack.openSnackBar("Entrega Finalizada Exitosamente", 'Success');
+
+
+
+            }, error => {
+                this._snack.openSnackBar(error, 'Error');
+                this.dialogRef.close("error");
+
+            });
+
+    }
 
 
 
@@ -193,6 +236,7 @@ export class EditEntregasComponent implements OnInit {
         if (typeof (this.pedido) != "undefined") {
             this.InicializarEntrega();
         }
+
         if (typeof (this.entrega) == "undefined") {
             this.entrega = new EntregaModel();
 
@@ -229,22 +273,12 @@ export class EditEntregasComponent implements OnInit {
         this.entrega.fecha = currentDate.getFullYear().toString() + "/" + currentDate.getMonth().toString() + "/" + currentDate.getDay().toString();
         switch (this.dbops) {
             case DBOperation.create:
-                this.saveEntrega();
+                this.saveEntrega(false);
 
 
                 break;
             case DBOperation.update:
-                this.entregaServices.update(this.entrega)
-
-                    .subscribe(() => {
-                        this.dialogRef.close("success");
-                        this._snack.openSnackBar("Entrega Actualizada", 'Success');
-
-                    }, error => {
-                        this._snack.openSnackBar(error, 'Error');
-                        this.dialogRef.close("error");
-
-                    });
+                this.saveEntrega(true);
 
                 break;
             case DBOperation.delete:
@@ -268,15 +302,16 @@ export class EditEntregasComponent implements OnInit {
             return new RowEntrega({ id: 0, Tipo: pedido.nombre, Cantidad: pedido.cantidad, Barriles: [] })
         })
     }
-    private saveEntrega() {
+    private saveEntrega(actualiza: boolean) {
         const HayPedido = this.pedido != undefined;
-        this.entrega.Estado = 1;
-
-        this.entregaServices.insert(this.entrega)
+        this.entrega.Estado = 2;
+        const operacionEntrega = actualiza ? this.entregaServices.update(this.entrega) : this.entregaServices.insert(this.entrega);
+        operacionEntrega
             .pipe(concatMap((entregaInserted) => {
                 if (HayPedido) {
                     this.pedido.Estado = "2";
-                    this.pedido.idEntrega = entregaInserted.idEntrega;
+                    if (!actualiza)
+                        this.pedido.idEntrega = entregaInserted.idEntrega;
                     return this.pedidosServices.update(this.pedido).pipe(map(() => { return this.entrega.DetalleEntrega; }))
                 } else {
                     return from(this.entrega.DetalleEntrega);
@@ -288,7 +323,7 @@ export class EditEntregasComponent implements OnInit {
 
                 return from(BarrilesAfectados).pipe(concatMap(barrilEntregado => {
                     const barril = this.barriles.find(x => x.NroBarril === barrilEntregado.nombre);
-                    barril.idEstado = 2;
+                    barril.idEstado = 4;
                     return this.barrilesServices.updatePartial(barril)
 
                 }));
@@ -298,7 +333,12 @@ export class EditEntregasComponent implements OnInit {
             }), last())
             .subscribe((result) => {
                 this.dialogRef.close("success");
-                this._snack.openSnackBar("Entrega Creada Exitosamente", 'Success');
+                if (actualiza) {
+                    this._snack.openSnackBar("Entrega Creada Exitosamente", 'Success');
+                }
+                else {
+                    this._snack.openSnackBar("Entrega Actualizada", 'Success');
+                }
 
             }, error => {
                 this._snack.openSnackBar(error, 'Error');

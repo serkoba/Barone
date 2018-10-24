@@ -145,6 +145,10 @@
     </div>
     <mat-dialog-actions class="mat-dialog-footer" align="end">
         <button color="warn" type="button" mat-raised-button (click)="dialogRef.close()">Cancel</button>&nbsp;
-        <button type="button" color="primary" mat-raised-button (click)="onSubmit()">{{modalBtnTitle}}</button>
+        <button *ngIf="enabled" type="button" color="primary" mat-raised-button (click)="onSubmit()">{{modalBtnTitle}}</button>
+        <button *ngIf="!enabled" type="button" color="primary" mat-raised-button (click)="finishEntrega()">
+            Finalizar Tarea
+        </button>
+
     </mat-dialog-actions>
 </form>

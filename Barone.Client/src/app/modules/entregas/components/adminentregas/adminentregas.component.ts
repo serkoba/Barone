@@ -23,6 +23,7 @@ export class AdminentregasComponent implements OnInit {
   modalTitle: string;
   modalBtnTitle: string;
   entrega: EntregaModel;
+  enabled: boolean;
   //Grid Vars start
   columns: any[] = [
     {
@@ -98,6 +99,13 @@ export class AdminentregasComponent implements OnInit {
         keys: ["idEntrega"],
         action: DBOperation.delete,
         ishide: this.isREADONLY
+      },
+      {
+        title: 'Ver',
+        icon: 'search',
+        keys: ["idEntrega"],
+        action: DBOperation.ver,
+        ishide: this.isREADONLY
       }
 
     ];
@@ -114,7 +122,7 @@ export class AdminentregasComponent implements OnInit {
     dialogRef.componentInstance.modalTitle = this.modalTitle;
     dialogRef.componentInstance.modalBtnTitle = this.modalBtnTitle;
     dialogRef.componentInstance.entrega = this.entrega;
-
+    dialogRef.componentInstance.enabled = this.enabled != undefined ? this.enabled : true;
     dialogRef.afterClosed().subscribe(result => {
       if (result == "success") {
         this.loadEntregas();
@@ -143,10 +151,6 @@ export class AdminentregasComponent implements OnInit {
   }
   loadEntregas(): void {
     this.entregas = [];
-    // let video: videos = { id: 23, titulo: "nuevo", video: "rivieramaya.mp4", imagen: "rivera.jpg", fecha: "2012/12/12",pdf:"archivo.pdf",activo:"1",curso:"1",descripcion:"nuevo",modulo:"1"};
-    // this.video = video;
-    // this.userServices.getAll()
-    //   .subscribe(users => { this.users = users; this.initGridButton(); });
 
     this.entregaServices.getAll()
       .subscribe(entregas => {
@@ -154,25 +158,12 @@ export class AdminentregasComponent implements OnInit {
         this.initGridButton();
       });
 
-    //  let entrega: EntregaModel = {
-    //    id: 1, fechaPactada: "01/01/2018", fecha: "01/01/2018"
-    //    , TotalBarriles: "70", Barriles: [{  id: 1, NroBarril: "002"
-    //    , CantidadLitros: "70",  idEstado: 1}], Cliente:{  IdCliente: 1, RazonSocial: "Perez", Telefono: "123123123"
-    //    , DNI: "123123123", CUIT: "12312312312", ciudad: "Bahia", provincia: "asdasd", pais: "Argentina",
-    //    SaldoCuenta: "",domicilio:"",margen:"0"},Estado:"1",TotalImporte:"200",TotalLitros:"200",
-    //    Pedido:{  id: 1, fechaPactada: "01/01/2018", fechaPedido: "01/01/2018", IdCliente:1, Estado:"1"
-    //    , TotalBarriles: 70, Cliente: new ClientsModel(), DetallePedido: "IPA,HONEY"}
-    //  }
-    // // this.arrVideos = [video];
-    //  this.initGridButton(); 
-    //  this.entregas.push(entrega);
-    /* this.userServices.getAll()
-       .subscribe(users => { this.users = users; this.initGridButton(); }
-       );*/
+
   }
 
   addEntrega() {
     this.dbops = DBOperation.create;
+    this.enabled = true;
     this.modalTitle = "Agrega Nueva Entrega";
     this.modalBtnTitle = "Guardar";
     this.openDialog();
@@ -209,11 +200,15 @@ export class AdminentregasComponent implements OnInit {
         this.addEntrega();
         break;
       case DBOperation.update:
+        this.enabled = true;
         this.EditEntrega(gridaction.values[0].value);
         break;
       case DBOperation.delete:
         this.DeleteEntrega(gridaction.values[0].value);
         break;
+      case DBOperation.ver:
+        this.enabled = false;
+        this.EditEntrega(gridaction.values[0].value);
 
     }
 

@@ -133,6 +133,7 @@ export class AdminpedidosComponent implements OnInit {
       case ButtonType.AsignarEntregaAPedidos:
 
         dialogRef = this.dialog.open(EditEntregasComponent);
+        dialogRef.componentInstance.enabled = true;
         break;
       default:
         break;
@@ -174,23 +175,11 @@ export class AdminpedidosComponent implements OnInit {
   }
   loadPedidos(): void {
     this.pedidos = [];
-    // let video: videos = { id: 23, titulo: "nuevo", video: "rivieramaya.mp4", imagen: "rivera.jpg", fecha: "2012/12/12",pdf:"archivo.pdf",activo:"1",curso:"1",descripcion:"nuevo",modulo:"1"};
-    // this.video = video;
     this.pedidosServices.getAll()
       .subscribe(pedidos => {
         this.pedidos = pedidos;
         this.initGridButton();
       });
-    //  let barril: PedidoModel = {
-    //    id: 1, fechaPactada: "01/01/2018", fechaPedido: "01/01/2018"
-    //    , TotalBarriles: "70", idCliente: "1", DetallePedido: "IPA,HONEY"
-    //  }
-    // // this.arrVideos = [video];
-    //  this.initGridButton(); 
-    //  this.pedidos.push(barril);
-    /* this.userServices.getAll()
-       .subscribe(users => { this.users = users; this.initGridButton(); }
-       );*/
   }
 
   addPedido() {
