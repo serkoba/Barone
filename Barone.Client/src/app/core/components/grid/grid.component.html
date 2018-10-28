@@ -8,7 +8,7 @@
   </div>
 </div>
 
-<div class="mat-elevation-z8">
+<div [ngClass]="{'scrollable': !PaginatorEnabled}" class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource " matSort>
     <ng-container *ngFor="let column of columnsToDisplay" matColumnDef="{{column.variable + column.filter}}">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.display}} </th>
@@ -20,7 +20,7 @@
 
 
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
   <mat-paginator *ngIf="PaginatorEnabled" [pageSize]="10" showFirstLastButtons></mat-paginator>

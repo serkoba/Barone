@@ -4,7 +4,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {
   MatMenuModule, MatIconModule, MatButtonModule, MatProgressSpinnerModule,
   MatDatepickerModule, MatAutocompleteModule, MatInputModule, MatSelectModule,
-  MatRadioModule, MatNativeDateModule, MatChipsModule, MatSidenavModule, MatBadgeModule
+  MatRadioModule, MatNativeDateModule, MatChipsModule, MatSidenavModule, MatBadgeModule, MatAccordion, MatExpansionModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -25,7 +25,14 @@ import {
   AdminpagosComponent,
   EntregasService,
   EstilosService,
-  BarrilEstadoReporteComponent
+  BarrilEstadoReporteComponent,
+  AddEntregaComponent,
+  TestComponent,
+  BarrilesTotalesComponent,
+  EntregasReportesComponent,
+  PedidosReportesComponent,
+  EntregaAgrupadosComponent,
+  EstadoCuentaReporteComponent
 } from './modules.export';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -33,8 +40,10 @@ import { CoreModule } from '../core/core.module';
 import { AdminestilosComponent } from './estilos/components/adminestilos/adminestilos.component';
 import { EditEstilosComponent } from './estilos/components/edit-estilos/edit-estilos.component';
 import { EstilosPipe } from './shared/filters/estilos.pipe';
-import { AddEntregaComponent } from './entregas/components/add-entrega/add-entrega.component';
-import { TestComponent } from './reportes/components/test/test.component';
+
+
+
+
 
 
 
@@ -55,7 +64,8 @@ import { TestComponent } from './reportes/components/test/test.component';
     MatProgressSpinnerModule,
     MatNativeDateModule,
     MatChipsModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatExpansionModule
   ],
   declarations: [
     EditUserComponent,
@@ -87,7 +97,13 @@ import { TestComponent } from './reportes/components/test/test.component';
     EstilosPipe,
     AddEntregaComponent,
     TestComponent,
-    BarrilEstadoReporteComponent
+    BarrilEstadoReporteComponent,
+    BarrilesTotalesComponent,
+    EntregasReportesComponent,
+    PedidosReportesComponent,
+    EntregaAgrupadosComponent,
+    EstadoCuentaReporteComponent,
+
   ],
   exports: [
     EditUserComponent,
@@ -110,7 +126,12 @@ import { TestComponent } from './reportes/components/test/test.component';
     AdminestilosComponent,
     EditEstilosComponent,
     TestComponent,
-    BarrilEstadoReporteComponent
+    BarrilEstadoReporteComponent,
+    BarrilesTotalesComponent,
+    EntregasReportesComponent,
+    PedidosReportesComponent,
+    EntregaAgrupadosComponent,
+    EstadoCuentaReporteComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [EditUserComponent, EditClientsComponent, EditBarrilesComponent, EditRangosComponent, EditPagosComponent,

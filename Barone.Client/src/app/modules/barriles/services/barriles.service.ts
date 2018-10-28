@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClientService } from '../../../core/core.module.export';
 import { Observable } from 'rxjs';
 import { BarrilModel } from '../../shared/models/barril.model';
+import { ReporteAgrupado } from '../../shared/models/reporte-agrupado.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,9 @@ export class BarrilesService {
 
   public getAll(): Observable<BarrilModel[]> {
     return this._httpClient.get<BarrilModel[]>('BarrilModels');
+  }
+  public getBarrilesAgrupados(): Observable<ReporteAgrupado[]> {
+    return this._httpClient.get<ReporteAgrupado[]>('BarrilesAgrupados');
   }
   public filtrar(model: BarrilModel): Observable<BarrilModel[]> {
     return this._httpClient.post<BarrilModel, BarrilModel[]>('FiltrarBarriles', model);

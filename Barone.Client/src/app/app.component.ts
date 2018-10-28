@@ -69,12 +69,12 @@ export class AppComponent implements OnInit {
       text: 'Reportes',
       icon: 'assessment',
       //  routerPath:'/Home',
-      children: [this.createNavItem('Barriles x estado', '/BarrilesEstado', 'cloud'),
-      this.createNavItem('Barriles Totales', '/BarrilesTotales', 'cloud'),
-      this.createNavItem('Movimientos', '/Movimientos', 'cloud'),
-      this.createNavItem('Pedidos', '/ReportePedidos', 'cloud'),
-      this.createNavItem('Estado de cuenta', '/EstadoCuenta', 'cloud'),
-      this.createNavItem('Movimientos de cuentas', '/MovCuenta', 'cloud')]
+      children: [this.createNavItem('Barriles x estado', '/BarrilesEstado', 'playlist_add_check'),
+      this.createNavItem('Barriles Totales', '/BarrilesAgrupados', 'view_carousel'),
+      this.createNavItem('Movimientos', '/EntregaReportes', 'cloud'),
+      this.createNavItem('Pedidos', '/PedidoReportes', 'shopping_cart'),
+      this.createNavItem('Estado de cuenta', '/EntregasAgrupados', 'swap_horiz'),
+      this.createNavItem('Movimientos de cuentas', '/EstadoCuenta', 'face')]
     }));
     navNode.push(new NavItem({
       text: 'Administracion',

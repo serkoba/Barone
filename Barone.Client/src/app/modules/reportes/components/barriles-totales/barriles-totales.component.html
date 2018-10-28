@@ -1,0 +1,13 @@
+<div class="panel-body">
+
+  <div class="row">
+    <div class="col-sm-2">
+      <button class="buttons" mat-raised-button id="btnExportar">Exportar a Excel</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="w-95">
+      <data-grid-view [PaginatorEnabled]="false" #grid [data]="barriles" [columnsToDisplay]="columns"></data-grid-view>
+    </div>
+  </div>
+</div>

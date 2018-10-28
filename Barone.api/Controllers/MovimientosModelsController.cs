@@ -61,6 +61,93 @@ namespace Barone.api.Controllers
             var result = db.MovimientosModels.Where(lambda).Include(x => x.Cliente);
             return result;// db.MovimientosModels.Include(x=>x.Cliente);
         }
+        [Route("api/FiltrarMovimientos")]
+        public IQueryable<MovimientosModel> PostFiltrarMovimientosModels([FromBody] MovimientosModel model)
+        {
+            var param = ParameterExpression.Parameter(typeof(MovimientosModel), "x");
+
+            //////PARAMETER of Estado
+            var lenEstado = Expression.PropertyOrField(param, "Estado");
+            var bodyEstado = Expression.Equal(lenEstado, Expression.Convert(Expression.Constant(model.Estado), typeof(int)));
+
+            Expression AllBody = Expression.Equal(Expression.Constant("all"), Expression.Constant("all"));
+
+            if (!model.Estado.Equals(0))
+                AllBody = Expression.AndAlso(AllBody, bodyEstado);
+
+            ////PARAMETER of NroBarril
+            if (!model.fecha.Year.Equals(1))
+            {
+                var lenfechaDesde = Expression.PropertyOrField(param, "fechaPactada");
+                var bodyfechaDesde = Expression.GreaterThanOrEqual(lenfechaDesde, Expression.Constant(model.fecha));
+                AllBody = Expression.AndAlso(AllBody, bodyfechaDesde);
+
+            }
+
+            if (!model.fechaPactada.Year.Equals(1))
+            {
+              
+                var lenfechaHasta = Expression.PropertyOrField(param, "fechaPactada");
+                var bodyfechaHasta = Expression.LessThanOrEqual(lenfechaHasta, Expression.Constant(model.fechaPactada));
+
+                AllBody = Expression.AndAlso(AllBody, bodyfechaHasta);
+
+            }
+
+
+            Expression<Func<MovimientosModel, bool>> lambda = Expression.Lambda<Func<MovimientosModel, bool>>(AllBody, new ParameterExpression[] { param });
+
+            var result = db.MovimientosModels.Where(lambda).Include(x => x.Cliente);
+            return result;// db.MovimientosModels.Include(x=>x.Cliente);
+        }
+
+        [Route("api/MovimientosModelsGroupByClient")]
+        public IHttpActionResult PostFiltrarEstadoMovimientosModels([FromBody] MovimientosModel model)
+        {
+            //var param = ParameterExpression.Parameter(typeof(MovimientosModel), "x");
+
+            ////////PARAMETER of Estado
+            //var lenEstado = Expression.PropertyOrField(param, "Estado");
+            //var bodyEstado = Expression.Equal(lenEstado, Expression.Convert(Expression.Constant(model.Estado), typeof(int)));
+
+            //Expression AllBody = Expression.Equal(Expression.Constant("all"), Expression.Constant("all"));
+
+            //if (!model.Estado.Equals(0))
+            //    AllBody = Expression.AndAlso(AllBody, bodyEstado);
+
+            //////PARAMETER of NroBarril
+            //if (!model.fecha.Year.Equals(1))
+            //{
+            //    var lenfechaDesde = Expression.PropertyOrField(param, "fechaPactada");
+            //    var bodyfechaDesde = Expression.GreaterThanOrEqual(lenfechaDesde, Expression.Constant(model.fecha));
+            //    AllBody = Expression.AndAlso(AllBody, bodyfechaDesde);
+
+            //}
+
+            //if (!model.fechaPactada.Year.Equals(1))
+            //{
+
+            //    var lenfechaHasta = Expression.PropertyOrField(param, "fechaPactada");
+            //    var bodyfechaHasta = Expression.LessThanOrEqual(lenfechaHasta, Expression.Constant(model.fechaPactada));
+
+            //    AllBody = Expression.AndAlso(AllBody, bodyfechaHasta);
+
+            //}
+
+
+            //Expression<Func<MovimientosModel, bool>> lambda = Expression.Lambda<Func<MovimientosModel, bool>>(AllBody, new ParameterExpression[] { param });
+
+            //var result = db.MovimientosModels.Where(lambda).Include(x => x.Cliente);
+            //return result;// db.MovimientosModels.Include(x=>x.Cliente);
+
+            var resultQuery = from mov in db.MovimientosModels
+                              join cli in db.ClientesModels on mov.IdCliente equals cli.IdCliente
+                              group mov by mov.IdCliente into movGroup
+                              select new { Cliente = movGroup.FirstOrDefault().Cliente, movimientos = movGroup };
+
+            return Ok(resultQuery);
+                              
+        }
 
         // GET: api/MovimientosModels/5
         [ResponseType(typeof(MovimientosModel))]

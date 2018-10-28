@@ -13,6 +13,10 @@ export class EntregasService {
     return this._httpClient.get<EntregaModel[]>('MovimientosModels');
   }
 
+  public filtrar(model: EntregaModel): Observable<EntregaModel[]> {
+    return this._httpClient.post<EntregaModel, EntregaModel[]>('FiltrarMovimientos', model);
+  }
+
   public update(model: EntregaModel): Observable<void> {
     return this._httpClient.put<EntregaModel, void>('MovimientosModels', model);
   }

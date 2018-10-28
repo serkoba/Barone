@@ -21,29 +21,27 @@ namespace Barone.api.Controllers
 
 
         [Route("api/PagoModels/GetReporte")]
-        [HttpGet] //Always explicitly state the accepted HTTP method
-        public IHttpActionResult GetCuentasdebeHaber(string idEstado = "all", string fechaDesde = "all", string fechaHasta = "all")
+        [HttpPost] //Always explicitly state the accepted HTTP method
+        public IHttpActionResult GetCuentasdebeHaber([FromBody] PagoModel model)
         {
             ///////////////////PARAMETROS PARA MOVIMIENTOS
             var param = ParameterExpression.Parameter(typeof(MovimientosModel), "x");
             Expression AllBody = Expression.Equal(Expression.Constant("all"), Expression.Constant("all"));
-            
-            if (fechaDesde != "all")
+
+            if (!model.FechaPago.Year.Equals(1))
             {
-                DateTime resultFechaDesde;
-                DateTime.TryParse(fechaDesde, out resultFechaDesde);
+             
                 var lenfechaDesde = Expression.PropertyOrField(param, "fechaPactada");
-                var bodyfechaDesde = Expression.GreaterThanOrEqual(lenfechaDesde, Expression.Constant(resultFechaDesde));
+                var bodyfechaDesde = Expression.GreaterThanOrEqual(lenfechaDesde, Expression.Constant(model.FechaPago));
                 AllBody = Expression.AndAlso(AllBody, bodyfechaDesde);
 
             }
 
-            if (fechaHasta != "all")
+            if (!model.fechaVencimiento.Year.Equals(1))
             {
-                DateTime resultFechaHasta;
-                DateTime.TryParse(fechaHasta, out resultFechaHasta);
+               
                 var lenfechaHasta = Expression.PropertyOrField(param, "fechaPactada");
-                var bodyfechaHasta = Expression.LessThanOrEqual(lenfechaHasta, Expression.Constant(resultFechaHasta));
+                var bodyfechaHasta = Expression.LessThanOrEqual(lenfechaHasta, Expression.Constant(model.fechaVencimiento));
 
                 AllBody = Expression.AndAlso(AllBody, bodyfechaHasta);
 
@@ -57,22 +55,20 @@ namespace Barone.api.Controllers
             var paramPagos = ParameterExpression.Parameter(typeof(PagoModel), "x");
             Expression AllBodyPagos = Expression.Equal(Expression.Constant("all"), Expression.Constant("all"));
             ///PARAMETER of FechaDesde
-            if (fechaDesde != "all")
+            if (!model.FechaPago.Year.Equals(1))
             {
-                DateTime resultFechaDesdePago;
-                DateTime.TryParse(fechaDesde, out resultFechaDesdePago);
+               
                 var lenfechaDesdePago = Expression.PropertyOrField(paramPagos, "FechaPago");
-                var bodyfechaDesdePago = Expression.GreaterThanOrEqual(lenfechaDesdePago, Expression.Constant(resultFechaDesdePago));
+                var bodyfechaDesdePago = Expression.GreaterThanOrEqual(lenfechaDesdePago, Expression.Constant(model.FechaPago));
                 AllBodyPagos = Expression.AndAlso(AllBodyPagos, bodyfechaDesdePago);
 
             }
 
-            if (fechaHasta != "all")
+            if (!model.fechaVencimiento.Year.Equals(1))
             {
-                DateTime resultFechaHastaPago;
-                DateTime.TryParse(fechaHasta, out resultFechaHastaPago);
+              
                 var lenfechaHastaPago = Expression.PropertyOrField(paramPagos, "FechaPago");
-                var bodyfechaHastaPago = Expression.LessThanOrEqual(lenfechaHastaPago, Expression.Constant(resultFechaHastaPago));
+                var bodyfechaHastaPago = Expression.LessThanOrEqual(lenfechaHastaPago, Expression.Constant(model.fechaVencimiento));
 
                 AllBodyPagos = Expression.AndAlso(AllBodyPagos, bodyfechaHastaPago);
 
@@ -87,7 +83,7 @@ namespace Barone.api.Controllers
             IEnumerable<CuentasDebeHaberDTO> result = db.PagoModels.Include(x => x.Cliente).Where(lambdaPago).
                                                      Select(item => new CuentasDebeHaberDTO()
                                                      {
-                                                         Descripcion = item.Tipo==1?"Efectivo": item.Tipo==2?"Cheque": item.Tipo==3?"Devolucion":"",
+                                                         Descripcion = item.Tipo == 1 ? "Efectivo" : item.Tipo == 2 ? "Cheque" : item.Tipo == 3 ? "Devolucion" : "",
                                                          DebeImporte = item.Importe,
 
                                                          Fecha = item.FechaPago,
@@ -97,11 +93,11 @@ namespace Barone.api.Controllers
 
 
 
-            IEnumerable<CuentasDebeHaberDTO> ResultMovimientos =  db.MovimientosModels.Include(x => x.Cliente).Where(lambda)
+            IEnumerable<CuentasDebeHaberDTO> ResultMovimientos = db.MovimientosModels.Include(x => x.Cliente).Where(lambda)
                                                                  .ToList().Select
                                                      (item => new CuentasDebeHaberDTO()
                                                      {
-                                                         Descripcion = "Nro Remito: " + item.idEntrega + ", " + (item.Estado==1? "Pendiente" : item.Estado == 2 ? "En Progreso" : item.Estado == 3 ? "Entregado" : "Incompleto"),
+                                                         Descripcion = "Nro Remito: " + item.idEntrega + ", " + (item.Estado == 1 ? "Pendiente" : item.Estado == 2 ? "En Progreso" : item.Estado == 3 ? "Entregado" : "Incompleto"),
                                                          HaberImporte = Convert.ToDouble(item.TotalImporte.ToString()),
                                                          Fecha = item.fechaPactada,
                                                          IdCliente = item.IdCliente,
@@ -112,13 +108,19 @@ namespace Barone.api.Controllers
             if (ResultMovimientos != null)
             {
                 if (result != null)
-                    concatAllResult= result.Concat(ResultMovimientos);
+                    concatAllResult = result.Concat(ResultMovimientos);
                 else
                     concatAllResult = ResultMovimientos;
             }
             else
                 concatAllResult = result;
-            return Ok(concatAllResult);
+
+            var resultQuery = concatAllResult.GroupBy(x => x.IdCliente).Select(item => new {
+                Cliente = item.FirstOrDefault().Cliente,
+                movimientos = item
+            });
+
+            return Ok(resultQuery);
         }
 
         // GET: api/PagoModels

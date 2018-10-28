@@ -29,7 +29,7 @@ import {
   MatPaginatorModule,
   MatTableModule,
   MatSortModule,
-  MatProgressSpinnerModule, MatDatepickerModule, MatAutocompleteModule, MatInputModule, MatSelectModule, MatRadioModule, MatNativeDateModule, MatAccordion, MatExpansionModule, MatToolbarModule, MatListModule, MatSidenavModule, MatGridListModule, MatFormFieldModule, MatSnackBarModule, MatChipsModule, MatBadgeModule
+  MatProgressSpinnerModule, MatDatepickerModule, MatAutocompleteModule, MatInputModule, MatSelectModule, MatRadioModule, MatNativeDateModule, MatExpansionModule, MatToolbarModule, MatListModule, MatSidenavModule, MatGridListModule, MatFormFieldModule, MatSnackBarModule, MatChipsModule, MatBadgeModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonGroupComponent } from './components/button-group/button-group.component';
@@ -71,7 +71,7 @@ import { GridComponent } from './components/grid/grid.component';
     MatBadgeModule,
     MatPaginatorModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
   ],
   declarations: [
     NavBarComponent,
