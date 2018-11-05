@@ -1,0 +1,8 @@
+<div class="row">
+  <div class="w-95">
+
+
+    <data-grid-view #grid [data]="proveedores" [PaginatorEnabled]="true" [columnsToDisplay]="columns" [gridbtns]="gridbtns"
+      [hdrbtns]="hdrbtns" (btnclick)="gridaction($event)"></data-grid-view>
+  </div>
+</div>

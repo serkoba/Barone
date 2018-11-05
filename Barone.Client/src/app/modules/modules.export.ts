@@ -63,4 +63,12 @@ export * from './reportes/components/estado-cuenta-reporte/estado-cuenta-reporte
 export * from './shared/models/reporte-agrupado.model';
 export * from './shared/models/entregas-agrupadas.model';
 export * from './shared/models/cuentas-debe-haber.model';
+export * from './shared/models/fermentador.model';
+export * from './fermentador/components/adminfermentador/adminfermentador.component';
+export * from './fermentador/components/edit-fermentador/edit-fermentador.component';
+export * from './fermentador/services/fermentador.service';
+
+export * from './proveedores/components/adminproveedores/adminproveedores.component';
+export * from './proveedores/components/edit-proveedores/edit-proveedores.component';
+export * from './proveedores/services/proveedores.service';
 

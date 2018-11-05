@@ -2,7 +2,24 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './core/components/login/login.component';
-import { AdminclientsComponent, AdminusersComponent, AdminbarrilesComponent, AdminrangosComponent, AdminpedidosComponent, AdminentregasComponent, AdminpagosComponent, AdminestilosComponent, BarrilEstadoReporteComponent, BarrilesTotalesComponent, EntregasReportesComponent, PedidosReportesComponent, EntregaAgrupadosComponent, EstadoCuentaReporteComponent } from './modules/modules.export';
+import {
+  AdminclientsComponent,
+  AdminusersComponent,
+  AdminbarrilesComponent,
+  AdminrangosComponent,
+  AdminpedidosComponent,
+  AdminentregasComponent,
+  AdminpagosComponent,
+  AdminestilosComponent,
+  BarrilEstadoReporteComponent,
+  BarrilesTotalesComponent,
+  EntregasReportesComponent,
+  PedidosReportesComponent,
+  EntregaAgrupadosComponent,
+  EstadoCuentaReporteComponent,
+  AdminfermentadorComponent,
+  AdminproveedoresComponent
+} from './modules/modules.export';
 import { TestComponent } from './modules/reportes/components/test/test.component';
 import { AuthGuardService } from './core/core.module.export';
 
@@ -21,13 +38,15 @@ const routes: Routes = [
       { path: 'Pedidos', component: AdminpedidosComponent },
       { path: 'Entregas', component: AdminentregasComponent },
       { path: 'Pagos', component: AdminpagosComponent },
+      { path: 'Fermentador', component: AdminfermentadorComponent },
       { path: 'test', component: TestComponent },
       { path: 'BarrilesEstado', component: BarrilEstadoReporteComponent },
       { path: 'BarrilesAgrupados', component: BarrilesTotalesComponent },
       { path: 'EntregaReportes', component: EntregasReportesComponent },
       { path: 'PedidoReportes', component: PedidosReportesComponent },
       { path: 'EntregasAgrupados', component: EntregaAgrupadosComponent },
-      { path: 'EstadoCuenta', component: EstadoCuentaReporteComponent }]
+      { path: 'EstadoCuenta', component: EstadoCuentaReporteComponent },
+      { path: 'Proveedores', component: AdminproveedoresComponent }]
   },
   { path: 'login', component: LoginComponent },
   { path: 'logoff', component: LoginComponent },

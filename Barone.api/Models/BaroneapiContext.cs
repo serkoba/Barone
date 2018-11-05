@@ -40,5 +40,8 @@ namespace Barone.api.Models
         public System.Data.Entity.DbSet<Barone.api.Models.UserModel> UserModels { get; set; }
         public System.Data.Entity.DbSet<Barone.api.Models.Token> TokenModels { get; set; }
         public System.Data.Entity.DbSet<Barone.api.Models.Audience> Audience { get; set; }
+        public System.Data.Entity.DbSet<Barone.api.Models.FermentadorModel> FermentadorModels { get; set; }
+
+        public System.Data.Entity.DbSet<Barone.api.Models.ProveedoresModel> ProveedoresModels { get; set; }
     }
 }

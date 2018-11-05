@@ -1,0 +1,32 @@
+<form #videoForm="ngForm" (ngSubmit)="onSubmit()">
+  <div>
+    <h1 mat-dialog-title><span>
+        <mat-icon>create</mat-icon>{{modalTitle}}
+      </span></h1>
+  </div>
+
+  <div mat-dialog-content class="mat-dialog-container" flex style="overflow: scroll;  height: 500px;" layout="column">
+    <div style="padding-bottom:1px;background-color:#d8d8d8"></div>
+    <div class="row">
+      <div class="col-sm-6">
+
+        <mat-form-field class="w-100">
+          <input name="Identificador" matInput placeholder="Identificador" [(ngModel)]="fermentador.Identificador">
+
+        </mat-form-field>
+      </div>
+      <div class="col-sm-6">
+        <mat-form-field class="w-100">
+          <input name="Capacidad" matInput placeholder="Capacidad" [(ngModel)]="fermentador.Capacidad">
+          <span matSuffix>Lts</span>
+        </mat-form-field>
+
+      </div>
+    </div>
+
+  </div>
+  <mat-dialog-actions class="mat-dialog-footer" align="end">
+    <button color="warn" type="button" mat-raised-button (click)="dialogRef.close()">Cancel</button>&nbsp;
+    <button type="submit" color="primary" mat-raised-button>{{modalBtnTitle}}</button>
+  </mat-dialog-actions>
+</form>

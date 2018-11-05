@@ -64,7 +64,7 @@
                 <mat-nav-list *ngIf="!item.hasChildren" class="ml-0" dense>
                     <a class="item" mat-list-item class="ml-2" routerLink="{{item.routerPath}}">
 
-                        <mat-icon *ngIf="item.icon !== ''">{{item.icon}}</mat-icon>
+                        <mat-icon *ngIf="item.icon !== ''" svgIcon="{{item.icon}}"></mat-icon>
                         <span> {{item.text}}</span>
                     </a>
                 </mat-nav-list>
@@ -74,14 +74,14 @@
                             <mat-panel-title>
 
                                 <span>
-                                    <mat-icon *ngIf="item.icon !== ''">{{item.icon}}</mat-icon>{{item.text}}
+                                    <mat-icon *ngIf="item.icon !== ''" svgIcon="{{item.icon}}">{{item.icon}}</mat-icon>{{item.text}}
                                 </span>
                             </mat-panel-title>
                         </mat-expansion-panel-header>
                         <mat-nav-list class="ml-0" dense *ngFor="let child of item.children">
                             <mat-list-item *ngIf="item.hasChildren">
                                 <a class="item" routerLink="{{child.routerPath}}">
-                                    <mat-icon *ngIf="child.icon !== ''">{{child.icon}}</mat-icon>
+                                    <mat-icon *ngIf="child.icon !== ''" svgIcon="{{child.icon}}"></mat-icon>
                                     <span> {{child.text}}</span>
                                 </a>
                                 <!-- <button mat-icon-button class="mr-3">

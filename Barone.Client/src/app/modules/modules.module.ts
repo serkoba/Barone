@@ -32,7 +32,12 @@ import {
   EntregasReportesComponent,
   PedidosReportesComponent,
   EntregaAgrupadosComponent,
-  EstadoCuentaReporteComponent
+  EstadoCuentaReporteComponent,
+  AdminfermentadorComponent,
+  EditFermentadorComponent,
+  AdminproveedoresComponent,
+  EditProveedoresComponent,
+  FermentadorService
 } from './modules.export';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -40,14 +45,7 @@ import { CoreModule } from '../core/core.module';
 import { AdminestilosComponent } from './estilos/components/adminestilos/adminestilos.component';
 import { EditEstilosComponent } from './estilos/components/edit-estilos/edit-estilos.component';
 import { EstilosPipe } from './shared/filters/estilos.pipe';
-
-
-
-
-
-
-
-
+import { ProveedoresService } from './proveedores/services/proveedores.service';
 
 /**
  * This exposes all UI Components related to the Core UI functionality of Modules.
@@ -103,6 +101,10 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     PedidosReportesComponent,
     EntregaAgrupadosComponent,
     EstadoCuentaReporteComponent,
+    AdminfermentadorComponent,
+    EditFermentadorComponent,
+    AdminproveedoresComponent,
+    EditProveedoresComponent,
 
   ],
   exports: [
@@ -131,7 +133,9 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     EntregasReportesComponent,
     PedidosReportesComponent,
     EntregaAgrupadosComponent,
-    EstadoCuentaReporteComponent
+    EstadoCuentaReporteComponent,
+    AdminproveedoresComponent,
+    EditProveedoresComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [EditUserComponent, EditClientsComponent, EditBarrilesComponent, EditRangosComponent, EditPagosComponent,
@@ -139,7 +143,9 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     EditPedidosComponent,
     EditEntregasComponent,
     EditEstilosComponent,
-    AddEntregaComponent],
+    AddEntregaComponent,
+    EditFermentadorComponent,
+    EditProveedoresComponent],
   providers: [UserPipe, UserService, ClientsService, ClientPipe, BarrilPipe,
     BarrilesService, RangosService, RangoPipe, PedidosService,
     PedidosPipe,
@@ -148,7 +154,9 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     PagosPipe,
     PagosService,
     EstilosService,
-    EstilosPipe]
+    EstilosPipe,
+    FermentadorService,
+    ProveedoresService]
 })
 export class ModulesModule {
   public static forRoot(): ModuleWithProviders {
