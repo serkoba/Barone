@@ -77,6 +77,11 @@ export class AppComponent implements OnInit {
     this.iconRegistry.addSvgIcon('local_library',
       this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/ic_local_library_24px.svg'));
 
+    this.iconRegistry.addSvgIcon('shopping_basket',
+      this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/ic_shopping_basket_24px.svg'));
+    this.iconRegistry.addSvgIcon('extension',
+      this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/ic_extension_24px.svg'));
+
 
 
 
@@ -142,9 +147,9 @@ export class AppComponent implements OnInit {
       //  routerPath:'/Home',
       children: [this.createNavItem('Fermentador', '/Fermentador', 'meeting_room'),
       this.createNavItem('Proveedores', '/Proveedores', 'local_library'),
-        // this.createNavItem('Movimientos', '/EntregaReportes', 'cloud'),
-        // this.createNavItem('Pedidos', '/PedidoReportes', 'shopping_cart'),
-        // this.createNavItem('Estado de cuenta', '/EntregasAgrupados', 'swap_horiz'),
+      this.createNavItem('Insumos', '/Insumos', 'shopping_basket'),
+      this.createNavItem('Compras', '/Compras', 'attach_money'),
+      this.createNavItem('Recetas', '/Recetas', 'extension'),
         // this.createNavItem('Movimientos de cuentas', '/EstadoCuenta', 'face')
       ]
     }));

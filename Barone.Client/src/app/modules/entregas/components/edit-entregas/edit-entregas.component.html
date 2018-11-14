@@ -25,7 +25,8 @@
 
 
 
-                <autocomplete-input [data]="clientes" [cliente]="entrega.Cliente" (itemSelected)="itemSelected($event)"></autocomplete-input>
+                <autocomplete-input [data]="clientesItems" [DisplayLabel]="'Clientes'" [SelectedItem]="SelectedItem"
+                    (itemSelected)="itemSelected($event)"></autocomplete-input>
 
 
 

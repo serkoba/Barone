@@ -1,12 +1,11 @@
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { SelectItem } from '../../../shared/models/select-item';
 import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatDialogRef } from '@angular/material';
 import { FormControl } from '@angular/forms';
 import { Observable, from } from 'rxjs';
-import {map, startWith, mergeMap} from 'rxjs/operators';
+import { map, startWith, mergeMap } from 'rxjs/operators';
 
-import { SnackManagerService } from '../../../../core/core.module.export';
+import { SnackManagerService, SelectItem } from '../../../../core/core.module.export';
 import { EstilosModel } from '../../../shared/models/estilos.model';
 import { EstilosService } from '../../../estilos/services/estilos.service';
 import { BarrilesService } from '../../services/barriles.service';
@@ -21,22 +20,22 @@ export class BarrilesEstadoComponent implements OnInit {
 
 
   Estados: SelectItem[] = [
-    {value: 0, viewValue: 'Seleccione Categoria'},
-    {value: 1, viewValue: 'Para Despacho'},
-    {value: 2, viewValue: 'Entregadas'},
-    {value: 3, viewValue: 'En Progreso'},
-    {value: 4, viewValue: 'Reservado'}
+    { value: 0, viewValue: 'Seleccione Categoria' },
+    { value: 1, viewValue: 'Para Despacho' },
+    { value: 2, viewValue: 'Entregadas' },
+    { value: 3, viewValue: 'En Progreso' },
+    { value: 4, viewValue: 'Reservado' }
   ];
-  estilos: EstilosModel[]=[];
-  estilosSelect:SelectItem[]=[];
+  estilos: EstilosModel[] = [];
+  estilosSelect: SelectItem[] = [];
   msg: string;
   indLoading: boolean = false;
   modalTitle: string;
   modalBtnTitle: string;
   listFilter: string;
   selectedOption: string;
- // barriles: string;
-  
+  // barriles: string;
+
 
   visible = true;
   selectable = true;
@@ -46,14 +45,14 @@ export class BarrilesEstadoComponent implements OnInit {
   barrilCtrl = new FormControl();
   filteredFruits: Observable<string[]>;
   barriles: string[] = [];
-  IdEstilo:number;
-  idEstado:number;
- // allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+  IdEstilo: number;
+  idEstado: number;
+  // allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
 
   @ViewChild('fruitInput') fruitInput: ElementRef;
 
-  constructor(public _snack:SnackManagerService,public estilosServices: EstilosService,
-    private barrilServices:BarrilesService,
+  constructor(public _snack: SnackManagerService, public estilosServices: EstilosService,
+    private barrilServices: BarrilesService,
     public dialogRef: MatDialogRef<BarrilesEstadoComponent>) {
 
     // this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
@@ -101,42 +100,42 @@ export class BarrilesEstadoComponent implements OnInit {
   ngOnInit() {
     this.loadEstilos();
   }
-  public loadEstilos(){
-    this.estilosServices.getAll().subscribe(estilos=>{
-     this.estilos= estilos;
-     this.estilosSelect = estilos.map(estilo =>{ return new SelectItem({value:estilo.IdEstilo, viewValue:estilo.Nombre})});
- })
-   }
+  public loadEstilos() {
+    this.estilosServices.getAll().subscribe(estilos => {
+      this.estilos = estilos;
+      this.estilosSelect = estilos.map(estilo => { return new SelectItem({ value: estilo.IdEstilo, viewValue: estilo.Nombre }) });
+    })
+  }
 
   onSubmit() {
 
     from(this.barriles)
-    .pipe(
-      mergeMap(barril => {
-        const barrilModel = new BarrilModel({NroBarril:barril,idEstado:this.idEstado,IdEstilo:this.IdEstilo});
-        return this.barrilServices.updatePartial(barrilModel);
-      })).subscribe(()=>{
-        this.dialogRef.close("success");
-        this._snack.openSnackBar("Barriles Actualizado",'Success');
-      },error =>{
-        this._snack.openSnackBar(error,'Error');
-         this.dialogRef.close("error");
-         
-       });
+      .pipe(
+        mergeMap(barril => {
+          const barrilModel = new BarrilModel({ NroBarril: barril, idEstado: this.idEstado, IdEstilo: this.IdEstilo });
+          return this.barrilServices.updatePartial(barrilModel);
+        })).subscribe(() => {
+          this.dialogRef.close("success");
+          this._snack.openSnackBar("Barriles Actualizado", 'Success');
+        }, error => {
+          this._snack.openSnackBar(error, 'Error');
+          this.dialogRef.close("error");
+
+        });
 
 
-//     let count=0;
-//     this.barriles.forEach(barril =>{
-// const barrilModel = new BarrilModel({NroBarril:barril,idEstado:this.idEstado,IdEstilo:this.IdEstilo});
-// this.barrilServices.updatePartial(barrilModel).subscribe(()=>{
-//   this._snack.openSnackBar(barril + " Actualizado",'Success');
-// },error =>{
-//   this._snack.openSnackBar(error,'Error');
-//    this.dialogRef.close("error");
-   
-//  });
-//     })
-   
+    //     let count=0;
+    //     this.barriles.forEach(barril =>{
+    // const barrilModel = new BarrilModel({NroBarril:barril,idEstado:this.idEstado,IdEstilo:this.IdEstilo});
+    // this.barrilServices.updatePartial(barrilModel).subscribe(()=>{
+    //   this._snack.openSnackBar(barril + " Actualizado",'Success');
+    // },error =>{
+    //   this._snack.openSnackBar(error,'Error');
+    //    this.dialogRef.close("error");
+
+    //  });
+    //     })
+
   }
 
 }

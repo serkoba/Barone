@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { startWith, map, first } from 'rxjs/operators';
-import { SelectItem } from '../../../shared/models/select-item';
 import { PedidoModel } from '../../../shared/models/pedido.model';
 import { ClientsModel } from '../../../shared/models/clients.model';
 import { ClientsService } from '../../../clients/services/clients.service';
@@ -16,7 +15,7 @@ import { EstilosModel } from '../../../shared/models/estilos.model';
 import { EstilosService } from '../../../estilos/services/estilos.service';
 import { PedidosService } from '../../services/pedidos.service';
 import { DBOperation } from '../../../../core/enum/enum.enum';
-import { SnackManagerService } from '../../../../core/core.module.export';
+import { SnackManagerService, SelectItem } from '../../../../core/core.module.export';
 import { ItemChip } from '../../../shared/models/item-chip';
 
 
@@ -54,7 +53,9 @@ export class EditPedidosComponent implements OnInit {
   fruitCtrl = new FormControl();
 
   clientes: ClientsModel[] = [];
-  cliente: ClientsModel;
+  clientesItems: SelectItem[] = [];
+  SelectedItem: SelectItem;
+  // cliente: ClientsModel;
   estilos: EstilosModel[];
 
   filteredEstilos: Observable<EstilosModel[]>;
@@ -67,6 +68,16 @@ export class EditPedidosComponent implements OnInit {
 
     this.clientesServices.getAll().subscribe(clientes => {
       this.clientes = clientes;
+      this.clientesItems = clientes.map(cliente => {
+        return new SelectItem({
+          smallValue: `CUIT: ${cliente.CUIT}`,
+          viewValue: cliente.RazonSocial,
+          value: cliente.IdCliente
+        })
+      });
+      if (this.dbops === DBOperation.update) {
+        this.SelectedItem = this.clientesItems.find(x => x.value === this.pedido.Cliente.IdCliente);
+      }
 
 
     });
@@ -147,6 +158,9 @@ export class EditPedidosComponent implements OnInit {
 
     if (typeof (this.pedido) != "undefined" && this.pedido.DetallePedido != '')
       this.barrilesPedidos = JSON.parse(this.pedido.DetallePedido);
+
+
+
   }
 
   onSubmit() {

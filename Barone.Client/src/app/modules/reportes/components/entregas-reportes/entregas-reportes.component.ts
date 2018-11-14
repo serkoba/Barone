@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectItem } from 'src/app/modules/shared/models/select-item';
 import { BarrilesService } from 'src/app/modules/barriles/services/barriles.service';
 import { ClientsService } from 'src/app/modules/clients/services/clients.service';
 import { ClientsModel } from 'src/app/modules/shared/models/clients.model';
 import { EntregaModel } from 'src/app/modules/shared/models/entrega.model';
 import { EntregasService } from 'src/app/modules/entregas/services/entregas.service';
+import { SelectItem } from 'src/app/core/core.module.export';
 
 @Component({
   selector: 'app-entregas-reportes',
@@ -67,15 +67,24 @@ export class EntregasReportesComponent implements OnInit {
   entrega: EntregaModel;
   entregas: EntregaModel[];
   clientes: ClientsModel[] = [];
+  clientesItems: SelectItem[] = [];
+  SelectedItem: SelectItem;
   //  Cliente: ClientsModel;
   constructor(public entregaServices: EntregasService, private clientesServices: ClientsService) { }
 
   ngOnInit() {
     this.entrega = new EntregaModel();
     this.entrega.Cliente = new ClientsModel();
-
+    this.SelectedItem = new SelectItem();
     this.clientesServices.getAll().subscribe(clientes => {
       this.clientes = clientes;
+      this.clientesItems = clientes.map(cliente => {
+        return new SelectItem({
+          smallValue: `CUIT: ${cliente.CUIT}`,
+          viewValue: cliente.RazonSocial,
+          value: cliente.IdCliente
+        })
+      })
 
 
     });

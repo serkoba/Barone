@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { EntregaModel } from '../../../shared/models/entrega.model';
 import { MatDialogRef, MatChipInputEvent, MatAutocompleteSelectedEvent, MatDialog } from '@angular/material';
-import { SelectItem } from '../../../shared/models/select-item';
 import { BarrilModel } from '../../../shared/models/barril.model';
 import { ClientsModel } from '../../../shared/models/clients.model';
 import { PedidoModel } from '../../../shared/models/pedido.model';
@@ -10,8 +9,8 @@ import { ClientsService } from '../../../clients/services/clients.service';
 import { ItemChip } from '../../../shared/models/item-chip';
 import { BarrilesService } from '../../../barriles/services/barriles.service';
 import { FormControl } from '@angular/forms';
-import { Observable, from } from 'rxjs';
-import { startWith, map, concatMap, mergeMap, last } from 'rxjs/operators';
+import { Observable, from, of } from 'rxjs';
+import { startWith, map, concatMap, mergeMap, last, switchMap } from 'rxjs/operators';
 import { RowEntrega } from '../../../shared/models/row-entrega';
 import { AddEntregaComponent } from '../add-entrega/add-entrega.component';
 import { EstilosModel } from '../../../shared/models/estilos.model';
@@ -19,6 +18,7 @@ import { DBOperation } from '../../../../core/enum/enum.enum';
 import { EntregasService } from '../../services/entregas.service';
 import { SnackManagerService } from '../../../../core/services/snack-manager.service';
 import { PedidosService } from 'src/app/modules/pedidos/services/pedidos.service';
+import { SelectItem } from 'src/app/core/models/select-item';
 
 @Component({
     selector: 'edit-entregas',
@@ -55,8 +55,10 @@ export class EditEntregasComponent implements OnInit {
     barrilesPedidos: ItemChip[] = [];
 
     clientes: ClientsModel[] = [];
+    clientesItems: SelectItem[] = [];
+    SelectedItem: SelectItem;
     barriles: BarrilModel[];
-    cliente: ClientsModel;
+    //  cliente: ClientsModel;
     Cantidad: number;
     Tipo: string;
     estilo: EstilosModel;
@@ -83,6 +85,16 @@ export class EditEntregasComponent implements OnInit {
 
         this.clientesServices.getAll().subscribe(clientes => {
             this.clientes = clientes;
+            this.clientesItems = clientes.map(cliente => {
+                return new SelectItem({
+                    smallValue: `CUIT: ${cliente.CUIT}`,
+                    viewValue: cliente.RazonSocial,
+                    value: cliente.IdCliente
+                })
+            });
+            if ((typeof (this.pedido) != "undefined") || this.dbops === DBOperation.update) {
+                this.SelectedItem = this.clientesItems.find(x => x.value === this.entrega.Cliente.IdCliente);
+            }
 
 
         });
@@ -210,16 +222,22 @@ export class EditEntregasComponent implements OnInit {
         let TotalImporte = 0;
         this.rowCollection.forEach(row => {
             TotalBarriles += row.BarrilesEntrega.length;
-            TotalLitros += row.BarrilesEntrega.
+            let precio = 0;
+            const TotalLitrosByTipo = row.BarrilesEntrega.
                 map(barril => {
-                    return Number(this.barriles.find(x => x.NroBarril === barril.nombre).CantidadLitros)
+                    const barrilSelected = this.barriles.find(x => x.NroBarril === barril.nombre);
+                    precio = Number(barrilSelected.Estilo.rangoPrecio.precio);
+                    return Number(barrilSelected.CantidadLitros);
                 }).
                 reduce((sum, current) => sum + current);
-            TotalImporte += row.BarrilesEntrega.
-                map(barril => {
-                    return Number(this.barriles.find(x => x.NroBarril === barril.nombre).Estilo.rangoPrecio.precio)
-                }).
-                reduce((sum, current) => sum + current);
+
+            TotalImporte += TotalLitrosByTipo * precio;
+            TotalLitros += TotalLitrosByTipo;
+            // TotalImporte += row.BarrilesEntrega.
+            //     map(barril => {
+            //         return Number(this.barriles.find(x => x.NroBarril === barril.nombre).Estilo.rangoPrecio.precio)
+            //     }).
+            //     reduce((sum, current) => sum + current);
         })
         this.entrega.TotalBarriles = TotalBarriles.toString();
         this.entrega.TotalImporte = TotalImporte.toString();
@@ -232,43 +250,48 @@ export class EditEntregasComponent implements OnInit {
 
     ngOnInit() {
         this.chgRef.detach();
+        this.InicializarEntrega();
 
-        if (typeof (this.pedido) != "undefined") {
-            this.InicializarEntrega();
+        this.rowCollection = this.entrega.DetalleEntrega;
+        if (this.dbops != DBOperation.update) {
+            this.rowCollection.map(row => {
+                row.BarrilesEntrega = row.Barriles.map(barril => { return new ItemChip({ cantidad: 1, nombre: barril.NroBarril }) });
+            })
         }
+        //  }
 
-        if (typeof (this.entrega) == "undefined") {
-            this.entrega = new EntregaModel();
-
-
-        }
-        else {
-
-            this.rowCollection = this.entrega.DetalleEntrega;
-            if (this.dbops != DBOperation.update) {
-                this.rowCollection.map(row => {
-                    row.BarrilesEntrega = row.Barriles.map(barril => { return new ItemChip({ cantidad: 1, nombre: barril.NroBarril }) });
-                })
-            }
-        }
 
         this.chgRef.detectChanges();
         this.chgRef.reattach();
     }
     public InicializarEntrega() {
-        this.entrega = new EntregaModel({
-            fechaPactada: Number.parseInt(this.pedido.fechaPactada),
-            DetalleEntrega: this.generateDetallePedido(JSON.parse(this.pedido.DetallePedido)),
-            Cliente: this.pedido.Cliente,
-            IdCliente: this.pedido.IdCliente,
-            Estado: 1,
-            EstadoDelivery: 1
-        });
+        if (typeof (this.pedido) != "undefined") {
+            this.entrega = new EntregaModel({
+                fechaPactada: Number.parseInt(this.pedido.fechaPactada),
+                DetalleEntrega: this.generateDetallePedido(JSON.parse(this.pedido.DetallePedido)),
+                Cliente: this.pedido.Cliente,
+                IdCliente: this.pedido.IdCliente,
+                Estado: 1,
+                EstadoDelivery: 1
+            });
+        }
+        else {
+            if (this.dbops === DBOperation.create) {
+                this.entrega = new EntregaModel({
+                    fechaPactada: new Date().getDate(),
+                    DetalleEntrega: this.generateDetallePedido(null),
+                    Cliente: null,
+                    IdCliente: null,
+                    Estado: 1,
+                    EstadoDelivery: 1
+                });
+            }
+        }
 
     }
 
     onSubmit() {
-        this.entrega.DetallePedido = JSON.stringify(this.rowCollection);
+
         var currentDate = new Date();
         this.entrega.fecha = currentDate.getFullYear().toString() + "/" + currentDate.getMonth().toString() + "/" + currentDate.getDay().toString();
         switch (this.dbops) {
@@ -298,6 +321,9 @@ export class EditEntregasComponent implements OnInit {
         }
     }
     private generateDetallePedido(detallePedido: ItemChip[]): RowEntrega[] {
+        if (detallePedido == null) {
+            return [];
+        }
         return detallePedido.map(pedido => {
             return new RowEntrega({ id: 0, Tipo: pedido.nombre, Cantidad: pedido.cantidad, Barriles: [] })
         })
@@ -305,6 +331,7 @@ export class EditEntregasComponent implements OnInit {
     private saveEntrega(actualiza: boolean) {
         const HayPedido = this.pedido != undefined;
         this.entrega.Estado = 2;
+        this.entrega.DetallePedido = JSON.stringify(this.rowCollection);
         const operacionEntrega = actualiza ? this.entregaServices.update(this.entrega) : this.entregaServices.insert(this.entrega);
         operacionEntrega
             .pipe(concatMap((entregaInserted) => {
@@ -314,9 +341,9 @@ export class EditEntregasComponent implements OnInit {
                         this.pedido.idEntrega = entregaInserted.idEntrega;
                     return this.pedidosServices.update(this.pedido).pipe(map(() => { return this.entrega.DetalleEntrega; }))
                 } else {
-                    return from(this.entrega.DetalleEntrega);
+                    return of(this.entrega.DetalleEntrega);
                 }
-            }), concatMap((detalleEntrega) => {
+            }), switchMap((detalleEntrega) => {
                 let BarrilesAfectados: ItemChip[] = [];
                 detalleEntrega.forEach(entrega => BarrilesAfectados = BarrilesAfectados.concat(entrega.BarrilesEntrega));
                 BarrilesAfectados

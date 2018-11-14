@@ -3,6 +3,9 @@ import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { ClientsModel } from '../../../modules/shared/models/clients.model';
+import { SelectItem } from '../../models/select-item';
+import { isUndefined } from 'util';
+import { isNull } from '@angular/compiler/src/output/output_ast';
 
 
 
@@ -13,12 +16,13 @@ import { ClientsModel } from '../../../modules/shared/models/clients.model';
 })
 export class AutocompleteInputComponent implements OnInit {
 
-  @Input() public data: ClientsModel[];
-  @Input() public cliente: ClientsModel;
+  @Input() public data: SelectItem[];
+  @Input() public DisplayLabel: string;
+  //@Input() public cliente: ClientsModel;
   @Output() public itemSelected = new EventEmitter<number>();
   public clienteCtrl = new FormControl();
-
-  public filteredClientes: Observable<ClientsModel[]>;
+  @Input() public SelectedItem: SelectItem;
+  public filteredItems: Observable<SelectItem[]>;
   constructor(private chgRef: ChangeDetectorRef) { }
 
   ngOnInit() {
@@ -26,31 +30,34 @@ export class AutocompleteInputComponent implements OnInit {
     this.init();
     this.chgRef.detectChanges();
     this.chgRef.reattach();
+    setTimeout(() => { this.chgRef.detectChanges(); })
   }
 
   public init() {
 
-    this.filteredClientes = this.clienteCtrl.valueChanges
+    this.filteredItems = this.clienteCtrl.valueChanges
       .pipe(
         startWith(''),
-        map(cliente => cliente ? this._filterStates(cliente) : this.data.slice())
+        map(item => item ? this._filterStates(item) : this.data.slice())
       );
   }
 
-  public _filterStates(value: any): ClientsModel[] {
-    const filterValue = ((value instanceof Object) ? value.RazonSocial : value).toLowerCase();
+  public _filterStates(value: any): SelectItem[] {
+    const filterValue = ((value instanceof Object) ? value.viewValue : value).toLowerCase();
 
-    return this.data.filter(cliente => (cliente.RazonSocial ? cliente.RazonSocial : '').toLowerCase().indexOf(filterValue) === 0);
+    return this.data.filter(item => (item.viewValue ? item.viewValue : '').toLowerCase().indexOf(filterValue) === 0);
   }
 
-  displayFn(cliente: ClientsModel): string {
-    console.log(this.cliente);
-    return cliente ? cliente.RazonSocial : this.cliente.RazonSocial;
+  displayFn(item: SelectItem): string {
+    //console.log(this.cliente);
+    if (item == null && isUndefined(this.SelectedItem))
+      return '';
+    return item ? item.viewValue : this.SelectedItem.viewValue;
   }
 
-  setCliente(clienteSelected: ClientsModel) {
-    if (clienteSelected instanceof Object)
-      this.itemSelected.emit(clienteSelected.IdCliente);
+  setCliente(itemSelected: SelectItem) {
+    if (itemSelected instanceof Object)
+      this.itemSelected.emit(itemSelected.value);
 
     //this.pago.IdCliente=clienteSelected.IdCliente.toString();
   }

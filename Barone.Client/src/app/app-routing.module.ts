@@ -18,7 +18,10 @@ import {
   EntregaAgrupadosComponent,
   EstadoCuentaReporteComponent,
   AdminfermentadorComponent,
-  AdminproveedoresComponent
+  AdminproveedoresComponent,
+  AdmininsumosComponent,
+  AdmincomprasComponent,
+  AdminrecetasComponent
 } from './modules/modules.export';
 import { TestComponent } from './modules/reportes/components/test/test.component';
 import { AuthGuardService } from './core/core.module.export';
@@ -46,7 +49,10 @@ const routes: Routes = [
       { path: 'PedidoReportes', component: PedidosReportesComponent },
       { path: 'EntregasAgrupados', component: EntregaAgrupadosComponent },
       { path: 'EstadoCuenta', component: EstadoCuentaReporteComponent },
-      { path: 'Proveedores', component: AdminproveedoresComponent }]
+      { path: 'Proveedores', component: AdminproveedoresComponent },
+      { path: 'Insumos', component: AdmininsumosComponent },
+      { path: 'Compras', component: AdmincomprasComponent },
+      { path: 'Recetas', component: AdminrecetasComponent }]
   },
   { path: 'login', component: LoginComponent },
   { path: 'logoff', component: LoginComponent },

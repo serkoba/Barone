@@ -4,7 +4,7 @@ import { startWith, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
-import { SelectItem } from '../../../shared/models/select-item';
+import { SelectItem } from 'src/app/core/core.module.export';
 
 @Component({
   selector: 'barriles-estilo',
@@ -15,11 +15,11 @@ export class BarrilesEstiloComponent implements OnInit {
 
 
   Estilos: SelectItem[] = [
-    {value: 0, viewValue: 'Seleccione Categoria'},
-    {value: 1, viewValue: 'IPA'},
-    {value: 2, viewValue: 'Honey'},
-    {value: 3, viewValue: 'Banana'},
-    {value: 4, viewValue: 'Winer'}
+    { value: 0, viewValue: 'Seleccione Categoria' },
+    { value: 1, viewValue: 'IPA' },
+    { value: 2, viewValue: 'Honey' },
+    { value: 3, viewValue: 'Banana' },
+    { value: 4, viewValue: 'Winer' }
   ];
   msg: string;
   indLoading: boolean = false;
@@ -28,7 +28,7 @@ export class BarrilesEstiloComponent implements OnInit {
   listFilter: string;
   selectedOption: string;
   barriles: string;
-  
+
 
   visible = true;
   selectable = true;
@@ -44,8 +44,8 @@ export class BarrilesEstiloComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<BarrilesEstiloComponent>) {
     this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
-        startWith(null),
-        map((fruit: string | null) => fruit ? this._filter(fruit) : this.allFruits.slice()));
+      startWith(null),
+      map((fruit: string | null) => fruit ? this._filter(fruit) : this.allFruits.slice()));
   }
 
   add(event: MatChipInputEvent): void {
@@ -89,7 +89,7 @@ export class BarrilesEstiloComponent implements OnInit {
   }
 
   onSubmit() {
-   
+
   }
 
 }

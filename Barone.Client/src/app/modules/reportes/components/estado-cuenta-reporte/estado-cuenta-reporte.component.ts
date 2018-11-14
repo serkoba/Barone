@@ -6,6 +6,7 @@ import { PedidosService } from 'src/app/modules/pedidos/services/pedidos.service
 import { ClientsService } from 'src/app/modules/clients/services/clients.service';
 import { PagosService } from 'src/app/modules/pagos/services/pagos.service';
 import { PagosModel } from 'src/app/modules/shared/models/pagos.model';
+import { SelectItem } from 'src/app/core/models/select-item';
 
 @Component({
   selector: 'app-estado-cuenta-reporte',
@@ -44,15 +45,24 @@ export class EstadoCuentaReporteComponent implements OnInit {
   cuenta: PagosModel;
   cuentas: CuentasDebeHaberModel[];
   clientes: ClientsModel[] = [];
+  clientesItems: SelectItem[] = [];
+  SelectedItem: SelectItem;
   //  Cliente: ClientsModel;
   constructor(public pagosServices: PagosService, private clientesServices: ClientsService) { }
 
   ngOnInit() {
     this.cuenta = new PagosModel();
     this.cuenta.Cliente = new ClientsModel();
-
+    this.SelectedItem = new SelectItem();
     this.clientesServices.getAll().subscribe(clientes => {
       this.clientes = clientes;
+      this.clientesItems = clientes.map(cliente => {
+        return new SelectItem({
+          smallValue: `CUIT: ${cliente.CUIT}`,
+          viewValue: cliente.RazonSocial,
+          value: cliente.IdCliente
+        })
+      })
 
 
     });

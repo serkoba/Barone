@@ -1,11 +1,11 @@
 <mat-form-field>
-  <input matInput placeholder="Cliente" name="IdCliente" [(ngModel)]="cliente" (ngModelChange)="setCliente(cliente)"
+  <input matInput [placeholder]="DisplayLabel" name="SelectedItem" [(ngModel)]="SelectedItem" (ngModelChange)="setCliente(SelectedItem)"
     [matAutocomplete]="auto" [formControl]="clienteCtrl" />
   <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-    <mat-option *ngFor="let cliente of filteredClientes | async" [value]="cliente">
+    <mat-option *ngFor="let item of filteredItems | async" [value]="item">
       <mat-icon aria-label="Example icon-button with a heart icon">account_box</mat-icon>
-      <span>{{cliente.RazonSocial}}</span> |
-      <small>CUIT: {{cliente.CUIT}}</small>
+      <span>{{item.viewValue}}</span> |
+      <small>{{item.smallValue}}</small>
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>

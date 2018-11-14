@@ -206,15 +206,18 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BarrilModelsController.cs" />
     <Compile Include="Controllers\ClientesModelsController.cs" />
+    <Compile Include="Controllers\ComprasModelsController.cs" />
     <Compile Include="Controllers\DetallesMovimientosModelsController.cs" />
     <Compile Include="Controllers\EstilosModelsController.cs" />
     <Compile Include="Controllers\FermentadorModelsController.cs" />
+    <Compile Include="Controllers\InsumoModelsController.cs" />
     <Compile Include="Controllers\MovimientosModelsController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\PagoModelsController.cs" />
     <Compile Include="Controllers\PedidoModelsController.cs" />
     <Compile Include="Controllers\ProveedoresModelsController.cs" />
     <Compile Include="Controllers\rangosPreciosModelsController.cs" />
+    <Compile Include="Controllers\RecetaModelsController.cs" />
     <Compile Include="Controllers\UserModelsController.cs" />
     <Compile Include="DTO\BarrilXEstadoReporte.cs" />
     <Compile Include="DTO\CuentasDebeHaberDTO.cs" />
@@ -356,19 +359,58 @@
     <Compile Include="Migrations\201811051955429_proveedores.Designer.cs">
       <DependentUpon>201811051955429_proveedores.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811061714357_add_insumos.cs" />
+    <Compile Include="Migrations\201811061714357_add_insumos.Designer.cs">
+      <DependentUpon>201811061714357_add_insumos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811061859076_add_stock_insumo2.cs" />
+    <Compile Include="Migrations\201811061859076_add_stock_insumo2.Designer.cs">
+      <DependentUpon>201811061859076_add_stock_insumo2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811061909290_Compras.cs" />
+    <Compile Include="Migrations\201811061909290_Compras.Designer.cs">
+      <DependentUpon>201811061909290_Compras.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811061937360_add.Column.Fecha.cs" />
+    <Compile Include="Migrations\201811061937360_add.Column.Fecha.Designer.cs">
+      <DependentUpon>201811061937360_add.Column.Fecha.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811062023195_removeTipoInsumo.cs" />
+    <Compile Include="Migrations\201811062023195_removeTipoInsumo.Designer.cs">
+      <DependentUpon>201811062023195_removeTipoInsumo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811071927335_add-id.cs" />
+    <Compile Include="Migrations\201811071927335_add-id.Designer.cs">
+      <DependentUpon>201811071927335_add-id.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811071934348_test22.cs" />
+    <Compile Include="Migrations\201811071934348_test22.Designer.cs">
+      <DependentUpon>201811071934348_test22.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811072012300_test42.cs" />
+    <Compile Include="Migrations\201811072012300_test42.Designer.cs">
+      <DependentUpon>201811072012300_test42.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811111350143_receta.cs" />
+    <Compile Include="Migrations\201811111350143_receta.Designer.cs">
+      <DependentUpon>201811111350143_receta.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Audience.cs" />
     <Compile Include="Models\BaroneapiContext.cs" />
     <Compile Include="Models\BarrilModel.cs" />
+    <Compile Include="Models\ComprasModel.cs" />
     <Compile Include="Models\DetallesMovimientosModel.cs" />
     <Compile Include="Models\EstilosModel.cs" />
     <Compile Include="Models\FermentadorModel.cs" />
+    <Compile Include="Models\InsumoModel.cs" />
     <Compile Include="Models\MovimientosModel.cs" />
     <Compile Include="Models\ClientesModel.cs" />
     <Compile Include="Models\PagoModel.cs" />
     <Compile Include="Models\PedidoModel.cs" />
     <Compile Include="Models\ProveedoresModel.cs" />
     <Compile Include="Models\rangosPreciosModel.cs" />
+    <Compile Include="Models\RecetaModel.cs" />
     <Compile Include="Models\Token.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -503,6 +545,33 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811051955429_proveedores.resx">
       <DependentUpon>201811051955429_proveedores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811061714357_add_insumos.resx">
+      <DependentUpon>201811061714357_add_insumos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811061859076_add_stock_insumo2.resx">
+      <DependentUpon>201811061859076_add_stock_insumo2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811061909290_Compras.resx">
+      <DependentUpon>201811061909290_Compras.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811061937360_add.Column.Fecha.resx">
+      <DependentUpon>201811061937360_add.Column.Fecha.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811062023195_removeTipoInsumo.resx">
+      <DependentUpon>201811062023195_removeTipoInsumo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811071927335_add-id.resx">
+      <DependentUpon>201811071927335_add-id.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811071934348_test22.resx">
+      <DependentUpon>201811071934348_test22.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811072012300_test42.resx">
+      <DependentUpon>201811072012300_test42.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811111350143_receta.resx">
+      <DependentUpon>201811111350143_receta.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectItem } from '../../../shared/models/select-item';
 import { BarrilesService } from '../../../barriles/services/barriles.service';
 import { EstilosService } from '../../../estilos/services/estilos.service';
 import { EstilosModel } from '../../../shared/models/estilos.model';
 import { BarrilModel } from '../../../shared/models/barril.model';
 import { ClientsModel } from '../../../shared/models/clients.model';
 import { ClientsService } from '../../../clients/services/clients.service';
+import { SelectItem } from 'src/app/core/core.module.export';
 
 @Component({
   selector: 'app-barril-estado',
@@ -55,18 +55,29 @@ export class BarrilEstadoReporteComponent implements OnInit {
   barriles: BarrilModel[];
   clientes: ClientsModel[] = [];
   Cliente: ClientsModel;
+  clientesItems: SelectItem[] = [];
+  SelectedItem: SelectItem;
   constructor(public barrilServices: BarrilesService, public estilosServices: EstilosService, private clientesServices: ClientsService) { }
 
   ngOnInit() {
     this.barril = new BarrilModel();
     this.Cliente = new ClientsModel();
+    this.SelectedItem = new SelectItem();
     this.loadEstilos();
 
     this.clientesServices.getAll().subscribe(clientes => {
       this.clientes = clientes;
+      this.clientesItems = clientes.map(cliente => {
+        return new SelectItem({
+          smallValue: `CUIT: ${cliente.CUIT}`,
+          viewValue: cliente.RazonSocial,
+          value: cliente.IdCliente
+        })
+      })
 
 
     });
+
     this.loadBarriles();
   }
   loadBarriles(): void {

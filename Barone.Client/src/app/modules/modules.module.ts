@@ -4,7 +4,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {
   MatMenuModule, MatIconModule, MatButtonModule, MatProgressSpinnerModule,
   MatDatepickerModule, MatAutocompleteModule, MatInputModule, MatSelectModule,
-  MatRadioModule, MatNativeDateModule, MatChipsModule, MatSidenavModule, MatBadgeModule, MatAccordion, MatExpansionModule
+  MatRadioModule, MatNativeDateModule, MatChipsModule, MatSidenavModule, MatBadgeModule, MatAccordion, MatExpansionModule,
+  MatTableModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -37,7 +38,17 @@ import {
   EditFermentadorComponent,
   AdminproveedoresComponent,
   EditProveedoresComponent,
-  FermentadorService
+  FermentadorService,
+  AdmininsumosComponent,
+  EditInsumosComponent,
+  ProveedoresService,
+  InsumosService,
+  ComprasService,
+  AdmincomprasComponent,
+  EditComprasComponent,
+  AdminrecetasComponent,
+  EditRecetaComponent,
+  RecetasService
 } from './modules.export';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -45,7 +56,8 @@ import { CoreModule } from '../core/core.module';
 import { AdminestilosComponent } from './estilos/components/adminestilos/adminestilos.component';
 import { EditEstilosComponent } from './estilos/components/edit-estilos/edit-estilos.component';
 import { EstilosPipe } from './shared/filters/estilos.pipe';
-import { ProveedoresService } from './proveedores/services/proveedores.service';
+
+
 
 /**
  * This exposes all UI Components related to the Core UI functionality of Modules.
@@ -63,7 +75,8 @@ import { ProveedoresService } from './proveedores/services/proveedores.service';
     MatNativeDateModule,
     MatChipsModule,
     MatBadgeModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTableModule
   ],
   declarations: [
     EditUserComponent,
@@ -105,6 +118,12 @@ import { ProveedoresService } from './proveedores/services/proveedores.service';
     EditFermentadorComponent,
     AdminproveedoresComponent,
     EditProveedoresComponent,
+    AdmininsumosComponent,
+    EditInsumosComponent,
+    AdmincomprasComponent,
+    EditComprasComponent,
+    AdminrecetasComponent,
+    EditRecetaComponent,
 
   ],
   exports: [
@@ -136,6 +155,12 @@ import { ProveedoresService } from './proveedores/services/proveedores.service';
     EstadoCuentaReporteComponent,
     AdminproveedoresComponent,
     EditProveedoresComponent,
+    AdmininsumosComponent,
+    EditInsumosComponent,
+    AdmincomprasComponent,
+    EditComprasComponent,
+    AdminrecetasComponent,
+    EditRecetaComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [EditUserComponent, EditClientsComponent, EditBarrilesComponent, EditRangosComponent, EditPagosComponent,
@@ -145,7 +170,10 @@ import { ProveedoresService } from './proveedores/services/proveedores.service';
     EditEstilosComponent,
     AddEntregaComponent,
     EditFermentadorComponent,
-    EditProveedoresComponent],
+    EditProveedoresComponent,
+    EditInsumosComponent,
+    EditComprasComponent,
+    EditRecetaComponent],
   providers: [UserPipe, UserService, ClientsService, ClientPipe, BarrilPipe,
     BarrilesService, RangosService, RangoPipe, PedidosService,
     PedidosPipe,
@@ -156,7 +184,10 @@ import { ProveedoresService } from './proveedores/services/proveedores.service';
     EstilosService,
     EstilosPipe,
     FermentadorService,
-    ProveedoresService]
+    ProveedoresService,
+    InsumosService,
+    ComprasService,
+    RecetasService]
 })
 export class ModulesModule {
   public static forRoot(): ModuleWithProviders {

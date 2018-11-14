@@ -14,3 +14,7 @@ export enum Options {
   usuarios = 3,
   examenes = 4
 }
+export enum OperationsStock {
+  Add = 1,
+  Substract = 2
+}

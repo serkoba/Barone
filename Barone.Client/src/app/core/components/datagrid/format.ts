@@ -34,8 +34,12 @@ export class Format implements PipeTransform {
                 return this.getDate(input.fechaDesde);
             case 'cliente':
                 return input.RazonSocial;
+            case 'insumo':
+                return input.Nombre;
             case 'estadobarril':
                 return this.returnEstadoBarril(input);
+            case 'unidadmedida':
+                return this.returnUnidadMedida(input);
             case 'text':
                 return input;
             case 'date':
@@ -65,6 +69,18 @@ export class Format implements PipeTransform {
                 return 'En Progreso';
             case 4:
                 return 'Reservado';
+
+            default:
+                break;
+        }
+    }
+    private returnUnidadMedida(input: any) {
+        const inputString = input.toString();
+        switch (inputString) {
+            case "1":
+                return 'Kg'
+            case "2":
+                return 'gr'
 
             default:
                 break;

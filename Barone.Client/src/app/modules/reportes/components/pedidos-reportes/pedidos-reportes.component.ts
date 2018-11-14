@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectItem } from 'src/app/modules/shared/models/select-item';
 import { PedidosService } from 'src/app/modules/pedidos/services/pedidos.service';
 import { ClientsService } from 'src/app/modules/clients/services/clients.service';
 import { ClientsModel } from 'src/app/modules/shared/models/clients.model';
 import { PedidoModel } from 'src/app/modules/shared/models/pedido.model';
+import { SelectItem } from 'src/app/core/core.module.export';
 
 @Component({
   selector: 'app-pedidos-reportes',
@@ -66,16 +66,23 @@ export class PedidosReportesComponent implements OnInit {
   pedido: PedidoModel;
   pedidos: PedidoModel[];
   clientes: ClientsModel[] = [];
-  //  Cliente: ClientsModel;
+  clientesItems: SelectItem[] = [];
+  SelectedItem: SelectItem;
   constructor(public pedidoServices: PedidosService, private clientesServices: ClientsService) { }
 
   ngOnInit() {
     this.pedido = new PedidoModel();
     this.pedido.Cliente = new ClientsModel();
-
+    this.SelectedItem = new SelectItem();
     this.clientesServices.getAll().subscribe(clientes => {
       this.clientes = clientes;
-
+      this.clientesItems = clientes.map(cliente => {
+        return new SelectItem({
+          smallValue: `CUIT: ${cliente.CUIT}`,
+          viewValue: cliente.RazonSocial,
+          value: cliente.IdCliente
+        })
+      })
 
     });
     this.loadPedidos();

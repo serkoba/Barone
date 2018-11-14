@@ -4,7 +4,8 @@ import { ClientsModel } from 'src/app/modules/shared/models/clients.model';
 import { PedidosService } from 'src/app/modules/pedidos/services/pedidos.service';
 import { PedidoModel } from 'src/app/modules/shared/models/pedido.model';
 import { ClientsService } from 'src/app/modules/clients/services/clients.service';
-import { SelectItem } from 'src/app/modules/shared/models/select-item';
+import { SelectItem } from 'src/app/core/core.module.export';
+
 
 @Component({
   selector: 'entrega-agrupados',
@@ -60,15 +61,23 @@ export class EntregaAgrupadosComponent implements OnInit {
   pedido: PedidoModel;
   pedidos: EntregasAgrupadasModel[];
   clientes: ClientsModel[] = [];
-  //  Cliente: ClientsModel;
+  clientesItems: SelectItem[] = [];
+  SelectedItem: SelectItem;
   constructor(public pedidoServices: PedidosService, private clientesServices: ClientsService) { }
 
   ngOnInit() {
     this.pedido = new PedidoModel();
     this.pedido.Cliente = new ClientsModel();
-
+    this.SelectedItem = new SelectItem();
     this.clientesServices.getAll().subscribe(clientes => {
       this.clientes = clientes;
+      this.clientesItems = clientes.map(cliente => {
+        return new SelectItem({
+          smallValue: `CUIT: ${cliente.CUIT}`,
+          viewValue: cliente.RazonSocial,
+          value: cliente.IdCliente
+        })
+      })
 
 
     });

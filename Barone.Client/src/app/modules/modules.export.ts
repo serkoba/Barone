@@ -37,7 +37,6 @@ export * from './entregas/components/adminentregas/adminentregas.component';
 export * from './entregas/services/entregas.service';
 export * from './shared/filters/entregas.pipe';
 export * from './shared/models/entrega.model';
-export * from './shared/enum/enums';
 
 
 export * from './pagos/components/edit-pagos/edit-pagos.component';
@@ -71,4 +70,15 @@ export * from './fermentador/services/fermentador.service';
 export * from './proveedores/components/adminproveedores/adminproveedores.component';
 export * from './proveedores/components/edit-proveedores/edit-proveedores.component';
 export * from './proveedores/services/proveedores.service';
+
+export * from './insumos/components/admininsumos/admininsumos.component';
+export * from './insumos/components/edit-insumos/edit-insumos.component';
+export * from './insumos/services/insumos.service';
+export * from './compras/components/admincompras/admincompras.component';
+export * from './compras/components/edit-compras/edit-compras.component';
+export * from './compras/services/compras.service';
+
+export * from './recetas/components/adminrecetas/adminrecetas.component';
+export * from './recetas/components/edit-receta/edit-receta.component';
+export * from './recetas/services/recetas.service';
 

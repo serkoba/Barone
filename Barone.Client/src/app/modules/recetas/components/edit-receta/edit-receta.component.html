@@ -1,0 +1,366 @@
+<form #videoForm="ngForm" autocomplete="off">
+  <div>
+    <h1 mat-dialog-title><span>
+        <mat-icon>create</mat-icon>{{modalTitle}}
+      </span></h1>
+  </div>
+
+  <div mat-dialog-content class="mat-dialog-container" flex style="overflow: scroll;  height: 600px;width: 1200px"
+    layout="column">
+    <div style="padding-bottom:1px;background-color:#d8d8d8"></div>
+    <mat-accordion multi="true">
+      <mat-expansion-panel [expanded]="true" class="no-shadow">
+        <mat-expansion-panel-header fxLayout="row">
+          <mat-panel-title>
+
+
+            <h1> <span>Descripcion</span>
+            </h1>
+
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="row">
+          <div class="col-sm-6">
+            <mat-form-field class="w-100">
+              <input name="Nombre" matInput placeholder="Nombre" [(ngModel)]="receta.Nombre" />
+            </mat-form-field>
+
+          </div>
+          <div class="col-sm-6">
+
+            <mat-form-field class="w-100">
+              <input name="Fecha" matInput [matDatepicker]="Fecha" placeholder="Fecha" [(ngModel)]="receta.Fecha">
+              <mat-datepicker-toggle matSuffix [for]="Fecha"></mat-datepicker-toggle>
+              <mat-datepicker #Fecha></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-sm-3">
+            <mat-form-field class="w-100">
+              <input name="SRM" matInput placeholder="SRM" [(ngModel)]="receta.SRM" />
+            </mat-form-field>
+
+          </div>
+          <div class="col-sm-3">
+            <mat-form-field class="w-100">
+              <input name="IBU" matInput placeholder="IBU" [(ngModel)]="receta.IBU" />
+            </mat-form-field>
+
+          </div>
+          <div class="col-sm-3">
+            <mat-form-field class="w-100">
+              <input name="ABV" matInput placeholder="ABV" [(ngModel)]="receta.ABV" />
+            </mat-form-field>
+
+          </div>
+          <div class="col-sm-3">
+            <mat-form-field class="w-100">
+              <input name="OG" matInput placeholder="OG" [(ngModel)]="receta.OG" />
+            </mat-form-field>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <mat-form-field class="w-100">
+              <input name="TiempoEmpaste" matInput placeholder="TiempoEmpaste" [(ngModel)]="receta.TiempoEmpaste" />
+            </mat-form-field>
+
+          </div>
+          <div class="col-sm-6">
+            <mat-form-field class="w-100">
+              <input name="Sparge" matInput placeholder="Sparge" [(ngModel)]="receta.Sparge" />
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6">
+            <mat-form-field class="w-100">
+              <input name="Litros" matInput placeholder="Litros" [(ngModel)]="receta.Litros" />
+            </mat-form-field>
+
+          </div>
+          <div class="col-sm-6">
+            <mat-form-field class="w-100">
+              <input name="PH" matInput placeholder="PH" [(ngModel)]="receta.PH" />
+            </mat-form-field>
+          </div>
+
+        </div>
+        <div class="row">
+
+          <div class="col-sm-12">
+            <mat-form-field class="w-100">
+              <input name="Observaciones" matInput placeholder="Observaciones" [(ngModel)]="receta.Observaciones" />
+            </mat-form-field>
+
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel [expanded]="true" class="no-shadow">
+        <mat-expansion-panel-header fxLayout="row">
+          <mat-panel-title>
+
+
+            <h1><span>Ingredientes</span></h1>
+
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="row">
+          <!--MALTA------------------->
+          <div class="col-sm-12">
+
+
+            <div class="form-group">
+              <div class="col-lg-12">
+                <label class="control-label">Maltas</label>
+                <button mat-icon-button color="primary" (click)="addRow(1)">
+                  <mat-icon>add_shopping_cart</mat-icon>
+                </button>
+
+              </div>
+            </div>
+            <form [formGroup]="MaltaForm" class="form-group">
+
+              <ng-container formArrayName="maltaArray">
+                <mat-table #tableAdjunto [dataSource]="dataSourceMalta" class="mat-elevation-z8">
+
+                  <ng-container matColumnDef="Insumo">
+                    <mat-header-cell *matHeaderCellDef> Tipo </mat-header-cell>
+                    <mat-cell *matCellDef="let element;let index=index" [formGroupName]="index">
+                      <mat-form-field>
+                        <mat-select [compareWith]="compareFn" name="Insumo" placeholder="Insumo" formControlName="Insumo"
+                          [(ngModel)]="element.Insumo">
+                          <mat-option *ngFor="let insumo of insumos" [value]="insumo">
+                            {{insumo.Nombre}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="Cantidad">
+                    <mat-header-cell *matHeaderCellDef> KG. </mat-header-cell>
+                    <mat-cell *matCellDef="let element;let index=index" [formGroupName]="index">
+                      <mat-form-field floatLabel="never">
+                        <input type="number" matInput placeholder="Cantidad" formControlName="Cantidad" [(ngModel)]="element.Cantidad"
+                          name="Cantidad" />
+                      </mat-form-field>
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="Porcentaje">
+                    <mat-header-cell *matHeaderCellDef> % </mat-header-cell>
+                    <mat-cell *matCellDef="let element;let index=index" [formGroupName]="index">
+                      <mat-form-field floatLabel="never">
+                        <input type="number" matInput placeholder="Porcentaje" formControlName="Porcentaje" [(ngModel)]="element.Porcentaje"
+                          name="Porcentaje" />
+                      </mat-form-field>
+                    </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="displayedMaltaColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedMaltaColumns;"></mat-row>
+                </mat-table>
+              </ng-container>
+            </form>
+
+            <div style="padding-bottom:1px;background-color:#d8d8d8"></div>
+          </div>
+        </div>
+        <!--LUPULO-->
+        <div class="row">
+          <div class="col-sm-12">
+
+
+            <div class="form-group">
+              <div class="col-lg-12">
+                <label class="control-label">Lupulos</label>
+                <button mat-icon-button color="primary" (click)="addRow(2)">
+                  <mat-icon>add_shopping_cart</mat-icon>
+                </button>
+
+              </div>
+            </div>
+            <form [formGroup]="lupuloForm" class="form-group">
+
+              <ng-container formArrayName="lupuloArray">
+                <mat-table #tableAdjunto [dataSource]="dataSourceLupulo" class="mat-elevation-z8">
+
+                  <ng-container matColumnDef="Insumo">
+                    <mat-header-cell *matHeaderCellDef> Insumo </mat-header-cell>
+                    <mat-cell *matCellDef="let element;let index=index" [formGroupName]="index">
+                      <mat-form-field>
+                        <mat-select [compareWith]="compareFn" name="Insumo" placeholder="Insumo" formControlName="Insumo"
+                          [(ngModel)]="element.Insumo">
+                          <mat-option *ngFor="let insumo of insumos" [value]="insumo">
+                            {{insumo.Nombre}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="PorcentajeAA">
+                    <mat-header-cell *matHeaderCellDef> % A.A </mat-header-cell>
+                    <mat-cell *matCellDef="let element;let index=index" [formGroupName]="index">
+                      <mat-form-field floatLabel="never">
+                        <input type="number" matInput placeholder="% A.A" formControlName="PorcentajeAA" [(ngModel)]="element.PorcentajeAA"
+                          name="PorcentajeAA" />
+                      </mat-form-field>
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="Tiempo">
+                    <mat-header-cell *matHeaderCellDef> Tiempo </mat-header-cell>
+                    <mat-cell *matCellDef="let element;let index=index" [formGroupName]="index">
+                      <mat-form-field floatLabel="never">
+                        <input type="number" matInput placeholder="Tiempo" formControlName="Tiempo" [(ngModel)]="element.Tiempo"
+                          name="Tiempo" />
+                      </mat-form-field>
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="IBUS">
+                    <mat-header-cell *matHeaderCellDef> IBUS </mat-header-cell>
+                    <mat-cell *matCellDef="let element;let index=index" [formGroupName]="index">
+                      <mat-form-field floatLabel="never">
+                        <input type="number" matInput placeholder="IBUS" formControlName="IBUS" [(ngModel)]="element.IBUS"
+                          name="IBUS" />
+                      </mat-form-field>
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="Cantidad">
+                    <mat-header-cell *matHeaderCellDef> Gramos </mat-header-cell>
+                    <mat-cell *matCellDef="let element;let index=index" [formGroupName]="index">
+                      <mat-form-field floatLabel="never">
+                        <input type="number" matInput placeholder="Cantidad" formControlName="Cantidad" [(ngModel)]="element.Cantidad"
+                          name="Cantidad" />
+                      </mat-form-field>
+                    </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="displayedLupuloColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedLupuloColumns;"></mat-row>
+                </mat-table>
+              </ng-container>
+            </form>
+
+            <div style="padding-bottom:1px;background-color:#d8d8d8"></div>
+          </div>
+
+
+        </div>
+        <div class="row">
+          <!--AGUA / ADJUNTO-->
+          <div class="col-sm-6">
+
+
+            <div class="form-group">
+              <div class="col-lg-12">
+                <label class="control-label">Agua</label>
+                <button mat-icon-button color="primary" (click)="addRow(3)">
+                  <mat-icon>add_shopping_cart</mat-icon>
+                </button>
+
+              </div>
+            </div>
+            <form [formGroup]="AguaForm" class="form-group">
+
+              <ng-container formArrayName="aguaArray">
+                <mat-table #tableAgua [dataSource]="dataSourceAgua" class="mat-elevation-z8">
+
+                  <ng-container matColumnDef="TipoAgua">
+                    <mat-header-cell *matHeaderCellDef> Descripcion </mat-header-cell>
+                    <mat-cell *matCellDef="let element;let index=index" [formGroupName]="index">
+                      <mat-form-field>
+                        <input matInput placeholder="Descripcion" formControlName="TipoAgua" [(ngModel)]="element.TipoAgua"
+                          name="TipoAgua" />
+                      </mat-form-field>
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="Cantidad">
+                    <mat-header-cell *matHeaderCellDef> Cantidad </mat-header-cell>
+                    <mat-cell *matCellDef="let element;let index=index" [formGroupName]="index">
+                      <mat-form-field floatLabel="never">
+                        <input type="number" matInput placeholder="Cantidad" formControlName="Cantidad" [(ngModel)]="element.Cantidad"
+                          name="Cantidad" />
+                      </mat-form-field>
+                    </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="displayedAguaColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedAguaColumns;"></mat-row>
+                </mat-table>
+              </ng-container>
+            </form>
+
+            <div style="padding-bottom:1px;background-color:#d8d8d8"></div>
+          </div>
+          <div class="col-sm-6">
+
+
+            <div class="form-group">
+              <div class="col-lg-12">
+                <label class="control-label">Adjuntos</label>
+                <button mat-icon-button color="primary" (click)="addRow(4)">
+                  <mat-icon>add_shopping_cart</mat-icon>
+                </button>
+
+              </div>
+            </div>
+            <form [formGroup]="AdjuntoForm" class="form-group">
+
+              <ng-container formArrayName="adjuntoArray">
+                <mat-table #tableAdjunto [dataSource]="dataSourceAdjunto" class="mat-elevation-z8">
+
+                  <ng-container matColumnDef="Insumo">
+                    <mat-header-cell *matHeaderCellDef> Adj. </mat-header-cell>
+                    <mat-cell *matCellDef="let element;let index=index" [formGroupName]="index">
+                      <mat-form-field>
+                        <mat-select [compareWith]="compareFn" name="Insumo" placeholder="Insumo" formControlName="Insumo"
+                          [(ngModel)]="element.Insumo">
+                          <mat-option *ngFor="let insumo of insumos" [value]="insumo">
+                            {{insumo.Nombre}}
+                          </mat-option>
+                        </mat-select>
+                        <!-- <autocomplete-input [data]="itemInsumos" [DisplayLabel]="'Insumo'" name="Insumo" formControlName="Insumo" [SelectedItem]="element.Insumo"
+                        (itemSelected)="itemSelected($event, element.Insumo)"></autocomplete-input> -->
+                      </mat-form-field>
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="Cantidad">
+                    <mat-header-cell *matHeaderCellDef> Gr. </mat-header-cell>
+                    <mat-cell *matCellDef="let element;let index=index" [formGroupName]="index">
+                      <mat-form-field floatLabel="never">
+                        <input type="number" matInput placeholder="Cantidad" formControlName="Cantidad" [(ngModel)]="element.Cantidad"
+                          name="Cantidad" />
+                      </mat-form-field>
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="Tiempo">
+                    <mat-header-cell *matHeaderCellDef> Tiempo </mat-header-cell>
+                    <mat-cell *matCellDef="let element;let index=index" [formGroupName]="index">
+                      <mat-form-field floatLabel="never">
+                        <input type="number" matInput placeholder="Tiempo" formControlName="Tiempo" [(ngModel)]="element.Tiempo"
+                          name="Tiempo" />
+                      </mat-form-field>
+                    </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="displayedAdjuntoColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedAdjuntoColumns;"></mat-row>
+                </mat-table>
+              </ng-container>
+            </form>
+
+            <div style="padding-bottom:1px;background-color:#d8d8d8"></div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <mat-dialog-actions class="mat-dialog-footer" align="end">
+    <button color="warn" type="button" mat-raised-button (click)="dialogRef.close()">Cancel</button>&nbsp;
+    <button type="submit" color="primary" mat-raised-button (click)="onSubmit()">{{modalBtnTitle}}</button>
+  </mat-dialog-actions>
+</form>

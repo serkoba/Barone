@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DBOperation } from '../../../../core/enum/enum.enum';
 import { PagosModel } from '../../../shared/models/pagos.model';
 import { MatDialogRef } from '@angular/material';
-import { SelectItem } from '../../../shared/models/select-item';
 import { PagosService } from '../../services/pagos.service';
-import { SnackManagerService } from '../../../../core/core.module.export';
+import { SnackManagerService, SelectItem } from '../../../../core/core.module.export';
 import { ClientsService } from '../../../clients/services/clients.service';
 import { ClientsModel } from '../../../shared/models/clients.model';
 import { FormControl } from '@angular/forms';
@@ -20,11 +19,11 @@ export class EditPagosComponent implements OnInit {
 
 
   Tipos: SelectItem[] = [
-    {value: 0, viewValue: 'Seleccione Categoria'},
-    {value: 1, viewValue: 'Efectivo'},
-    {value: 2, viewValue: 'Cheque'}
+    { value: 0, viewValue: 'Seleccione Categoria' },
+    { value: 1, viewValue: 'Efectivo' },
+    { value: 2, viewValue: 'Cheque' }
   ];
-  
+
   msg: string;
   indLoading: boolean = false;
   dbops: DBOperation;
@@ -33,71 +32,85 @@ export class EditPagosComponent implements OnInit {
   listFilter: string;
   selectedOption: string;
   pago: PagosModel;
-  clientes: ClientsModel[]=[];
+  clientes: ClientsModel[] = [];
+  clientesItems: SelectItem[] = [];
+  cliente: ClientsModel;
+  SelectedItem: SelectItem;
 
-  cliente:ClientsModel;
-
-  constructor(private clientesServices:ClientsService,private _snack:SnackManagerService,
-    private pagosServices:PagosService,
+  constructor(private clientesServices: ClientsService, private _snack: SnackManagerService,
+    private pagosServices: PagosService,
     public dialogRef: MatDialogRef<EditPagosComponent>) {
-      this.clientesServices.getAll().subscribe(clientes=>{
-        this.clientes=clientes;
-      
- 
-     });
-    }
-    public itemSelected(idCliente:number){
-      this.pago.IdCliente=idCliente;
-      this.pago.Cliente=this.clientes.find(x=>x.IdCliente===idCliente);
-    }
+    this.clientesServices.getAll().subscribe(clientes => {
+      this.clientes = clientes;
+      this.clientesItems = clientes.map(cliente => {
+        return new SelectItem({
+          smallValue: `CUIT: ${cliente.CUIT}`,
+          viewValue: cliente.RazonSocial,
+          value: cliente.IdCliente
+        })
+      });
+      if (this.dbops === DBOperation.update) {
+        this.SelectedItem = this.clientesItems.find(x => x.value === this.pago.Cliente.IdCliente);
+      }
+
+
+    });
+  }
+  public itemSelected(idCliente: number) {
+    this.pago.IdCliente = idCliente;
+    this.pago.Cliente = this.clientes.find(x => x.IdCliente === idCliente);
+  }
 
   ngOnInit() {
     if (typeof (this.pago) == "undefined")
-    this.pago = new PagosModel();
-  
+      this.pago = new PagosModel();
+
+
+
+
   }
 
   onSubmit() {
     switch (this.dbops) {
       case DBOperation.create:
 
-      this.pagosServices.insert(this.pago).subscribe((result)=>{
-        this.pago.idPago=result.idPago;
-        this.dialogRef.close("success");
-        this._snack.openSnackBar("Pago Creado Exitosamente",'Success');
-       
-       },error =>{
-        this._snack.openSnackBar(error,'Error');
-         this.dialogRef.close("error");
-         
-       });
-      
+        this.pagosServices.insert(this.pago).subscribe((result) => {
+          this.pago.idPago = result.idPago;
+          this.dialogRef.close("success");
+          this._snack.openSnackBar("Pago Creado Exitosamente", 'Success');
+
+        }, error => {
+          this._snack.openSnackBar(error, 'Error');
+          this.dialogRef.close("error");
+
+        });
+
         break;
       case DBOperation.update:
 
-           this.pagosServices.update(this.pago).subscribe(()=>{
-            this.dialogRef.close("success");
-            this._snack.openSnackBar("Pago Actualizado",'Success');
-           
-           },error =>{
-            this._snack.openSnackBar(error,'Error');
-             this.dialogRef.close("error");
-             
-           });
-        
+        this.pagosServices.update(this.pago).subscribe(() => {
+          this.dialogRef.close("success");
+          this._snack.openSnackBar("Pago Actualizado", 'Success');
+
+        }, error => {
+          this._snack.openSnackBar(error, 'Error');
+          this.dialogRef.close("error");
+
+        });
+
         break;
       case DBOperation.delete:
 
-      this.pagosServices.delete(this.pago.idPago).subscribe(()=>{
-        this.dialogRef.close("success");
-        this._snack.openSnackBar("Pago Eliminado",'Success');
-       
-       },error =>{
-        this._snack.openSnackBar(error,'Error');
-         this.dialogRef.close("error");
-         
-       });
-       
+        this.pagosServices.delete(this.pago.idPago).subscribe(() => {
+          this.dialogRef.close("success");
+          this._snack.openSnackBar("Pago Eliminado", 'Success');
+
+        }, error => {
+          this._snack.openSnackBar(error, 'Error');
+          this.dialogRef.close("error");
+
+        });
+
         break;
 
     }
