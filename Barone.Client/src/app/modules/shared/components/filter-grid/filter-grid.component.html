@@ -1,0 +1,53 @@
+<div class="row">
+
+  <div class="col-sm-2 w-95">
+
+
+    <mat-form-field>
+      <mat-select name="Estado" placeholder="Estado" [(ngModel)]="ReportFilter.Estado">
+        <mat-option *ngFor="let estado of Estados" [value]="estado.value">
+          {{estado.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+  <div *ngIf="FilterBarril" class="col-sm-2">
+    <mat-form-field>
+      <mat-select name="Estilo" placeholder="Estilo" [(ngModel)]="ReportFilter.Estilo">
+        <mat-option *ngFor="let estilo of estilosSelect" [value]="estilo.value">
+          {{estilo.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col-sm-2">
+    <autocomplete-input [data]="clientesItems" [DisplayLabel]="'Clientes'" [SelectedItem]="SelectedItem" (itemSelected)="clientSelected($event)"></autocomplete-input>
+
+  </div>
+  <div *ngIf="FilterPedEnt" class="col-sm-2 w-95">
+
+
+    <mat-form-field>
+      <input name="fecha_desde" matInput [matDatepicker]="fecha_desde" placeholder="Fecha Desde" [(ngModel)]="ReportFilter.FechaDesde">
+      <mat-datepicker-toggle matSuffix [for]="fecha_desde"></mat-datepicker-toggle>
+      <mat-datepicker #fecha_desde></mat-datepicker>
+    </mat-form-field>
+
+
+  </div>
+  <div *ngIf="FilterPedEnt" class="col-sm-2">
+
+
+    <mat-form-field>
+      <input name="fecha_hasta" matInput [matDatepicker]="fecha_hasta" placeholder="Fecha Hasta" [(ngModel)]="ReportFilter.FechaHasta">
+      <mat-datepicker-toggle matSuffix [for]="fecha_hasta"></mat-datepicker-toggle>
+      <mat-datepicker #fecha_hasta></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="col-sm-4">
+    <button class="buttons" mat-raised-button (click)="FiltrarInfo()" id="btnEditarEnvio">Filtrar</button>
+    <button class="buttons" mat-raised-button id="btnExportar">Exportar a Excel</button>
+    <button class="buttons" mat-raised-button (click)="initFiltro()" id="btnExportar">Borrar Filtro</button>
+  </div>
+</div>

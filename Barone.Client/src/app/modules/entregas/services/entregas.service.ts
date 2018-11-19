@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClientService } from '../../../core/core.module.export';
 import { Observable } from 'rxjs';
 import { EntregaModel } from '../../shared/models/entrega.model';
+import { ReportFilterModel } from '../../shared/models/reporte-filtro.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,8 @@ export class EntregasService {
     return this._httpClient.get<EntregaModel[]>('MovimientosModels');
   }
 
-  public filtrar(model: EntregaModel): Observable<EntregaModel[]> {
-    return this._httpClient.post<EntregaModel, EntregaModel[]>('FiltrarMovimientos', model);
+  public filtrar(model: ReportFilterModel): Observable<EntregaModel[]> {
+    return this._httpClient.post<ReportFilterModel, EntregaModel[]>('FiltrarMovimientos', model);
   }
 
   public update(model: EntregaModel): Observable<void> {

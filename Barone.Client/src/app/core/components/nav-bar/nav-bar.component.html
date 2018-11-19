@@ -23,8 +23,8 @@
 
 
         <span *ngFor="let button of actionButtons; let i=index">
-            <button mat-icon-button class="m-3" [matMenuTriggerFor]="menuNav">
-                <mat-icon>{{button.icon}}</mat-icon>
+            <button mat-fab [matMenuTriggerFor]="menuNav">
+                <mat-icon class="login-button" svgIcon="{{button.icon}}"></mat-icon>
             </button>
             <mat-menu #menuNav="matMenu">
 

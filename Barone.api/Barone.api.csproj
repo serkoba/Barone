@@ -222,6 +222,7 @@
     <Compile Include="DTO\BarrilXEstadoReporte.cs" />
     <Compile Include="DTO\CuentasDebeHaberDTO.cs" />
     <Compile Include="DTO\NotificationsDTO.cs" />
+    <Compile Include="DTO\ReportFilterViewModel.cs" />
     <Compile Include="formats\CustomJwtFormat.cs" />
     <Compile Include="Migrations\201709221737597_initial.cs" />
     <Compile Include="Migrations\201709221737597_initial.Designer.cs">

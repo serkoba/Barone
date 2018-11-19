@@ -5,6 +5,7 @@ import { ClientsModel } from 'src/app/modules/shared/models/clients.model';
 import { EntregaModel } from 'src/app/modules/shared/models/entrega.model';
 import { EntregasService } from 'src/app/modules/entregas/services/entregas.service';
 import { SelectItem } from 'src/app/core/core.module.export';
+import { ReportFilterModel } from 'src/app/modules/shared/models/reporte-filtro.model';
 
 @Component({
   selector: 'app-entregas-reportes',
@@ -64,7 +65,7 @@ export class EntregasReportesComponent implements OnInit {
     descending: false
   };
   estilosSelect: SelectItem[] = [];
-  entrega: EntregaModel;
+  entrega: ReportFilterModel;
   entregas: EntregaModel[];
   clientes: ClientsModel[] = [];
   clientesItems: SelectItem[] = [];
@@ -73,21 +74,21 @@ export class EntregasReportesComponent implements OnInit {
   constructor(public entregaServices: EntregasService, private clientesServices: ClientsService) { }
 
   ngOnInit() {
-    this.entrega = new EntregaModel();
-    this.entrega.Cliente = new ClientsModel();
-    this.SelectedItem = new SelectItem();
-    this.clientesServices.getAll().subscribe(clientes => {
-      this.clientes = clientes;
-      this.clientesItems = clientes.map(cliente => {
-        return new SelectItem({
-          smallValue: `CUIT: ${cliente.CUIT}`,
-          viewValue: cliente.RazonSocial,
-          value: cliente.IdCliente
-        })
-      })
+    this.entrega = new ReportFilterModel();
+    //  this.entrega.Cliente = new ClientsModel();
+    //  this.SelectedItem = new SelectItem();
+    // this.clientesServices.getAll().subscribe(clientes => {
+    //   this.clientes = clientes;
+    //   this.clientesItems = clientes.map(cliente => {
+    //     return new SelectItem({
+    //       smallValue: `CUIT: ${cliente.CUIT}`,
+    //       viewValue: cliente.RazonSocial,
+    //       value: cliente.IdCliente
+    //     })
+    //   })
 
 
-    });
+    // });
     this.loadEntregas();
   }
   loadEntregas(): void {
@@ -99,16 +100,16 @@ export class EntregasReportesComponent implements OnInit {
 
   }
 
-  public itemSelected(idCliente: number) {
-    // this.cliente.IdCliente = idCliente;
-    this.entrega.Cliente = this.clientes.find(x => x.IdCliente === idCliente);
-  }
+  // public itemSelected(idCliente: number) {
+  //   // this.cliente.IdCliente = idCliente;
+  //   this.entrega.Cliente = this.clientes.find(x => x.IdCliente === idCliente);
+  // }
 
 
 
-  public FiltrarInfo() {
+  public FiltrarInfo(model: ReportFilterModel) {
 
-    this.entregaServices.filtrar(this.entrega)
+    this.entregaServices.filtrar(model)
       .subscribe(entregas => {
         this.entregas = entregas;
       });

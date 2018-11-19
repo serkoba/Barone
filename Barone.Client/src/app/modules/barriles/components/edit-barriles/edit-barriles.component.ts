@@ -12,7 +12,7 @@ import { BarrilesService } from '../../services/barriles.service';
 @Component({
   selector: 'edit-barriles',
   templateUrl: './edit-barriles.component.html',
-  styleUrls: ['./edit-barriles.component.css']
+  styleUrls: ['./edit-barriles.component.scss']
 })
 export class EditBarrilesComponent implements OnInit {
 

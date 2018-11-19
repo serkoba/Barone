@@ -81,7 +81,8 @@ export class AppComponent implements OnInit {
       this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/ic_shopping_basket_24px.svg'));
     this.iconRegistry.addSvgIcon('extension',
       this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/ic_extension_24px.svg'));
-
+    this.iconRegistry.addSvgIcon('person_big',
+      this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/ic_person_48px.svg'));
 
 
 
@@ -96,7 +97,7 @@ export class AppComponent implements OnInit {
         kind: 'link'
       }));
     this.actionButtons = [new NavItem({
-      icon: 'person',
+      icon: 'person_big',
       text: '',
       className: 'text-primary',
       children: buttons

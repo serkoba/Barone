@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using Barone.api.Models;
 using System.Linq.Expressions;
+using Barone.api.DTO;
 
 namespace Barone.api.Controllers
 {
@@ -69,36 +70,36 @@ namespace Barone.api.Controllers
 
         // GET: api/PedidoModels
         [Route("api/FiltrarPedidos")]
-        public IQueryable<PedidoModel> PostFiltrarPedidoModels([FromBody]PedidoModel model)//long? idEntrega = 0, string idEstado = "all", string fechaDesde = "all", string fechaHasta = "all")
+        public IQueryable<PedidoModel> PostFiltrarPedidoModels([FromBody]ReportFilterViewModel model)//long? idEntrega = 0, string idEstado = "all", string fechaDesde = "all", string fechaHasta = "all")
         {
             var param = ParameterExpression.Parameter(typeof(PedidoModel), "x");
 
             //////PARAMETER of Estado
             var lenEstado = Expression.PropertyOrField(param, "Estado");
-            var bodyEstado = Expression.Equal(lenEstado, Expression.Constant(model.Estado));
+            var bodyEstado = Expression.Equal(lenEstado, Expression.Constant(model.Estado.ToString()));
 
             Expression AllBody = Expression.Equal(Expression.Constant("all"), Expression.Constant("all"));
 
-            if (model.Estado != null && !model.Estado.Equals("0"))
+            if (model.Estado != null && !model.Estado.Equals(0))
                 AllBody = Expression.AndAlso(AllBody, bodyEstado);
 
             ////PARAMETER of NroBarril
-            if (!model.fechaPactada.Year.Equals(1))
+            if (!model.FechaDesde.Year.Equals(1))
             {
                 //DateTime resultFechaDesde;
                 //DateTime.TryParse(fechaDesde, out resultFechaDesde);
                 var lenfechaDesde = Expression.PropertyOrField(param, "fechaPactada");
-                var bodyfechaDesde = Expression.GreaterThanOrEqual(lenfechaDesde, Expression.Constant(model.fechaPactada));
+                var bodyfechaDesde = Expression.GreaterThanOrEqual(lenfechaDesde, Expression.Constant(model.FechaDesde));
                 AllBody = Expression.AndAlso(AllBody, bodyfechaDesde);
 
             }
 
-            if (!model.fechaPedido.Year.Equals(1))
+            if (!model.FechaHasta.Year.Equals(1))
             {
                 //DateTime resultFechaHasta;
                 //DateTime.TryParse(fechaHasta, out resultFechaHasta);
                 var lenfechaHasta = Expression.PropertyOrField(param, "fechaPactada");
-                var bodyfechaHasta = Expression.LessThanOrEqual(lenfechaHasta, Expression.Constant(model.fechaPedido));
+                var bodyfechaHasta = Expression.LessThanOrEqual(lenfechaHasta, Expression.Constant(model.FechaHasta));
 
                 AllBody = Expression.AndAlso(AllBody, bodyfechaHasta);
 
@@ -106,16 +107,25 @@ namespace Barone.api.Controllers
 
 
             ////PARAMETER of idEntrega
-            var lenidEntrega = Expression.PropertyOrField(param, "idEntrega");
-            var bodyidEntrega = Expression.Equal(lenidEntrega, Expression.Convert(Expression.Constant(model.idEntrega), typeof(long?)));
+            //var lenidEntrega = Expression.PropertyOrField(param, "idEntrega");
+            //var bodyidEntrega = Expression.Equal(lenidEntrega, Expression.Convert(Expression.Constant(model.idEntrega), typeof(long?)));
 
-            //Expression AllBody = Expression.Equal(Expression.Convert(Expression.Constant(idEntrega),typeof(long?)),Expression.Convert(Expression.Constant(idEntrega.Value),typeof(long?)));
-            if (model.idEntrega.HasValue)
-                AllBody = Expression.AndAlso(AllBody, bodyidEntrega);
-
+            ////Expression AllBody = Expression.Equal(Expression.Convert(Expression.Constant(idEntrega),typeof(long?)),Expression.Convert(Expression.Constant(idEntrega.Value),typeof(long?)));
+            //if (model.idEntrega.HasValue)
+            //    AllBody = Expression.AndAlso(AllBody, bodyidEntrega);
             Expression<Func<PedidoModel, bool>> lambda = Expression.Lambda<Func<PedidoModel, bool>>(AllBody, new ParameterExpression[] { param });
 
-            return db.PedidoModels.Where(lambda).Include(x => x.Cliente).Include(y => y.Entrega);
+            var result = db.PedidoModels.Where(lambda).Include(x => x.Cliente).Include(y => y.Entrega);
+
+            if (model.RazonSocial != null)
+            {
+                var result2 = result.Where(x => x.Cliente.RazonSocial.Equals(model.RazonSocial));
+                result = result2;
+            }
+
+            return result;
+
+         
         }
 
         // GET: api/PedidoModels/5

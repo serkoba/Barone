@@ -102,14 +102,14 @@
         <div class="row mt-5">
             <div class="col-sm-12">
 
-                <div class="form-group">
+                <mat-form-field class="w-100">
                     <mat-select placeholder="Estado" class="w-75" name="EstadoDelivery" [(ngModel)]="entrega.EstadoDelivery">
                         <mat-option *ngFor="let estado of Estados" [value]="estado.value">
                             {{estado.viewValue}}
                         </mat-option>
                     </mat-select>
 
-                </div>
+                </mat-form-field>
 
 
             </div>
@@ -125,7 +125,7 @@
                 <label>Total Importe</label>
             </div>
         </div>
-        <div class="row">
+        <div class="row ">
             <div class="col-sm-4">
                 <input matInput disabled placeholder="Total Barriles" name="TotalBarriles" [(ngModel)]="entrega.TotalBarriles" />
             </div>
@@ -134,12 +134,6 @@
             </div>
             <div class="col-sm-4">
                 <input matInput disabled placeholder="Total de importe" name="TotalImporte" [(ngModel)]="entrega.TotalImporte" />
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-12">
-
             </div>
         </div>
 

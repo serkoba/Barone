@@ -3,6 +3,7 @@ import { PagosModel } from '../../shared/models/pagos.model';
 import { Observable } from 'rxjs';
 import { HttpClientService } from '../../../core/core.module.export';
 import { CuentasDebeHaberModel } from '../../shared/models/cuentas-debe-haber.model';
+import { ReportFilterModel } from '../../shared/models/reporte-filtro.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,8 @@ export class PagosService {
     return this._httpClient.get<PagosModel[]>('PagoModels');
   }
 
-  public FiltrarCuentas(model: PagosModel): Observable<CuentasDebeHaberModel[]> {
-    return this._httpClient.post<PagosModel, CuentasDebeHaberModel[]>('PagoModels/GetReporte', model);
+  public FiltrarCuentas(model: ReportFilterModel): Observable<CuentasDebeHaberModel[]> {
+    return this._httpClient.post<ReportFilterModel, CuentasDebeHaberModel[]>('PagoModels/GetReporte', model);
   }
 
   public update(model: PagosModel): Observable<void> {

@@ -3,6 +3,7 @@ import { HttpClientService } from '../../../core/core.module.export';
 import { Observable } from 'rxjs';
 import { BarrilModel } from '../../shared/models/barril.model';
 import { ReporteAgrupado } from '../../shared/models/reporte-agrupado.model';
+import { ReportFilterModel } from '../../shared/models/reporte-filtro.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +17,16 @@ export class BarrilesService {
   public getBarrilesAgrupados(): Observable<ReporteAgrupado[]> {
     return this._httpClient.get<ReporteAgrupado[]>('BarrilesAgrupados');
   }
-  public filtrar(model: BarrilModel): Observable<BarrilModel[]> {
-    return this._httpClient.post<BarrilModel, BarrilModel[]>('FiltrarBarriles', model);
+  public filtrar(model: ReportFilterModel): Observable<BarrilModel[]> {
+    return this._httpClient.post<ReportFilterModel, BarrilModel[]>('FiltrarBarriles', model);
   }
 
   public update(model: BarrilModel): Observable<void> {
     return this._httpClient.put<BarrilModel, void>('BarrilModels', model);
+  }
+
+  public updateAll(model: BarrilModel): Observable<void> {
+    return this._httpClient.post<BarrilModel, void>('UpdateAllBarril', model);
   }
 
   public updatePartial(model: BarrilModel): Observable<void> {

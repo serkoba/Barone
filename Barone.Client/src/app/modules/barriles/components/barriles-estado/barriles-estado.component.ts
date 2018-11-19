@@ -48,7 +48,7 @@ export class BarrilesEstadoComponent implements OnInit {
   IdEstilo: number;
   idEstado: number;
   // allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
-
+  public TodosLosBarriles: boolean;
   @ViewChild('fruitInput') fruitInput: ElementRef;
 
   constructor(public _snack: SnackManagerService, public estilosServices: EstilosService,
@@ -98,6 +98,7 @@ export class BarrilesEstadoComponent implements OnInit {
   // }
 
   ngOnInit() {
+    this.TodosLosBarriles = false;
     this.loadEstilos();
   }
   public loadEstilos() {
@@ -106,22 +107,27 @@ export class BarrilesEstadoComponent implements OnInit {
       this.estilosSelect = estilos.map(estilo => { return new SelectItem({ value: estilo.IdEstilo, viewValue: estilo.Nombre }) });
     })
   }
-
+  private updateAllBarriles(): Observable<void> {
+    return this.barrilServices.updateAll(new BarrilModel({ idEstado: this.idEstado, IdEstilo: this.IdEstilo }));
+  }
+  private updatePartial(): Observable<void> {
+    return from(this.barriles).pipe(
+      mergeMap(barril => {
+        const barrilModel = new BarrilModel({ NroBarril: barril, idEstado: this.idEstado, IdEstilo: this.IdEstilo });
+        return this.barrilServices.updatePartial(barrilModel);
+      }))
+  }
   onSubmit() {
+    const functionToCall = this.TodosLosBarriles ? this.updateAllBarriles() : this.updatePartial();
+    functionToCall
+      .subscribe(() => {
+        this.dialogRef.close("success");
+        this._snack.openSnackBar("Barriles Actualizado", 'Success');
+      }, error => {
+        this._snack.openSnackBar(error, 'Error');
+        this.dialogRef.close("error");
 
-    from(this.barriles)
-      .pipe(
-        mergeMap(barril => {
-          const barrilModel = new BarrilModel({ NroBarril: barril, idEstado: this.idEstado, IdEstilo: this.IdEstilo });
-          return this.barrilServices.updatePartial(barrilModel);
-        })).subscribe(() => {
-          this.dialogRef.close("success");
-          this._snack.openSnackBar("Barriles Actualizado", 'Success');
-        }, error => {
-          this._snack.openSnackBar(error, 'Error');
-          this.dialogRef.close("error");
-
-        });
+      });
 
 
     //     let count=0;

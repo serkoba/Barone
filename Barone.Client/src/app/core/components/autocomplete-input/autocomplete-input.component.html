@@ -1,4 +1,4 @@
-<mat-form-field>
+<mat-form-field class="w-100">
   <input matInput [placeholder]="DisplayLabel" name="SelectedItem" [(ngModel)]="SelectedItem" (ngModelChange)="setCliente(SelectedItem)"
     [matAutocomplete]="auto" [formControl]="clienteCtrl" />
   <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">

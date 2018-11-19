@@ -10,7 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using Barone.api.Models;
 using System.Linq.Expressions;
-
+using Barone.api.DTO;
 
 namespace Barone.api.Controllers
 {
@@ -62,7 +62,7 @@ namespace Barone.api.Controllers
             return result;// db.MovimientosModels.Include(x=>x.Cliente);
         }
         [Route("api/FiltrarMovimientos")]
-        public IQueryable<MovimientosModel> PostFiltrarMovimientosModels([FromBody] MovimientosModel model)
+        public IQueryable<MovimientosModel> PostFiltrarMovimientosModels([FromBody] ReportFilterViewModel model)
         {
             var param = ParameterExpression.Parameter(typeof(MovimientosModel), "x");
 
@@ -76,19 +76,19 @@ namespace Barone.api.Controllers
                 AllBody = Expression.AndAlso(AllBody, bodyEstado);
 
             ////PARAMETER of NroBarril
-            if (!model.fecha.Year.Equals(1))
+            if (!model.FechaDesde.Year.Equals(1))
             {
                 var lenfechaDesde = Expression.PropertyOrField(param, "fechaPactada");
-                var bodyfechaDesde = Expression.GreaterThanOrEqual(lenfechaDesde, Expression.Constant(model.fecha));
+                var bodyfechaDesde = Expression.GreaterThanOrEqual(lenfechaDesde, Expression.Constant(model.FechaDesde));
                 AllBody = Expression.AndAlso(AllBody, bodyfechaDesde);
 
             }
 
-            if (!model.fechaPactada.Year.Equals(1))
+            if (!model.FechaHasta.Year.Equals(1))
             {
               
                 var lenfechaHasta = Expression.PropertyOrField(param, "fechaPactada");
-                var bodyfechaHasta = Expression.LessThanOrEqual(lenfechaHasta, Expression.Constant(model.fechaPactada));
+                var bodyfechaHasta = Expression.LessThanOrEqual(lenfechaHasta, Expression.Constant(model.FechaHasta));
 
                 AllBody = Expression.AndAlso(AllBody, bodyfechaHasta);
 
@@ -102,7 +102,7 @@ namespace Barone.api.Controllers
         }
 
         [Route("api/MovimientosModelsGroupByClient")]
-        public IHttpActionResult PostFiltrarEstadoMovimientosModels([FromBody] MovimientosModel model)
+        public IHttpActionResult PostFiltrarEstadoMovimientosModels([FromBody] ReportFilterViewModel model)
         {
             //var param = ParameterExpression.Parameter(typeof(MovimientosModel), "x");
 
@@ -139,9 +139,14 @@ namespace Barone.api.Controllers
 
             //var result = db.MovimientosModels.Where(lambda).Include(x => x.Cliente);
             //return result;// db.MovimientosModels.Include(x=>x.Cliente);
-
+            var EstadoBlank = (!model.Estado.HasValue || model.Estado.Value.Equals(0));
+            var FechaDesdeHastaBlank = (model.FechaDesde.Year == 1 && model.FechaHasta.Year == 1);
+            var ClientBlank = model.RazonSocial == null;
             var resultQuery = from mov in db.MovimientosModels
                               join cli in db.ClientesModels on mov.IdCliente equals cli.IdCliente
+                              where (EstadoBlank || model.Estado.Value == mov.Estado)
+                              && (FechaDesdeHastaBlank || (model.FechaDesde<= mov.fechaPactada && model.FechaHasta>=mov.fechaPactada))
+                              && (ClientBlank || model.RazonSocial== cli.RazonSocial)
                               group mov by mov.IdCliente into movGroup
                               select new { Cliente = movGroup.FirstOrDefault().Cliente, movimientos = movGroup };
 

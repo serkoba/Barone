@@ -1,54 +1,5 @@
 <div class="panel-body">
-  <div class="row">
-
-  </div>
-  <div class="row">
-    <div class="col-sm-2">
-
-
-      <mat-form-field>
-        <input name="fechaDesde" matInput [matDatepicker]="fechaDesde" placeholder="Fecha Desde" [(ngModel)]="entrega.fecha">
-        <mat-datepicker-toggle matSuffix [for]="fechaDesde"></mat-datepicker-toggle>
-        <mat-datepicker #fechaDesde></mat-datepicker>
-      </mat-form-field>
-
-
-    </div>
-    <div class="col-sm-2">
-
-
-      <mat-form-field>
-        <input name="fechaHasta" matInput [matDatepicker]="fechaHasta" placeholder="Fecha Hasta" [(ngModel)]="entrega.fechaPactada">
-        <mat-datepicker-toggle matSuffix [for]="fechaHasta"></mat-datepicker-toggle>
-        <mat-datepicker #fechaHasta></mat-datepicker>
-      </mat-form-field>
-
-
-
-    </div>
-    <div class="col-sm-2">
-
-
-      <mat-form-field>
-        <mat-select name="idEstado" placeholder="Estado" [(ngModel)]="entrega.Estado">
-          <mat-option *ngFor="let estado of Estados" [value]="estado.value">
-            {{estado.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-    </div>
-
-    <div class="col-sm-2">
-      <autocomplete-input [data]="clientesItems" [DisplayLabel]="'Clientes'" [SelectedItem]="SelectedItem"
-        (itemSelected)="itemSelected($event)"></autocomplete-input>
-
-    </div>
-    <div class="col-sm-2">
-      <button class="buttons" mat-raised-button (click)="FiltrarInfo()" id="btnEditarEnvio">Filtrar</button>
-      <button class="buttons" mat-raised-button id="btnExportar">Exportar a Excel</button>
-    </div>
-  </div>
+  <filter-grid [FilterBarril]="false" [FilterPedEnt]="true" (FilterClicked)="FiltrarInfo($event)"></filter-grid>
   <div class="row">
     <div class="w-95">
       <data-grid-view [PaginatorEnabled]="false" #grid [data]="entregas" [columnsToDisplay]="columns"></data-grid-view>

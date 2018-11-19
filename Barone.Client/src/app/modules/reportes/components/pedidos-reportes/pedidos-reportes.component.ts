@@ -4,6 +4,7 @@ import { ClientsService } from 'src/app/modules/clients/services/clients.service
 import { ClientsModel } from 'src/app/modules/shared/models/clients.model';
 import { PedidoModel } from 'src/app/modules/shared/models/pedido.model';
 import { SelectItem } from 'src/app/core/core.module.export';
+import { ReportFilterModel } from 'src/app/modules/shared/models/reporte-filtro.model';
 
 @Component({
   selector: 'app-pedidos-reportes',
@@ -13,12 +14,12 @@ import { SelectItem } from 'src/app/core/core.module.export';
 export class PedidosReportesComponent implements OnInit {
   gridbtns: any[] = [];
   hdrbtns: any[] = [];
-  Estados: SelectItem[] = [
-    { value: 0, viewValue: 'Seleccione Categoria' },
-    { value: 1, viewValue: 'Entregadas' },
-    { value: 2, viewValue: 'En Progreso' },
-    { value: 3, viewValue: 'Entregado' }
-  ];
+  // Estados: SelectItem[] = [
+  //   { value: 0, viewValue: 'Seleccione Categoria' },
+  //   { value: 1, viewValue: 'Entregadas' },
+  //   { value: 2, viewValue: 'En Progreso' },
+  //   { value: 3, viewValue: 'Entregado' }
+  // ];
 
   columns: any[] = [
     {
@@ -62,29 +63,29 @@ export class PedidosReportesComponent implements OnInit {
     column: 'fechaPactada',
     descending: false
   };
-  estilosSelect: SelectItem[] = [];
-  pedido: PedidoModel;
+  // estilosSelect: SelectItem[] = [];
+  //pedido: PedidoModel;
   pedidos: PedidoModel[];
-  clientes: ClientsModel[] = [];
-  clientesItems: SelectItem[] = [];
-  SelectedItem: SelectItem;
+  //clientes: ClientsModel[] = [];
+  //clientesItems: SelectItem[] = [];
+  //SelectedItem: SelectItem;
   constructor(public pedidoServices: PedidosService, private clientesServices: ClientsService) { }
 
   ngOnInit() {
-    this.pedido = new PedidoModel();
-    this.pedido.Cliente = new ClientsModel();
-    this.SelectedItem = new SelectItem();
-    this.clientesServices.getAll().subscribe(clientes => {
-      this.clientes = clientes;
-      this.clientesItems = clientes.map(cliente => {
-        return new SelectItem({
-          smallValue: `CUIT: ${cliente.CUIT}`,
-          viewValue: cliente.RazonSocial,
-          value: cliente.IdCliente
-        })
-      })
+    // this.pedido = new ReportFilterModel();
+    //  this.pedido.Cliente = new ClientsModel();
+    // this.SelectedItem = new SelectItem();
+    // this.clientesServices.getAll().subscribe(clientes => {
+    //   this.clientes = clientes;
+    //   this.clientesItems = clientes.map(cliente => {
+    //     return new SelectItem({
+    //       smallValue: `CUIT: ${cliente.CUIT}`,
+    //       viewValue: cliente.RazonSocial,
+    //       value: cliente.IdCliente
+    //     })
+    //   })
 
-    });
+    // });
     this.loadPedidos();
   }
   loadPedidos(): void {
@@ -96,16 +97,16 @@ export class PedidosReportesComponent implements OnInit {
 
   }
 
-  public itemSelected(idCliente: number) {
-    // this.cliente.IdCliente = idCliente;
-    this.pedido.Cliente = this.clientes.find(x => x.IdCliente === idCliente);
-  }
+  // public itemSelected(idCliente: number) {
+  //   // this.cliente.IdCliente = idCliente;
+  //   this.pedido.Cliente = this.clientes.find(x => x.IdCliente === idCliente);
+  // }
 
 
 
-  public FiltrarInfo() {
+  public FiltrarInfo(model: ReportFilterModel) {
 
-    this.pedidoServices.filtrar(this.pedido)
+    this.pedidoServices.filtrar(model)
       .subscribe(pedidos => {
         this.pedidos = pedidos;
       });

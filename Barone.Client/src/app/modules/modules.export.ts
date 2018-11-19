@@ -82,3 +82,5 @@ export * from './recetas/components/adminrecetas/adminrecetas.component';
 export * from './recetas/components/edit-receta/edit-receta.component';
 export * from './recetas/services/recetas.service';
 
+export * from './shared/components/filter-grid/filter-grid.component';
+export * from './shared/models/reporte-filtro.model';

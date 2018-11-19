@@ -79,59 +79,64 @@ namespace Barone.api.Controllers
 
         // GET: api/BarrilModels
         [Route("api/FiltrarBarriles")]
-        public IQueryable<BarrilModel> PostFiltrarBarriles([FromBody]BarrilModel model)
+        public IQueryable<BarrilModel> PostFiltrarBarriles([FromBody]ReportFilterViewModel model)
         {
+            Expression AllBody = Expression.Equal(Expression.Constant("x"), Expression.Constant("x"));
             var param = ParameterExpression.Parameter(typeof(BarrilModel), "x");
+            if (model != null)
+            {
+              
 
-            ////PARAMETER of NroBarril
-            var lenNroBarril = Expression.PropertyOrField(param, "NroBarril");
-            var bodyNroBarril = Expression.Equal(lenNroBarril, Expression.Constant(model.NroBarril));
+                ////PARAMETER of NroBarril
+                var lenNroBarril = Expression.PropertyOrField(param, "NroBarril");
+                var bodyNroBarril = Expression.Equal(lenNroBarril, Expression.Constant(model.NroBarril));
 
-            //////PARAMETER of Estado
-            var lenEstado = Expression.PropertyOrField(param, "idEstado");
-            var bodyEstado = Expression.Equal(lenEstado, Expression.Convert(Expression.Constant(model.idEstado), typeof(int)));
+                //////PARAMETER of Estado
+                var lenEstado = Expression.PropertyOrField(param, "idEstado");
+                var bodyEstado = Expression.Equal(lenEstado, Expression.Convert(Expression.Constant(model.Estado), typeof(int)));
 
-            //////PARAMETER Tipo Barril 
-            var lenTipoBarril = Expression.PropertyOrField(param, "IdEstilo");
-            var bodyTipoBarril = Expression.Equal(lenTipoBarril, Expression.Convert(Expression.Constant(model.IdEstilo), typeof(int?)));
+                //////PARAMETER Tipo Barril 
+                var lenTipoBarril = Expression.PropertyOrField(param, "IdEstilo");
+                var bodyTipoBarril = Expression.Equal(lenTipoBarril, Expression.Convert(Expression.Constant(model.Estilo), typeof(int?)));
 
-            ////PARAMETER of NroBarril
-            //  var lenRazonSocial = Expression.PropertyOrField(param, "RazonSocial");
-            //   var bodyRazonSocial = Expression.Equal(lenRazonSocial, Expression.Constant(razonSocial));
-
-
-            Expression AllBody = Expression.Equal(Expression.Constant(model.NroBarril), Expression.Constant(model.NroBarril));
-            if (model.NroBarril != null)
-                AllBody = Expression.AndAlso(AllBody, bodyNroBarril);
-            if (model.idEstado != 0)
-                AllBody = Expression.AndAlso(AllBody, bodyEstado);
-            if (model.IdEstilo != null)
-                AllBody = Expression.AndAlso(AllBody, bodyTipoBarril);
-            //  if (razonSocial != "all")
-            //      AllBody = Expression.AndAlso(AllBody, bodyRazonSocial);
+                if (model.NroBarril != "")
+                    AllBody = Expression.AndAlso(AllBody, bodyNroBarril);
+                if (model.Estado != 0)
+                    AllBody = Expression.AndAlso(AllBody, bodyEstado);
+                if (model.Estilo != 0)
+                    AllBody = Expression.AndAlso(AllBody, bodyTipoBarril);
+            }
+            //if (model.ClientFilter.RazonSocial != "all")
+            //{
+            //    ////PARAMETER of RazonSocial
+            //    var lenRazonSocial = Expression.PropertyOrField(param, "RazonSocial");
+            //    var bodyRazonSocial = Expression.Equal(lenRazonSocial, Expression.Constant(model.ClientFilter.RazonSocial));
+            //    AllBody = Expression.AndAlso(AllBody, bodyRazonSocial);
+            //}
+               
 
             Expression<Func<BarrilModel, bool>> lambda = Expression.Lambda<Func<BarrilModel, bool>>(AllBody, new ParameterExpression[] { param });
 
 
             var result = db.BarrilModels.Where(lambda).Include(x => x.Estilo).Include(x => x.Estilo.rangoPrecio);
 
-            //if (model.razonSocial != null)
-            //{
-            //    var result2 = result.Where(x => x.Entrega.Cliente.RazonSocial.Equals(razonSocial));
-            //    result = result2;
-            //}
+            if (model.RazonSocial != null)
+            {
+                var result2 = result.Where(x => x.Entrega.Cliente.RazonSocial.Equals(model.RazonSocial));
+                result = result2;
+            }
 
-            /*    var resultFilter = from b in result
-                                   select new BarrilModel()
-                                   {
-                                       CantidadLitros = b.CantidadLitros,
-                                       id = b.id,
-                                       idEntrega = b.idEntrega,
-                                       idEstado = b.idEstado,
-                                       IdEstilo = b.IdEstilo,
-                                       Estilo = db.EstilosModels.Where(x => x.IdEstilo == b.IdEstilo).FirstOrDefault()
+                //var resultFilter = from b in result
+                //                   select new BarrilModel()
+                //                   {
+                //                       CantidadLitros = b.CantidadLitros,
+                //                       id = b.id,
+                //                       idEntrega = b.idEntrega,
+                //                       idEstado = b.idEstado,
+                //                       IdEstilo = b.IdEstilo,
+                //                       Estilo = db.EstilosModels.Where(x => x.IdEstilo == b.IdEstilo).FirstOrDefault()
 
-                                   };*/
+                //                   };
             return result;
 
         }
@@ -222,6 +227,31 @@ namespace Barone.api.Controllers
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = barrilModel.id }, barrilModel);
+        }
+
+
+        [ResponseType(typeof(void))]
+        [Route("api/UpdateAllBarril")]
+        public IHttpActionResult UpdateAllBarrilModel([FromBody] BarrilModel barrilModel)
+        {
+            db.BarrilModels.ToList().ForEach(barril =>
+            {
+                if (barril.idEstado != 0)
+                    barril.idEstado = barrilModel.idEstado;
+                if (barril.idEntrega != null)
+                    barril.idEntrega = barrilModel.idEntrega;
+                db.Entry(barril).State = EntityState.Modified;
+           
+            });
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            
+
+            db.SaveChanges();
+            return StatusCode(HttpStatusCode.OK);
         }
 
         [AcceptVerbs("PATCH")]

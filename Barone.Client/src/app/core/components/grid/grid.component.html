@@ -1,7 +1,7 @@
 <div *ngIf="data" class="add-btn-postion">
-  <div class="w-2">
+  <div class="div-button">
     <ng-container *ngFor="let hdrbtn of hdrbtns">
-      <button *ngIf="!hdrbtn.ishide" type="button" class="btn btn-primary" (click)="click(hdrbtn,null)">{{hdrbtn.title}}</button>
+      <button *ngIf="!hdrbtn.ishide" type="button" mat-raised-button color="primary" (click)="click(hdrbtn,null)">{{hdrbtn.title}}</button>
     </ng-container>
     <button *ngIf="isExporttoCSV && (data!=null && data.length>0)" type="button" class="btn btn-primary" (click)="exporttoCSV()">Export
       to Excel</button>

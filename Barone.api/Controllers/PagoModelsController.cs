@@ -22,26 +22,26 @@ namespace Barone.api.Controllers
 
         [Route("api/PagoModels/GetReporte")]
         [HttpPost] //Always explicitly state the accepted HTTP method
-        public IHttpActionResult GetCuentasdebeHaber([FromBody] PagoModel model)
+        public IHttpActionResult GetCuentasdebeHaber([FromBody] ReportFilterViewModel model)
         {
             ///////////////////PARAMETROS PARA MOVIMIENTOS
             var param = ParameterExpression.Parameter(typeof(MovimientosModel), "x");
             Expression AllBody = Expression.Equal(Expression.Constant("all"), Expression.Constant("all"));
 
-            if (!model.FechaPago.Year.Equals(1))
+            if (!model.FechaDesde.Year.Equals(1))
             {
              
                 var lenfechaDesde = Expression.PropertyOrField(param, "fechaPactada");
-                var bodyfechaDesde = Expression.GreaterThanOrEqual(lenfechaDesde, Expression.Constant(model.FechaPago));
+                var bodyfechaDesde = Expression.GreaterThanOrEqual(lenfechaDesde, Expression.Constant(model.FechaDesde));
                 AllBody = Expression.AndAlso(AllBody, bodyfechaDesde);
 
             }
 
-            if (!model.fechaVencimiento.Year.Equals(1))
+            if (!model.FechaHasta.Year.Equals(1))
             {
                
                 var lenfechaHasta = Expression.PropertyOrField(param, "fechaPactada");
-                var bodyfechaHasta = Expression.LessThanOrEqual(lenfechaHasta, Expression.Constant(model.fechaVencimiento));
+                var bodyfechaHasta = Expression.LessThanOrEqual(lenfechaHasta, Expression.Constant(model.FechaHasta));
 
                 AllBody = Expression.AndAlso(AllBody, bodyfechaHasta);
 
@@ -55,20 +55,20 @@ namespace Barone.api.Controllers
             var paramPagos = ParameterExpression.Parameter(typeof(PagoModel), "x");
             Expression AllBodyPagos = Expression.Equal(Expression.Constant("all"), Expression.Constant("all"));
             ///PARAMETER of FechaDesde
-            if (!model.FechaPago.Year.Equals(1))
+            if (!model.FechaDesde.Year.Equals(1))
             {
                
                 var lenfechaDesdePago = Expression.PropertyOrField(paramPagos, "FechaPago");
-                var bodyfechaDesdePago = Expression.GreaterThanOrEqual(lenfechaDesdePago, Expression.Constant(model.FechaPago));
+                var bodyfechaDesdePago = Expression.GreaterThanOrEqual(lenfechaDesdePago, Expression.Constant(model.FechaDesde));
                 AllBodyPagos = Expression.AndAlso(AllBodyPagos, bodyfechaDesdePago);
 
             }
 
-            if (!model.fechaVencimiento.Year.Equals(1))
+            if (!model.FechaHasta.Year.Equals(1))
             {
               
                 var lenfechaHastaPago = Expression.PropertyOrField(paramPagos, "FechaPago");
-                var bodyfechaHastaPago = Expression.LessThanOrEqual(lenfechaHastaPago, Expression.Constant(model.fechaVencimiento));
+                var bodyfechaHastaPago = Expression.LessThanOrEqual(lenfechaHastaPago, Expression.Constant(model.FechaHasta));
 
                 AllBodyPagos = Expression.AndAlso(AllBodyPagos, bodyfechaHastaPago);
 
@@ -119,6 +119,12 @@ namespace Barone.api.Controllers
                 Cliente = item.FirstOrDefault().Cliente,
                 movimientos = item
             });
+
+            if (model.RazonSocial != null)
+            {
+                var result2 = resultQuery.Where(x => x.Cliente.RazonSocial.Equals(model.RazonSocial));
+                resultQuery = result2;
+            }
 
             return Ok(resultQuery);
         }

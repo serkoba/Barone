@@ -5,7 +5,8 @@ import {
   MatMenuModule, MatIconModule, MatButtonModule, MatProgressSpinnerModule,
   MatDatepickerModule, MatAutocompleteModule, MatInputModule, MatSelectModule,
   MatRadioModule, MatNativeDateModule, MatChipsModule, MatSidenavModule, MatBadgeModule, MatAccordion, MatExpansionModule,
-  MatTableModule
+  MatTableModule,
+  MatCheckboxModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -48,7 +49,8 @@ import {
   EditComprasComponent,
   AdminrecetasComponent,
   EditRecetaComponent,
-  RecetasService
+  RecetasService,
+  FilterGridComponent
 } from './modules.export';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -76,7 +78,8 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     MatChipsModule,
     MatBadgeModule,
     MatExpansionModule,
-    MatTableModule
+    MatTableModule,
+    MatCheckboxModule
   ],
   declarations: [
     EditUserComponent,
@@ -124,7 +127,7 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     EditComprasComponent,
     AdminrecetasComponent,
     EditRecetaComponent,
-
+    FilterGridComponent
   ],
   exports: [
     EditUserComponent,
@@ -161,6 +164,7 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     EditComprasComponent,
     AdminrecetasComponent,
     EditRecetaComponent,
+    // FilterGridComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [EditUserComponent, EditClientsComponent, EditBarrilesComponent, EditRangosComponent, EditPagosComponent,

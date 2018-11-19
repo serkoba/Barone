@@ -5,6 +5,8 @@ import { PedidosService } from 'src/app/modules/pedidos/services/pedidos.service
 import { PedidoModel } from 'src/app/modules/shared/models/pedido.model';
 import { ClientsService } from 'src/app/modules/clients/services/clients.service';
 import { SelectItem } from 'src/app/core/core.module.export';
+import { ReportFilterModel } from 'src/app/modules/shared/models/reporte-filtro.model';
+
 
 
 @Component({
@@ -13,12 +15,12 @@ import { SelectItem } from 'src/app/core/core.module.export';
   styleUrls: ['./entrega-agrupados.component.scss']
 })
 export class EntregaAgrupadosComponent implements OnInit {
-  Estados: SelectItem[] = [
-    { value: 0, viewValue: 'Seleccione Categoria' },
-    { value: 1, viewValue: 'Entregadas' },
-    { value: 2, viewValue: 'En Progreso' },
-    { value: 3, viewValue: 'Entregado' }
-  ];
+  // Estados: SelectItem[] = [
+  //   { value: 0, viewValue: 'Seleccione Categoria' },
+  //   { value: 1, viewValue: 'Entregadas' },
+  //   { value: 2, viewValue: 'En Progreso' },
+  //   { value: 3, viewValue: 'Entregado' }
+  // ];
   columns: any[] = [
     {
       display: 'Fecha ',
@@ -58,29 +60,29 @@ export class EntregaAgrupadosComponent implements OnInit {
     }
   ];
 
-  pedido: PedidoModel;
+  pedido: ReportFilterModel;
   pedidos: EntregasAgrupadasModel[];
-  clientes: ClientsModel[] = [];
-  clientesItems: SelectItem[] = [];
-  SelectedItem: SelectItem;
-  constructor(public pedidoServices: PedidosService, private clientesServices: ClientsService) { }
+  // clientes: ClientsModel[] = [];
+  // clientesItems: SelectItem[] = [];
+  // SelectedItem: SelectItem;
+  constructor(public pedidoServices: PedidosService) { }
 
   ngOnInit() {
-    this.pedido = new PedidoModel();
-    this.pedido.Cliente = new ClientsModel();
-    this.SelectedItem = new SelectItem();
-    this.clientesServices.getAll().subscribe(clientes => {
-      this.clientes = clientes;
-      this.clientesItems = clientes.map(cliente => {
-        return new SelectItem({
-          smallValue: `CUIT: ${cliente.CUIT}`,
-          viewValue: cliente.RazonSocial,
-          value: cliente.IdCliente
-        })
-      })
+    this.pedido = new ReportFilterModel();
+    //  this.pedido.Cliente = new ClientsModel();
+    // this.SelectedItem = new SelectItem();
+    // this.clientesServices.getAll().subscribe(clientes => {
+    //   this.clientes = clientes;
+    //   this.clientesItems = clientes.map(cliente => {
+    //     return new SelectItem({
+    //       smallValue: `CUIT: ${cliente.CUIT}`,
+    //       viewValue: cliente.RazonSocial,
+    //       value: cliente.IdCliente
+    //     })
+    //   })
 
 
-    });
+    // });
     this.loadPedidos();
   }
   loadPedidos(): void {
@@ -92,16 +94,26 @@ export class EntregaAgrupadosComponent implements OnInit {
 
   }
 
-  public itemSelected(idCliente: number) {
-    // this.cliente.IdCliente = idCliente;
-    this.pedido.Cliente = this.clientes.find(x => x.IdCliente === idCliente);
-  }
+  //   public itemSelected(idCliente: number) {
+  //     // this.cliente.IdCliente = idCliente;
+  //  //   this.pedido.Cliente = this.clientes.find(x => x.IdCliente === idCliente);
+  //   }
 
 
 
-  public FiltrarInfo() {
+  // public FiltrarInfo() {
 
-    this.pedidoServices.GroupByClient(this.pedido)
+  //   this.pedidoServices.GroupByClient(this.pedido)
+  //     .subscribe(pedidos => {
+  //       this.pedidos = pedidos;
+  //     });
+
+  // }
+
+  public FiltrarInfo(ReportFilter: ReportFilterModel) {
+    //  ReportFilter.BarrilFilter = this.barril;
+    //  ReportFilter.ClientFilter = this.Cliente;
+    this.pedidoServices.GroupByClient(ReportFilter)
       .subscribe(pedidos => {
         this.pedidos = pedidos;
       });

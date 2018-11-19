@@ -8,7 +8,7 @@ import { SnackBarComponent, SnackManagerService } from '../../../../core/core.mo
 @Component({
   selector: 'app-edit-clients',
   templateUrl: './edit-clients.component.html',
-  styleUrls: ['./edit-clients.component.css']
+  styleUrls: ['./edit-clients.component.scss']
 })
 export class EditClientsComponent implements OnInit {
 
@@ -22,57 +22,57 @@ export class EditClientsComponent implements OnInit {
   client: ClientsModel;
 
   filteredStates: any;
-  constructor(private _snack:SnackManagerService,
-    private clientesServices:ClientsService,
+  constructor(private _snack: SnackManagerService,
+    private clientesServices: ClientsService,
     public dialogRef: MatDialogRef<EditClientsComponent>) { }
 
   ngOnInit() {
     if (typeof (this.client) == "undefined")
-    this.client = new ClientsModel();
+      this.client = new ClientsModel();
   }
   onSubmit() {
     switch (this.dbops) {
       case DBOperation.create:
 
-      this.clientesServices.insert(this.client).subscribe((result)=>{
-        this.client.IdCliente=result.IdCliente;
-        this.dialogRef.close("success");
-        this._snack.openSnackBar("Estilo Creado Exitosamente",'Success');
-       
-       },error =>{
-        this._snack.openSnackBar(error,'Error');
-         this.dialogRef.close("error");
-         
-       });
-      
+        this.clientesServices.insert(this.client).subscribe((result) => {
+          this.client.IdCliente = result.IdCliente;
+          this.dialogRef.close("success");
+          this._snack.openSnackBar("Estilo Creado Exitosamente", 'Success');
+
+        }, error => {
+          this._snack.openSnackBar(error, 'Error');
+          this.dialogRef.close("error");
+
+        });
+
         break;
       case DBOperation.update:
 
-           this.clientesServices.update(this.client).subscribe(()=>{
-            this.dialogRef.close("success");
-            this._snack.openSnackBar("Estilo Actualizado",'Success');
-           
-           },error =>{
-            this._snack.openSnackBar(error,'Error');
-             this.dialogRef.close("error");
-             
-           });
-        
+        this.clientesServices.update(this.client).subscribe(() => {
+          this.dialogRef.close("success");
+          this._snack.openSnackBar("Estilo Actualizado", 'Success');
+
+        }, error => {
+          this._snack.openSnackBar(error, 'Error');
+          this.dialogRef.close("error");
+
+        });
+
         break;
       case DBOperation.delete:
 
-      this.clientesServices.delete(this.client.IdCliente).subscribe(()=>{
-        this.dialogRef.close("success");
-        this._snack.openSnackBar("Estilo Eliminado",'Success');
-       
-       },error =>{
-        this._snack.openSnackBar(error,'Error');
-         this.dialogRef.close("error");
-         
-       });
-       
+        this.clientesServices.delete(this.client.IdCliente).subscribe(() => {
+          this.dialogRef.close("success");
+          this._snack.openSnackBar("Estilo Eliminado", 'Success');
+
+        }, error => {
+          this._snack.openSnackBar(error, 'Error');
+          this.dialogRef.close("error");
+
+        });
+
         break;
 
     }
   }
-  }
+}

@@ -30,11 +30,13 @@
 
       <div class="col-sm-12">
         <div class="w-100">
-          <mat-select name="Insumo" placeholder="Insumos" [(ngModel)]="compra.Insumo" (ngModelChange)="changeSelect($event)">
-            <mat-option *ngFor="let insumo of insumos" [value]="insumo">
-              {{insumo.Nombre}}
-            </mat-option>
-          </mat-select>
+          <mat-form-field class="w-100">
+            <mat-select name="Insumo" placeholder="Insumos" [(ngModel)]="compra.Insumo" (ngModelChange)="changeSelect($event)">
+              <mat-option *ngFor="let insumo of insumos" [value]="insumo">
+                {{insumo.Nombre}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
 
       </div>

@@ -3,6 +3,7 @@ import { HttpClientService } from '../../../core/core.module.export';
 import { PedidoModel } from '../../shared/models/pedido.model';
 import { Observable } from 'rxjs';
 import { EntregasAgrupadasModel } from '../../shared/models/entregas-agrupadas.model';
+import { ReportFilterModel } from '../../shared/models/reporte-filtro.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +15,12 @@ export class PedidosService {
     return this._httpClient.get<PedidoModel[]>('PedidoModels');
   }
 
-  public filtrar(model: PedidoModel): Observable<PedidoModel[]> {
-    return this._httpClient.post<PedidoModel, PedidoModel[]>('FiltrarPedidos', model);
+  public filtrar(model: ReportFilterModel): Observable<PedidoModel[]> {
+    return this._httpClient.post<ReportFilterModel, PedidoModel[]>('FiltrarPedidos', model);
   }
 
-  public GroupByClient(model: PedidoModel): Observable<EntregasAgrupadasModel[]> {
-    return this._httpClient.post<PedidoModel, EntregasAgrupadasModel[]>('MovimientosModelsGroupByClient', model);
+  public GroupByClient(model: ReportFilterModel): Observable<EntregasAgrupadasModel[]> {
+    return this._httpClient.post<ReportFilterModel, EntregasAgrupadasModel[]>('MovimientosModelsGroupByClient', model);
   }
 
   public updateByEntrega(model: PedidoModel): Observable<void> {
