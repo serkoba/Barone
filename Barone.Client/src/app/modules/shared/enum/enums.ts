@@ -11,6 +11,12 @@ export enum TipoIngredienteEnum {
   Agua = 3,
   Adjunto = 4
 }
+export enum TipoEstadoBarril {
+  ParaDespacho = 1,
+  Entregadas = 2,
+  EnProgreso = 3,
+  Reservado = 4
+}
 
 export function IncludeConstants(): Function {
   return (target: Function) => {

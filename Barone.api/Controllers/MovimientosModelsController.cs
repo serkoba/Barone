@@ -211,7 +211,7 @@ namespace Barone.api.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            db.Entry(movimientosModel.Cliente).State = EntityState.Unchanged;
             db.MovimientosModels.Add(movimientosModel);
             db.SaveChanges();
 

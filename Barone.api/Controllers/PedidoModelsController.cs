@@ -153,9 +153,10 @@ namespace Barone.api.Controllers
                 serverDocument.idEntrega = pedido.idEntrega;
 
             db.SaveChanges();
-            return StatusCode(HttpStatusCode.OK);
+          
             }
-            return StatusCode(HttpStatusCode.NotModified);
+            return StatusCode(HttpStatusCode.OK);
+            //  return StatusCode(HttpStatusCode.NotModified);
         }
 
         // PUT: api/PedidoModels/5
@@ -191,7 +192,7 @@ namespace Barone.api.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            db.Entry(pedidoModel.Cliente).State = EntityState.Unchanged;
             db.PedidoModels.Add(pedidoModel);
             db.SaveChanges();
 

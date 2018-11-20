@@ -137,7 +137,7 @@ namespace Barone.api.Controllers
 
 
               db.SaveChanges();
-            return StatusCode(HttpStatusCode.NoContent);
+            return StatusCode(HttpStatusCode.OK);
         }
 
         // DELETE: api/ClientesModels/5

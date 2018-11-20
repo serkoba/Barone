@@ -222,7 +222,8 @@ namespace Barone.api.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            db.Entry(barrilModel.Estilo).State = EntityState.Unchanged;
+            db.Entry(barrilModel.Entrega).State = EntityState.Unchanged;
             db.BarrilModels.Add(barrilModel);
             db.SaveChanges();
 

@@ -99,7 +99,7 @@ namespace Barone.api.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            db.Entry(estilosModel.rangoPrecio).State = EntityState.Unchanged;
             db.EstilosModels.Add(estilosModel);
             db.SaveChanges();
 

@@ -19,6 +19,7 @@ import { EntregasService } from '../../services/entregas.service';
 import { SnackManagerService } from '../../../../core/services/snack-manager.service';
 import { PedidosService } from 'src/app/modules/pedidos/services/pedidos.service';
 import { SelectItem } from 'src/app/core/models/select-item';
+import { TipoEstadoBarril } from 'src/app/modules/shared/enum/enums';
 
 @Component({
     selector: 'edit-entregas',
@@ -44,6 +45,7 @@ export class EditEntregasComponent implements OnInit {
     public pedido: PedidoModel;
     enabled: boolean;
     removable = true;
+    public rowSelected: RowEntrega;
 
     @ViewChild('fruitInput') fruitInput: ElementRef;
     visible = true;
@@ -58,7 +60,6 @@ export class EditEntregasComponent implements OnInit {
     clientesItems: SelectItem[] = [];
     SelectedItem: SelectItem;
     barriles: BarrilModel[];
-    //  cliente: ClientsModel;
     Cantidad: number;
     Tipo: string;
     estilo: EstilosModel;
@@ -75,9 +76,7 @@ export class EditEntregasComponent implements OnInit {
 
         this.barrilesServices.getAll().subscribe(barriles => {
             this.barriles = barriles;
-            this.filteredBarriles = this.BarrilCtrl.valueChanges.pipe(
-                startWith(null),
-                map((fruit: string | null) => fruit ? this._filter(fruit) : this.barriles.slice()));
+
         })
 
 
@@ -122,10 +121,21 @@ export class EditEntregasComponent implements OnInit {
 
     }
 
-    private _filter(value: string): BarrilModel[] {
-        const filterValue = value.toLowerCase();
+    private _filter(value: string | null): BarrilModel[] {
+        const filterValue = (value != undefined || value != null) ? value.toLowerCase() : null;
+        if (this.rowSelected == undefined) {
+            return null;
+        }
 
-        return this.barriles.filter(barril => barril.NroBarril.toLowerCase().indexOf(filterValue) === 0);
+        return this.barriles.filter(barril => (value == null || barril.NroBarril.toLowerCase().indexOf(filterValue) === 0)
+            && barril.idEstado == TipoEstadoBarril.ParaDespacho && barril.Estilo.Nombre == this.rowSelected.Tipo);
+    }
+    public rowFocus(row: RowEntrega) {
+        this.rowSelected = row;
+        this.filteredBarriles = this.BarrilCtrl.valueChanges.pipe(
+            startWith(null),
+            map((fruit: string | null) => this._filter(fruit)));
+
     }
 
 
@@ -152,11 +162,12 @@ export class EditEntregasComponent implements OnInit {
             }), concatMap((detalleEntrega) => {
                 let BarrilesAfectados: ItemChip[] = [];
                 detalleEntrega.forEach(entrega => BarrilesAfectados = BarrilesAfectados.concat(entrega.BarrilesEntrega));
-                BarrilesAfectados
+                //BarrilesAfectados
 
                 return from(BarrilesAfectados).pipe(concatMap(barrilEntregado => {
                     const barril = this.barriles.find(x => x.NroBarril === barrilEntregado.nombre);
                     barril.idEstado = 2;
+                    barril.idEntrega = this.entrega.idEntrega;
                     return this.barrilesServices.updatePartial(barril)
 
                 }));
@@ -217,6 +228,7 @@ export class EditEntregasComponent implements OnInit {
 
     }
     private reCalculateBarriles() {
+        let disCountClient = this.entrega.Cliente ? Number(this.entrega.Cliente.margen) : 0;
         let TotalBarriles = 0;
         let TotalLitros = 0;
         let TotalImporte = 0;
@@ -226,18 +238,13 @@ export class EditEntregasComponent implements OnInit {
             const TotalLitrosByTipo = row.BarrilesEntrega.
                 map(barril => {
                     const barrilSelected = this.barriles.find(x => x.NroBarril === barril.nombre);
-                    precio = Number(barrilSelected.Estilo.rangoPrecio.precio);
+                    precio = Number(barrilSelected.Estilo.rangoPrecio.precio) - ((disCountClient * Number(barrilSelected.Estilo.rangoPrecio.precio)) / 100);///precio del litro de barril - bonificacion del cliente.
                     return Number(barrilSelected.CantidadLitros);
                 }).
                 reduce((sum, current) => sum + current);
 
             TotalImporte += TotalLitrosByTipo * precio;
             TotalLitros += TotalLitrosByTipo;
-            // TotalImporte += row.BarrilesEntrega.
-            //     map(barril => {
-            //         return Number(this.barriles.find(x => x.NroBarril === barril.nombre).Estilo.rangoPrecio.precio)
-            //     }).
-            //     reduce((sum, current) => sum + current);
         })
         this.entrega.TotalBarriles = TotalBarriles.toString();
         this.entrega.TotalImporte = TotalImporte.toString();

@@ -181,7 +181,7 @@ namespace Barone.api.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            db.Entry(pagoModel.Cliente).State = EntityState.Unchanged;
             db.PagoModels.Add(pagoModel);
             db.SaveChanges();
 

@@ -50,7 +50,8 @@ import {
   AdminrecetasComponent,
   EditRecetaComponent,
   RecetasService,
-  FilterGridComponent
+  FilterGridComponent,
+  IconsAppServices
 } from './modules.export';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -191,7 +192,8 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     ProveedoresService,
     InsumosService,
     ComprasService,
-    RecetasService]
+    RecetasService,
+    IconsAppServices]
 })
 export class ModulesModule {
   public static forRoot(): ModuleWithProviders {

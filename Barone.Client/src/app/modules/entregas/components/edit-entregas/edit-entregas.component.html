@@ -72,7 +72,7 @@
                                                 <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                                             </mat-chip>
                                             <input placeholder="Barriles..." #fruitInput [formControl]="BarrilCtrl"
-                                                [matAutocomplete]="auto" [matChipInputFor]="chipList"
+                                                (focus)="rowFocus(row)" [matAutocomplete]="auto" [matChipInputFor]="chipList"
                                                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                                                 [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event,row)">
                                         </mat-chip-list>

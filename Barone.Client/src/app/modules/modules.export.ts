@@ -84,3 +84,4 @@ export * from './recetas/services/recetas.service';
 
 export * from './shared/components/filter-grid/filter-grid.component';
 export * from './shared/models/reporte-filtro.model';
+export * from './shared/services/icons-app.services';
