@@ -85,3 +85,9 @@ export * from './recetas/services/recetas.service';
 export * from './shared/components/filter-grid/filter-grid.component';
 export * from './shared/models/reporte-filtro.model';
 export * from './shared/services/icons-app.services';
+
+export * from './coccion/components/admincocciones/admincocciones.component';
+export * from './coccion/components/edit-coccion/edit-coccion.component';
+export * from './coccion/services/cocciones.service';
+export * from './coccion/components/grid-fill/grid-fill.component';
+export * from './coccion/components/stepper-cocciones/stepper-cocciones.component';

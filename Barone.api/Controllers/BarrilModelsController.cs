@@ -79,7 +79,7 @@ namespace Barone.api.Controllers
 
         // GET: api/BarrilModels
         [Route("api/FiltrarBarriles")]
-        public IQueryable<BarrilModel> PostFiltrarBarriles([FromBody]ReportFilterViewModel model)
+        public IQueryable<BarrilModel> PostFiltrarBarriles([FromBody]ReportFilterViewModel model)   
         {
             Expression AllBody = Expression.Equal(Expression.Constant("x"), Expression.Constant("x"));
             var param = ParameterExpression.Parameter(typeof(BarrilModel), "x");

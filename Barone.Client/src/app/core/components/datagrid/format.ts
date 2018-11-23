@@ -34,10 +34,16 @@ export class Format implements PipeTransform {
                 return this.getDate(input.fechaDesde);
             case 'cliente':
                 return input.RazonSocial;
+            case 'fermentador':
+                return input.Identificador;
+            case 'receta':
+                return input.Nombre;
             case 'insumo':
                 return input.Nombre;
             case 'estadobarril':
                 return this.returnEstadoBarril(input);
+            case 'estadococcion':
+                return this.returnEstadoCoccion(input);
             case 'unidadmedida':
                 return this.returnUnidadMedida(input);
             case 'text':
@@ -109,6 +115,22 @@ export class Format implements PipeTransform {
                 return 'add_shopping_cart'
             case "3":
                 return 'local_shipping'
+
+            default:
+                break;
+        }
+    }
+
+    private returnEstadoCoccion(input: any) {
+
+        const inputString = input.toString();
+        switch (inputString) {
+            case "1":
+                return 'Pendiente'
+            case "2":
+                return 'Iniciada'
+            case "3":
+                return 'Finalizada'
 
             default:
                 break;

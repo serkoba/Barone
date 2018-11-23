@@ -95,7 +95,7 @@ export class AppComponent implements OnInit {
       this.createNavItem('Insumos', '/Insumos', 'shopping_basket'),
       this.createNavItem('Compras', '/Compras', 'attach_money'),
       this.createNavItem('Recetas', '/Recetas', 'extension'),
-        // this.createNavItem('Movimientos de cuentas', '/EstadoCuenta', 'face')
+      this.createNavItem('Cocciones', '/Cocciones', 'whatshot')
       ]
     }));
     navNode.push(new NavItem({

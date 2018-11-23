@@ -6,7 +6,8 @@ import {
   MatDatepickerModule, MatAutocompleteModule, MatInputModule, MatSelectModule,
   MatRadioModule, MatNativeDateModule, MatChipsModule, MatSidenavModule, MatBadgeModule, MatAccordion, MatExpansionModule,
   MatTableModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatStepperModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -51,7 +52,12 @@ import {
   EditRecetaComponent,
   RecetasService,
   FilterGridComponent,
-  IconsAppServices
+  IconsAppServices,
+  AdmincoccionesComponent,
+  EditCoccionComponent,
+  CoccionesService,
+  gridFillComponent,
+  StepperCoccionesComponent
 } from './modules.export';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -59,6 +65,8 @@ import { CoreModule } from '../core/core.module';
 import { AdminestilosComponent } from './estilos/components/adminestilos/adminestilos.component';
 import { EditEstilosComponent } from './estilos/components/edit-estilos/edit-estilos.component';
 import { EstilosPipe } from './shared/filters/estilos.pipe';
+
+
 
 
 
@@ -80,7 +88,8 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     MatBadgeModule,
     MatExpansionModule,
     MatTableModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatStepperModule
   ],
   declarations: [
     EditUserComponent,
@@ -128,7 +137,11 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     EditComprasComponent,
     AdminrecetasComponent,
     EditRecetaComponent,
-    FilterGridComponent
+    FilterGridComponent,
+    AdmincoccionesComponent,
+    EditCoccionComponent,
+    gridFillComponent,
+    StepperCoccionesComponent
   ],
   exports: [
     EditUserComponent,
@@ -165,6 +178,10 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     EditComprasComponent,
     AdminrecetasComponent,
     EditRecetaComponent,
+    EditCoccionComponent,
+    AdmincoccionesComponent,
+    gridFillComponent,
+    StepperCoccionesComponent
     // FilterGridComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -178,7 +195,9 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     EditProveedoresComponent,
     EditInsumosComponent,
     EditComprasComponent,
-    EditRecetaComponent],
+    EditRecetaComponent,
+    EditCoccionComponent,
+    StepperCoccionesComponent],
   providers: [UserPipe, UserService, ClientsService, ClientPipe, BarrilPipe,
     BarrilesService, RangosService, RangoPipe, PedidosService,
     PedidosPipe,
@@ -193,7 +212,8 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     InsumosService,
     ComprasService,
     RecetasService,
-    IconsAppServices]
+    IconsAppServices,
+    CoccionesService]
 })
 export class ModulesModule {
   public static forRoot(): ModuleWithProviders {

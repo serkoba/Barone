@@ -12,6 +12,7 @@ using Barone.api.Models;
 
 namespace Barone.api.Controllers
 {
+    [Authorize]
     public class ComprasModelsController : ApiController
     {
         private BaroneapiContext db = new BaroneapiContext();

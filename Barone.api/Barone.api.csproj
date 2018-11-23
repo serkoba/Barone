@@ -206,6 +206,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BarrilModelsController.cs" />
     <Compile Include="Controllers\ClientesModelsController.cs" />
+    <Compile Include="Controllers\CoccionModelsController.cs" />
     <Compile Include="Controllers\ComprasModelsController.cs" />
     <Compile Include="Controllers\DetallesMovimientosModelsController.cs" />
     <Compile Include="Controllers\EstilosModelsController.cs" />
@@ -396,10 +397,23 @@
     <Compile Include="Migrations\201811111350143_receta.Designer.cs">
       <DependentUpon>201811111350143_receta.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811201853339_add-coccion.cs" />
+    <Compile Include="Migrations\201811201853339_add-coccion.Designer.cs">
+      <DependentUpon>201811201853339_add-coccion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811221145498_add-estado.cs" />
+    <Compile Include="Migrations\201811221145498_add-estado.Designer.cs">
+      <DependentUpon>201811221145498_add-estado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811221536279_add-estilo.cs" />
+    <Compile Include="Migrations\201811221536279_add-estilo.Designer.cs">
+      <DependentUpon>201811221536279_add-estilo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Audience.cs" />
     <Compile Include="Models\BaroneapiContext.cs" />
     <Compile Include="Models\BarrilModel.cs" />
+    <Compile Include="Models\CoccionModel.cs" />
     <Compile Include="Models\ComprasModel.cs" />
     <Compile Include="Models\DetallesMovimientosModel.cs" />
     <Compile Include="Models\EstilosModel.cs" />
@@ -573,6 +587,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811111350143_receta.resx">
       <DependentUpon>201811111350143_receta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811201853339_add-coccion.resx">
+      <DependentUpon>201811201853339_add-coccion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811221145498_add-estado.resx">
+      <DependentUpon>201811221145498_add-estado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811221536279_add-estilo.resx">
+      <DependentUpon>201811221536279_add-estilo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

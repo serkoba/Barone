@@ -13,6 +13,8 @@ import { InsumosService } from 'src/app/modules/insumos/services/insumos.service
 import { InsumoModel } from 'src/app/modules/shared/models/insumo.model';
 import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { ElementDef } from '@angular/core/src/view';
+import { EstilosModel } from 'src/app/modules/shared/models/estilos.model';
+import { EstilosService } from 'src/app/modules/estilos/services/estilos.service';
 
 @Component({
   selector: 'app-edit-receta',
@@ -30,6 +32,8 @@ export class EditRecetaComponent implements OnInit {
   selectedOption: string;
   receta: RecetaModel;
   insumos: InsumoModel[];
+  estilos: EstilosModel[] = [];
+  estilosSelect: SelectItem[] = [];
   //itemInsumos: SelectItem[] = [];
   malta: MaltaModel;
   agua: AguaModel;
@@ -70,6 +74,7 @@ export class EditRecetaComponent implements OnInit {
     public _formBuilder: FormBuilder,
     private _snack: SnackManagerService,
     private insumosServices: InsumosService,
+    private estiloServices: EstilosService,
     public dialogRef: MatDialogRef<EditRecetaComponent>) {
 
   }
@@ -161,10 +166,16 @@ export class EditRecetaComponent implements OnInit {
     });
 
 
+    this.loadEstilos();
 
 
 
-
+  }
+  public loadEstilos() {
+    this.estiloServices.getAll().subscribe(estilos => {
+      this.estilos = estilos;
+      //   this.estilosSelect = estilos.map(estilo => { return new SelectItem({ value: estilo.IdEstilo, viewValue: estilo.Nombre }) });
+    })
   }
   // public itemSelected(idInsumo: number, e: any) {
   //   e = this.insumos.find(x => x.id === idInsumo);

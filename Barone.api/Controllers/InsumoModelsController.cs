@@ -12,6 +12,7 @@ using Barone.api.Models;
 
 namespace Barone.api.Controllers
 {
+    [Authorize]
     public class InsumoModelsController : ApiController
     {
         private BaroneapiContext db = new BaroneapiContext();
@@ -73,6 +74,7 @@ namespace Barone.api.Controllers
 
             return CreatedAtRoute("DefaultApi", new { id = insumoModel.id }, insumoModel);
         }
+       
 
         // DELETE: api/InsumoModels/5
         [ResponseType(typeof(InsumoModel))]

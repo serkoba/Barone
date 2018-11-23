@@ -6,7 +6,8 @@ export enum DBOperation {
   CambiarEstiloBarriles = 5,
   AsignarEntregaAPedido = 6,
   ComenzarEntrega = 7,
-  ver = 8
+  ver = 8,
+  IniciarCoccion = 9
 };
 export enum Options {
   default = 1,

@@ -3,6 +3,7 @@ import { MaltaModel } from "./malta.model";
 import { LupuloModel } from "./lupulo.model";
 import { AguaModel } from "./agua.model";
 import { AdjuntosModel } from "./adjuntos.model";
+import { EstilosModel } from "../estilos.model";
 
 export class RecetaModel extends Constructable<Partial<RecetaModel>>{
     id: number;
@@ -25,5 +26,7 @@ export class RecetaModel extends Constructable<Partial<RecetaModel>>{
     AguaReceta: AguaModel[];
     Adjunto: string;
     AdjuntoReceta: AdjuntosModel[];
+    LitrosTotales: number;
+    Estilo: EstilosModel;
 
 }

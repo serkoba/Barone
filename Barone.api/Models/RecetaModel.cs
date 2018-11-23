@@ -23,5 +23,7 @@ namespace Barone.api.Models
         public string Lupulo { get; set; }
         public string Agua { get; set; }
         public string Adjunto { get; set; }
+        public int LitrosTotales { get; set; }
+        public EstilosModel Estilo { get; set; }
     }
 }

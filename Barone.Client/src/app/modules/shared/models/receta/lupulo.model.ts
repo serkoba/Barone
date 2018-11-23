@@ -8,6 +8,13 @@ export class LupuloModel extends Constructable<Partial<LupuloModel>>{
     Tiempo: number;
     IBUS: number;
     Cantidad: number;
+
+    public static fromJSON(json: any): LupuloModel {
+        let user = Object.create(LupuloModel.prototype);
+        return Object.assign(user, json, {
+            created: new Date(json.created)
+        });
+    }
 }
 
 

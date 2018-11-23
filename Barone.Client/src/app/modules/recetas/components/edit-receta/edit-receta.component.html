@@ -20,13 +20,13 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="row">
-          <div class="col-sm-6">
+          <div class="col-sm-4">
             <mat-form-field class="w-100">
               <input name="Nombre" matInput placeholder="Nombre" [(ngModel)]="receta.Nombre" />
             </mat-form-field>
 
           </div>
-          <div class="col-sm-6">
+          <div class="col-sm-4">
 
             <mat-form-field class="w-100">
               <input name="Fecha" matInput [matDatepicker]="Fecha" placeholder="Fecha" [(ngModel)]="receta.Fecha">
@@ -34,6 +34,18 @@
               <mat-datepicker #Fecha></mat-datepicker>
             </mat-form-field>
           </div>
+
+          <div class="col-sm-4">
+            <mat-form-field class="w-100">
+              <mat-select name="Estilo" placeholder="Estilo" [(ngModel)]="receta.Estilo">
+                <mat-option *ngFor="let estilo of estilos" [value]="estilo">
+                  {{estilo.Nombre}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </div>
+
 
         </div>
         <div class="row">
@@ -63,18 +75,23 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-6">
+          <div class="col-sm-4">
             <mat-form-field class="w-100">
-              <input name="TiempoEmpaste" matInput placeholder="TiempoEmpaste" [(ngModel)]="receta.TiempoEmpaste" />
+              <input name="TiempoEmpaste" matInput placeholder="Tiempo de Empaste" [(ngModel)]="receta.TiempoEmpaste" />
             </mat-form-field>
 
           </div>
-          <div class="col-sm-6">
+          <div class="col-sm-4">
             <mat-form-field class="w-100">
               <input name="Sparge" matInput placeholder="Sparge" [(ngModel)]="receta.Sparge" />
             </mat-form-field>
           </div>
+          <div class="col-sm-4">
+            <mat-form-field class="w-100">
+              <input name="Litros" matInput placeholder="Litros Total de receta" [(ngModel)]="receta.LitrosTotales" />
+            </mat-form-field>
 
+          </div>
         </div>
 
         <div class="row">

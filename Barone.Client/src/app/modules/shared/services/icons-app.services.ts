@@ -67,5 +67,13 @@ export class IconsAppServices {
             this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/ic_extension_24px.svg'));
         this.iconRegistry.addSvgIcon('person_big',
             this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/ic_person_48px.svg'));
+        this.iconRegistry.addSvgIcon('whatshot',
+            this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/ic_whatshot_24px.svg'));
+
+        this.iconRegistry.addSvgIcon('play_circle_filled_white',
+            this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/ic_play_circle_filled_24px.svg'));
+
+
+
     }
 }

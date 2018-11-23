@@ -3,10 +3,8 @@ import { EntregaModel } from '../../../shared/models/entrega.model';
 import { DBOperation } from '../../../../core/enum/enum.enum';
 import { MatDialog } from '@angular/material';
 import { EditEntregasComponent } from '../edit-entregas/edit-entregas.component';
-import { ButtonType } from '../../../modules.export';
 import { EntregasService } from '../../services/entregas.service';
 import { EntregasPipe } from '../../../shared/filters/entregas.pipe';
-import { ClientsModel } from '../../../shared/models/clients.model';
 import { SnackManagerService } from '../../../../core/core.module.export';
 
 @Component({

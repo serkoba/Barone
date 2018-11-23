@@ -12,6 +12,9 @@ export class RecetasService {
   public getAll(): Observable<RecetaModel[]> {
     return this._httpClient.get<RecetaModel[]>('RecetaModels');
   }
+  public getById(idReceta: number): Observable<RecetaModel> {
+    return this._httpClient.get<RecetaModel>(`RecetaModels/${idReceta}`);
+  }
 
   public update(model: RecetaModel): Observable<void> {
     return this._httpClient.put<RecetaModel, void>('RecetaModels', model);

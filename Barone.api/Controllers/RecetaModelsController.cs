@@ -69,6 +69,7 @@ namespace Barone.api.Controllers
             {
                 return BadRequest(ModelState);
             }
+            db.Entry(recetaModel.Estilo).State = EntityState.Unchanged;
 
             db.RecetaModels.Add(recetaModel);
             db.SaveChanges();

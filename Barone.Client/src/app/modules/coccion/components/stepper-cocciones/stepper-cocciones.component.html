@@ -1,0 +1,243 @@
+<form #videoForm="ngForm">
+  <div>
+    <h1 mat-dialog-title><span>
+        <mat-icon>create</mat-icon>{{modalTitle}}
+      </span></h1>
+  </div>
+
+  <div mat-dialog-content class="mat-dialog-container" flex style="overflow: scroll;  height: 600px;width: 900px;"
+    layout="column">
+    <div style="padding-bottom:1px;background-color:#d8d8d8"></div>
+
+    <div class="row">
+      <div class="col-sm-12">
+
+
+        <mat-horizontal-stepper [linear]="isLinear" #stepper>
+          <mat-step>
+            <ng-template matStepLabel>Mash/Hervor</ng-template>
+            <div id="MashHervorForm" class="row">
+              <div class="col-sm-12 inline">
+
+                <div *ngFor="let medicion of coccion._medicionesMash">
+                  <div class="row">
+                    <div class="col">
+                      <mat-form-field class="w-100">
+                        <input matInput placeholder="Hora Inicio" name="HoraInicio" [(ngModel)]="medicion.HoraInicio" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <grid-fill [Title]="'Mediciones Mash'" [data]="medicion.MashMediciones" [columnsToDisplay]="columnsMash"></grid-fill>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div id="MashHervorForm" class="row">
+              <div class="col-sm-12 inline">
+
+                <div *ngFor="let hervor of coccion._hervor">
+                  <div class="row">
+                    <div class="col">
+                      <mat-form-field class="w-100">
+                        <input matInput placeholder="Hora Inicio" name="HoraInicio" [(ngModel)]="hervor.HoraInicio" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <grid-fill [Title]="'Hervor'" [data]="hervor.Mediciones" [columnsToDisplay]="columnsHervor"></grid-fill>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </mat-step>
+          <mat-step>
+            <div id="FermentacionForm" class="row">
+              <div class="col-sm-12">
+                <ng-template matStepLabel>Fermentacion</ng-template>
+                <mat-accordion multi="true">
+                  <mat-expansion-panel [expanded]="true" class="no-shadow">
+                    <mat-expansion-panel-header fxLayout="row">
+                      <mat-panel-title>
+
+
+                        <h1> <span>Detalle</span>
+                        </h1>
+
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <mat-form-field class="w-100">
+                          <input name="Nombre" matInput placeholder="Lts en F" [(ngModel)]="coccion._fermentacion.Litros" />
+                        </mat-form-field>
+
+                      </div>
+                      <div class="col-sm-4">
+                        <mat-form-field class="w-100">
+                          <input name="NroDeFermentacion" matInput placeholder="Nro de F" [(ngModel)]="coccion._fermentacion.NroDeFermentacion" />
+                        </mat-form-field>
+
+                      </div>
+                      <div class="col-sm-4">
+                        <mat-form-field class="w-100">
+                          <input name="Levadura" matInput placeholder="Levadura" [(ngModel)]="coccion._fermentacion.Levadura" />
+                        </mat-form-field>
+
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <mat-form-field class="w-100">
+                          <input name="Crema" matInput placeholder="G/KG Crema" [(ngModel)]="coccion._fermentacion.Crema" />
+                        </mat-form-field>
+
+                      </div>
+                      <div class="col-sm-3">
+                        <mat-form-field class="w-100">
+                          <input name="TazaInoc" matInput placeholder="Taza de Inoc" [(ngModel)]="coccion._fermentacion.TazaInoc" />
+                        </mat-form-field>
+
+                      </div>
+                      <div class="col-sm-3">
+                        <mat-form-field class="w-100">
+                          <input name="TemperaturaInoc" matInput placeholder="Temp de Inoc" [(ngModel)]="coccion._fermentacion.TemperaturaInoc" />
+                        </mat-form-field>
+
+                      </div>
+                      <div class="col-sm-3">
+                        <mat-form-field class="w-100">
+                          <input name="TemperaturaFermentacion" matInput placeholder="Temp de Ferm" [(ngModel)]="coccion._fermentacion.TemperaturaFermentacion" />
+                        </mat-form-field>
+
+                      </div>
+
+                    </div>
+                  </mat-expansion-panel>
+                  <mat-expansion-panel [expanded]="true" class="no-shadow">
+                    <mat-expansion-panel-header fxLayout="row">
+                      <mat-panel-title>
+
+
+                        <h1> <span>Reutilizacion</span>
+                        </h1>
+
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <mat-form-field class="w-100">
+                          <mat-select name="EstiloOrigen" placeholder="EstiloOrigen" [(ngModel)]="coccion._fermentacion.EstiloOrigen">
+                            <mat-option *ngFor="let estilo of EstiloOrigenes" [value]="estilo.value">
+                              {{estilo.viewValue}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+
+                      </div>
+                      <div class="col-sm-6">
+                        <mat-form-field class="w-100">
+                          <input name="Generacion" matInput placeholder="Generacion" [(ngModel)]="coccion._fermentacion.Generacion" />
+                        </mat-form-field>
+
+                      </div>
+                    </div>
+                  </mat-expansion-panel>
+
+                  <mat-expansion-panel [expanded]="true" class="no-shadow">
+                    <mat-expansion-panel-header fxLayout="row">
+                      <mat-panel-title>
+
+
+                        <h1> <span>Adjuntos de Fermentacion</span>
+                        </h1>
+
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <mat-form-field class="w-100">
+                          <input name="AdjuntoDetalle" matInput placeholder="ADJ." [(ngModel)]="coccion._fermentacion.AdjuntoDetalle" />
+                        </mat-form-field>
+
+                      </div>
+                      <div class="col-sm-4">
+                        <mat-form-field class="w-100">
+                          <input name="AdjuntoGramos" matInput placeholder="Gramos" [(ngModel)]="coccion._fermentacion.AdjuntoGramos" />
+                        </mat-form-field>
+
+                      </div>
+                      <div class="col-sm-4">
+                        <mat-form-field class="w-100">
+                          <input name="AdjuntoDia" matInput placeholder="Dia" [(ngModel)]="coccion._fermentacion.AdjuntoDia" />
+                        </mat-form-field>
+
+                      </div>
+                    </div>
+                  </mat-expansion-panel>
+                  <mat-expansion-panel [expanded]="true" class="no-shadow">
+                    <mat-expansion-panel-header fxLayout="row">
+                      <mat-panel-title>
+
+
+                        <h1> <span>Mediciones en Fermentacion</span>
+                        </h1>
+
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <grid-fill [Title]="'Mediciones Fermentacion'" [data]="coccion._fermentacion.Mediciones"
+                          [columnsToDisplay]="columnsFermentacion"></grid-fill>
+                      </div>
+                    </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </div>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Carbonatacion</ng-template>
+            <div class="row">
+              <div class="col-sm-4">
+                <mat-form-field class="w-100">
+                  <input name="Tiempo" matInput placeholder="Tiempo" [(ngModel)]="coccion._carbonatacion.Tiempo" />
+                </mat-form-field>
+
+              </div>
+              <div class="col-sm-4">
+                <mat-form-field class="w-100">
+                  <input name="Temperatura" matInput placeholder="Temperatura" [(ngModel)]="coccion._carbonatacion.Temperatura" />
+                </mat-form-field>
+
+              </div>
+              <div class="col-sm-4">
+                <mat-form-field class="w-100">
+                  <input name="Presion" matInput placeholder="Presion" [(ngModel)]="coccion._carbonatacion.Presion" />
+                </mat-form-field>
+
+              </div>
+            </div>
+          </mat-step>
+        </mat-horizontal-stepper>
+
+
+      </div>
+
+
+
+    </div>
+  </div>
+  <mat-dialog-actions class="mat-dialog-footer" align="end">
+    <button color="warn" type="button" mat-raised-button (click)="dialogRef.close()">Cancel</button>&nbsp;
+    <button type="button" color="primary" (click)="onSubmit(2)" mat-raised-button>{{modalBtnTitle}}</button>&nbsp;
+    <button type="button" color="primary" (click)="onSubmit(3)" mat-raised-button>Finalizar Coccion</button>
+  </mat-dialog-actions>
+</form>

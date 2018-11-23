@@ -21,7 +21,8 @@ import {
   AdminproveedoresComponent,
   AdmininsumosComponent,
   AdmincomprasComponent,
-  AdminrecetasComponent
+  AdminrecetasComponent,
+  AdmincoccionesComponent
 } from './modules/modules.export';
 import { TestComponent } from './modules/reportes/components/test/test.component';
 import { AuthGuardService } from './core/core.module.export';
@@ -52,7 +53,8 @@ const routes: Routes = [
       { path: 'Proveedores', component: AdminproveedoresComponent },
       { path: 'Insumos', component: AdmininsumosComponent },
       { path: 'Compras', component: AdmincomprasComponent },
-      { path: 'Recetas', component: AdminrecetasComponent }]
+      { path: 'Recetas', component: AdminrecetasComponent },
+      { path: 'Cocciones', component: AdmincoccionesComponent }]
   },
   { path: 'login', component: LoginComponent },
   { path: 'logoff', component: LoginComponent },

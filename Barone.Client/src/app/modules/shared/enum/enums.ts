@@ -3,7 +3,8 @@ export enum ButtonType {
   BarrilEstado = "BarrilEstado",
   BarrilEstilo = "BarrilEstilo",
   AsignarEntregaAPedidos = "AsignarEntregaAPedidos",
-  Pedidos = "Pedidos"
+  Pedidos = "Pedidos",
+  IniciarCoccion = "IniciarCoccion"
 }
 export enum TipoIngredienteEnum {
   Malta = 1,
