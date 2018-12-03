@@ -409,6 +409,18 @@
     <Compile Include="Migrations\201811221536279_add-estilo.Designer.cs">
       <DependentUpon>201811221536279_add-estilo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811261905108_change_Tiempo.cs" />
+    <Compile Include="Migrations\201811261905108_change_Tiempo.Designer.cs">
+      <DependentUpon>201811261905108_change_Tiempo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811261944079_fechaFin.Receta.cs" />
+    <Compile Include="Migrations\201811261944079_fechaFin.Receta.Designer.cs">
+      <DependentUpon>201811261944079_fechaFin.Receta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811281937503_fecha.fin.cs" />
+    <Compile Include="Migrations\201811281937503_fecha.fin.Designer.cs">
+      <DependentUpon>201811281937503_fecha.fin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Audience.cs" />
     <Compile Include="Models\BaroneapiContext.cs" />
@@ -596,6 +608,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811221536279_add-estilo.resx">
       <DependentUpon>201811221536279_add-estilo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811261905108_change_Tiempo.resx">
+      <DependentUpon>201811261905108_change_Tiempo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811261944079_fechaFin.Receta.resx">
+      <DependentUpon>201811261944079_fechaFin.Receta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811281937503_fecha.fin.resx">
+      <DependentUpon>201811281937503_fecha.fin.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

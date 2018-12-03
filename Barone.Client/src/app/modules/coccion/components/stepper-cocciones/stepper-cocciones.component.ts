@@ -10,6 +10,8 @@ import { MedicionesFermentacionModel } from 'src/app/modules/shared/models/cocci
 import { CarbonatacionModel } from 'src/app/modules/shared/models/coccion/carbonatacion.model';
 import { CoccionesService } from '../../services/cocciones.service';
 import { SnackManagerService, SelectItem } from 'src/app/core/core.module.export';
+import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
+import { InsumosService } from 'src/app/modules/insumos/services/insumos.service';
 
 @Component({
   selector: 'stepper-cocciones',
@@ -27,6 +29,7 @@ export class StepperCoccionesComponent implements OnInit {
   public coccion: CoccionModel;
   public isLinear = true;
   public EstiloOrigenes: SelectItem[];
+  time2: NgbTimeStruct;
   columnsMash: any[] = [
     {
       display: 'Periodo',
@@ -70,6 +73,12 @@ export class StepperCoccionesComponent implements OnInit {
       variable: 'PHInicial',
       filter: 'text',
       template: 'text'
+    },
+    {
+      display: 'Gramos',
+      variable: 'Cantidad',
+      filter: 'text',
+      template: 'text'
     }]
   columnsFermentacion: any[] = [
     {
@@ -97,11 +106,11 @@ export class StepperCoccionesComponent implements OnInit {
       template: 'text'
     }]
 
-  constructor(private coccionServices: CoccionesService, private _snack: SnackManagerService,
+  constructor(private insumosServices: InsumosService, private coccionServices: CoccionesService, private _snack: SnackManagerService,
     public dialogRef: MatDialogRef<StepperCoccionesComponent>) { }
 
   ngOnInit() {
-
+    this.time2 = { hour: 16, minute: 15, second: 0 };
     if (this.coccion.MedicionesMash == null) {
       this.coccion._medicionesMash = [];
       this.fillMash();
@@ -140,6 +149,10 @@ export class StepperCoccionesComponent implements OnInit {
     })
   }
   onSubmit(estado: number) {
+    if (estado == 3) {
+      this.coccion.FechaFin = new Date().toDateString();
+      this.insumosServices.updateStock(this.coccion).subscribe();
+    }
     this.coccion.MedicionesMash = JSON.stringify(this.coccion._medicionesMash);
     this.coccion.Hervor = JSON.stringify(this.coccion._hervor);
     this.coccion.Fermentacion = JSON.stringify(this.coccion._fermentacion);

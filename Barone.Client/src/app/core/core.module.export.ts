@@ -21,3 +21,4 @@ export * from './components/loader/loader.component';
 export * from './components/grid/grid.component';
 export * from './services/auth-guard.service';
 export * from './models/select-item';
+export * from './components/tank/tank.component';

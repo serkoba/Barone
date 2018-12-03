@@ -19,6 +19,7 @@ export enum TipoEstadoBarril {
   Reservado = 4
 }
 
+
 export function IncludeConstants(): Function {
   return (target: Function) => {
     target.prototype.TipoIngrediente = TipoIngrediente.getTipoIngrediente;

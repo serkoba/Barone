@@ -50,7 +50,7 @@ export class AdminrecetasComponent implements OnInit {
     },
     {
       display: 'Litros',
-      variable: 'Litros',
+      variable: 'LitrosTotales',
       filter: 'text',
       template: 'text'
     },

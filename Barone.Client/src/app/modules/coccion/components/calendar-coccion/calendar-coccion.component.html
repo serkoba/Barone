@@ -1,0 +1,20 @@
+<div class="row text-center">
+  <div class="col-sm-12 inline-div">
+    <button color="primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false"
+      type="button" mat-icon-button>
+      <mat-icon svgIcon="arrow_back"></mat-icon>
+    </button>
+    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+    <button color="primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false"
+      type="button" mat-icon-button>
+      <mat-icon svgIcon="arrow_forward"></mat-icon>
+    </button>
+  </div>
+</div>
+<div class="row">
+  <div class="w-95">
+    <mwl-calendar-month-view [viewDate]="viewDate" [events]="events" [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen"
+      (dayClicked)="dayClicked($event.day)" (eventClicked)="handleEvent('Clicked', $event.event)">
+    </mwl-calendar-month-view>
+  </div>
+</div>

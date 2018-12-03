@@ -353,7 +353,7 @@ export class EditEntregasComponent implements OnInit {
             }), switchMap((detalleEntrega) => {
                 let BarrilesAfectados: ItemChip[] = [];
                 detalleEntrega.forEach(entrega => BarrilesAfectados = BarrilesAfectados.concat(entrega.BarrilesEntrega));
-                BarrilesAfectados
+                //  BarrilesAfectados
 
                 return from(BarrilesAfectados).pipe(concatMap(barrilEntregado => {
                     const barril = this.barriles.find(x => x.NroBarril === barrilEntregado.nombre);

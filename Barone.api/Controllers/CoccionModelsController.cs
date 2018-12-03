@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Barone.api.Models;
+using Barone.api.DTO;
 
 namespace Barone.api.Controllers
 {
@@ -43,6 +44,23 @@ namespace Barone.api.Controllers
             return Ok(coccionModel);
         }
 
+
+        [Route("api/FiltrarCoccionModel")]
+        public IHttpActionResult PostFiltrarCoccionModel([FromBody] ReportFilterViewModel model)
+        {
+          
+            var EstadoBlank = (!model.Estado.HasValue || model.Estado.Value.Equals(0));
+            var FechaDesdeHastaBlank = (model.FechaDesde.Year == 1 && model.FechaHasta.Year == 1);
+            var resultQuery = from mov in db.CoccionModels
+                              where (EstadoBlank || model.Estado.Value == mov.Estado)
+                              && (FechaDesdeHastaBlank || (model.FechaDesde <= mov.Fecha && model.FechaHasta >= mov.Fecha))
+
+                              select mov;
+
+            return Ok(resultQuery.Include(x=>x.Fermentador).Include(x=>x.Receta));
+
+        }
+
         // PUT: api/CoccionModels/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutCoccionModel([FromBody] CoccionModel coccionModel)
@@ -72,6 +90,10 @@ namespace Barone.api.Controllers
         [ResponseType(typeof(CoccionModel))]
         public IHttpActionResult PostCoccionModel(CoccionModel coccionModel)
         {
+            if (coccionModel.FechaFin.Year.Equals(1))
+            {
+                coccionModel.FechaFin = DateTime.Now;
+            }
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

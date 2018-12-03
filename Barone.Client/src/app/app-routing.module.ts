@@ -22,7 +22,8 @@ import {
   AdmininsumosComponent,
   AdmincomprasComponent,
   AdminrecetasComponent,
-  AdmincoccionesComponent
+  AdmincoccionesComponent,
+  CalendarCoccionComponent
 } from './modules/modules.export';
 import { TestComponent } from './modules/reportes/components/test/test.component';
 import { AuthGuardService } from './core/core.module.export';
@@ -54,7 +55,8 @@ const routes: Routes = [
       { path: 'Insumos', component: AdmininsumosComponent },
       { path: 'Compras', component: AdmincomprasComponent },
       { path: 'Recetas', component: AdminrecetasComponent },
-      { path: 'Cocciones', component: AdmincoccionesComponent }]
+      { path: 'Cocciones', component: AdmincoccionesComponent },
+      { path: 'CalendarCocciones', component: CalendarCoccionComponent }]
   },
   { path: 'login', component: LoginComponent },
   { path: 'logoff', component: LoginComponent },

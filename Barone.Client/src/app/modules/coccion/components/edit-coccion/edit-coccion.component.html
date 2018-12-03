@@ -5,7 +5,7 @@
       </span></h1>
   </div>
 
-  <div mat-dialog-content class="mat-dialog-container" flex style="overflow: scroll;  height: 400px;width: 500px;"
+  <div mat-dialog-content class="mat-dialog-container" flex style="overflow: scroll;  height: 555px;width: 600px;"
     layout="column">
     <div style="padding-bottom:1px;background-color:#d8d8d8"></div>
 
@@ -40,7 +40,8 @@
     <div class="row">
       <div class="col-sm-6">
         <mat-form-field class="w-100">
-          <input matInput placeholder="Multiplicador" name="Multiplicador" [(ngModel)]="coccion.Multiplicador" />
+          <input matInput placeholder="Multiplicador" name="Multiplicador" (ngModelChange)="RecalcularLitros($event)"
+            [(ngModel)]="coccion.Multiplicador" />
         </mat-form-field>
       </div>
       <div class="col-sm-6">
@@ -48,6 +49,13 @@
         <autocomplete-input [data]="fermentadoresItems" [DisplayLabel]="'Fermentador'" [SelectedItem]="SelectedFermentador"
           (itemSelected)="fermentadorSelected($event)"></autocomplete-input>
       </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+
+        <tank #tank [percentage]="percentage" [Title]="'Fermentador'"></tank>
+      </div>
+
     </div>
 
 

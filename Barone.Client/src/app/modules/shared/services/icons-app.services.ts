@@ -72,6 +72,14 @@ export class IconsAppServices {
 
         this.iconRegistry.addSvgIcon('play_circle_filled_white',
             this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/ic_play_circle_filled_24px.svg'));
+        this.iconRegistry.addSvgIcon('calendar_today',
+            this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/outline-calendar_today-24px.svg'));
+
+        this.iconRegistry.addSvgIcon('arrow_back',
+            this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/outline-arrow_back-24px.svg'));
+
+        this.iconRegistry.addSvgIcon('arrow_forward',
+            this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/outline-arrow_forward-24px.svg'));
 
 
 

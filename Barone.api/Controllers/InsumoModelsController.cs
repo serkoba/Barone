@@ -45,7 +45,6 @@ namespace Barone.api.Controllers
                 return BadRequest(ModelState);
             }
 
-
             db.Entry(insumoModel).State = EntityState.Modified;
 
             try

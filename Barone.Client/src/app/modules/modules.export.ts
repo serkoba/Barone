@@ -91,3 +91,4 @@ export * from './coccion/components/edit-coccion/edit-coccion.component';
 export * from './coccion/services/cocciones.service';
 export * from './coccion/components/grid-fill/grid-fill.component';
 export * from './coccion/components/stepper-cocciones/stepper-cocciones.component';
+export * from './coccion/components/calendar-coccion/calendar-coccion.component';

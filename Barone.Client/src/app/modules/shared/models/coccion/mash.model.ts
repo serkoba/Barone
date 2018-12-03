@@ -1,10 +1,10 @@
 import { Constructable } from "src/app/core/models/constructable";
 
 export class MashModel extends Constructable<Partial<MashModel>> {
-    public HoraInicio: number;
+    public HoraInicio: string;
     public MashMediciones: MashMedicionesModel[];
     public static empty(): MashModel {
-        return new MashModel({ HoraInicio: 0, MashMediciones: [MashMedicionesModel.empty()] });
+        return new MashModel({ HoraInicio: '', MashMediciones: [MashMedicionesModel.empty()] });
     }
 }
 

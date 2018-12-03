@@ -10,6 +10,7 @@ namespace Barone.api.Models
         public int id { get; set; }
         public RecetaModel Receta { get; set; }
         public DateTime Fecha { get; set; }
+        public DateTime FechaFin { get; set; }
         public string NroLote { get; set; }
         public int Multiplicador { get; set; }
         public int Estado { get; set; }

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DBOperation } from 'src/app/core/enum/enum.enum';
 import { CoccionModel } from 'src/app/modules/shared/models/coccion/coccion.model';
-import { SelectItem, SnackManagerService } from 'src/app/core/core.module.export';
+import { SelectItem, SnackManagerService, TankComponent } from 'src/app/core/core.module.export';
 import { RecetaModel } from 'src/app/modules/shared/models/receta/receta.model';
 import { RecetasService } from 'src/app/modules/recetas/services/recetas.service';
 import { FermentadorModel } from 'src/app/modules/shared/models/fermentador.model';
@@ -35,8 +35,10 @@ export class EditCoccionComponent implements OnInit {
   fermentadores: FermentadorModel[] = [];
   fermentadoresItems: SelectItem[] = [];
   SelectedFermentador: SelectItem;
+  public percentage: number;
+  @ViewChild("tank") public tank: TankComponent;
   constructor(
-    private insumosServices: InsumosService,
+    //   private insumosServices: InsumosService,
     private recetaServices: RecetasService, private fermentadorServices: FermentadorService,
     private coccionServices: CoccionesService,
     private _snack: SnackManagerService,
@@ -45,7 +47,7 @@ export class EditCoccionComponent implements OnInit {
       this.recetas = recetas;
       this.recetasItems = recetas.map(receta => {
         return new SelectItem({
-          smallValue: `Litros: ${receta.Litros.toString()}`,
+          smallValue: `Litros: ${receta.LitrosTotales.toString()}`,
           viewValue: receta.Nombre,
           value: receta.id
         })
@@ -69,6 +71,13 @@ export class EditCoccionComponent implements OnInit {
     })
   }
 
+  public RecalcularLitros(value: any) {
+    this.coccion.Multiplicador = value;
+    this.percentage = ((this.coccion.Multiplicador * this.coccion.Receta.LitrosTotales) * 100) / this.coccion.Fermentador.Capacidad;
+
+
+  }
+
   public itemSelected(id: number) {
 
     this.coccion.Receta = this.recetas.find(x => x.id === id);
@@ -82,18 +91,24 @@ export class EditCoccionComponent implements OnInit {
   ngOnInit() {
     if (typeof (this.coccion) == "undefined")
       this.coccion = new CoccionModel();
+    this.percentage = 0;
+    //   this.tank.ReFillTank();
+
   }
+
+
+
+
 
   onSubmit() {
     switch (this.dbops) {
       case DBOperation.create:
         this.coccion.Estado = 1;
         this.coccionServices.insert(this.coccion)
-          .pipe(concatMap((result) => {
-            this.coccion.id = result.id;
-            return this.insumosServices.updateStock(this.coccion.Receta);
-          })).subscribe(() => {
 
+
+          .subscribe((result) => {
+            this.coccion.id = result.id;
             this.dialogRef.close("success");
             this._snack.openSnackBar("Coccion Creada Exitosamente", 'Success');
 

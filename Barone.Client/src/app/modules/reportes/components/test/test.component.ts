@@ -18,7 +18,7 @@ export interface DemoColor {
   templateUrl: './test.component.html',
   styleUrls: ['./test.component.scss']
 })
-export class TestComponent {
+export class TestComponent implements OnInit {
   tabIndex = 0;
   visible = true;
   color = '';
@@ -50,6 +50,52 @@ export class TestComponent {
 
   displayMessage(message: string): void {
     this.message = message;
+  }
+
+  public subir() {
+    var water = document.getElementById("liquid");
+    var beerFoam = document.getElementById("beerFoam");
+    water.style.height = '35px';
+    beerFoam.style.bottom = '100px';
+  }
+  ngOnInit() {
+
+
+    // var cnt = document.getElementById("count");
+    // var water = document.getElementById("liquid");
+
+    // var percent = parseInt(cnt.innerText);
+    // var interval;
+
+    // interval = setInterval(function () {
+    //   percent = percent + 1;
+    //   cnt.innerHTML = percent.toString();
+    //   water.style.transform = 'translate(0' + ',' + (100 - percent) + '%)';
+    //   water.style.height = '100'
+    //   if (percent == 50) {
+    //     clearInterval(interval);
+    //   }
+    // }, 60);
+
+    //   $('.pour') //Pour Me Another Drink, Bartender!
+    //   .delay(2000)
+    //   .animate({
+    //     height: '360px'
+    //     }, 1500)
+    //   .delay(1600)
+    //   .slideUp(500);
+
+    // $('#liquid') // I Said Fill 'Er Up!
+    //   .delay(3400)
+    //   .animate({
+    //     height: '170px'
+    //   }, 2500);
+
+    // $('.beer-foam') // Keep that Foam Rollin' Toward the Top! Yahooo!
+    //   .delay(3400)
+    //   .animate({
+    //     bottom: '200px'
+    //     }, 2500);
   }
 
   add(event: MatChipInputEvent): void {

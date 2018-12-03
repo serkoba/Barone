@@ -19,9 +19,11 @@
             <div id="MashHervorForm" class="row">
               <div class="col-sm-12 inline">
 
-                <div *ngFor="let medicion of coccion._medicionesMash">
+                <div *ngFor="let medicion of coccion._medicionesMash; let x = index">
                   <div class="row">
                     <div class="col">
+                      <label for="{{x}}">Hora Inicio</label>
+
                       <mat-form-field class="w-100">
                         <input matInput placeholder="Hora Inicio" name="HoraInicio" [(ngModel)]="medicion.HoraInicio" />
                       </mat-form-field>
@@ -39,9 +41,12 @@
             <div id="MashHervorForm" class="row">
               <div class="col-sm-12 inline">
 
-                <div *ngFor="let hervor of coccion._hervor">
+                <div *ngFor="let hervor of coccion._hervor; let i = index">
                   <div class="row">
                     <div class="col">
+                      <label for="{{i}}">Hora Inicio</label>
+
+
                       <mat-form-field class="w-100">
                         <input matInput placeholder="Hora Inicio" name="HoraInicio" [(ngModel)]="hervor.HoraInicio" />
                       </mat-form-field>

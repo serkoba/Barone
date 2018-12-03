@@ -1,6 +1,7 @@
 import { ModuleWithProviders, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import {
   MatMenuModule, MatIconModule, MatButtonModule, MatProgressSpinnerModule,
   MatDatepickerModule, MatAutocompleteModule, MatInputModule, MatSelectModule,
@@ -57,7 +58,8 @@ import {
   EditCoccionComponent,
   CoccionesService,
   gridFillComponent,
-  StepperCoccionesComponent
+  StepperCoccionesComponent,
+  CalendarCoccionComponent
 } from './modules.export';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -89,7 +91,12 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     MatExpansionModule,
     MatTableModule,
     MatCheckboxModule,
-    MatStepperModule
+    MatStepperModule,
+    CalendarModule.forRoot(
+      {
+        provide: DateAdapter,
+        useFactory: adapterFactory
+      })
   ],
   declarations: [
     EditUserComponent,
@@ -141,7 +148,8 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     AdmincoccionesComponent,
     EditCoccionComponent,
     gridFillComponent,
-    StepperCoccionesComponent
+    StepperCoccionesComponent,
+    CalendarCoccionComponent
   ],
   exports: [
     EditUserComponent,
@@ -181,8 +189,8 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     EditCoccionComponent,
     AdmincoccionesComponent,
     gridFillComponent,
-    StepperCoccionesComponent
-    // FilterGridComponent
+    StepperCoccionesComponent,
+    CalendarCoccionComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [EditUserComponent, EditClientsComponent, EditBarrilesComponent, EditRangosComponent, EditPagosComponent,

@@ -62,7 +62,7 @@ export class EditRecetaComponent implements OnInit {
   }
 
   ///Form Lupulo
-  displayedLupuloColumns: string[] = ['Insumo', 'PorcentajeAA', 'Tiempo', 'IBUS', 'Cantidad'];
+  displayedLupuloColumns: string[] = ['Insumo', 'PorcentajeAA', 'Tiempo', 'IBUS'];
   dataSourceLupulo: MatTableDataSource<LupuloModel>;
   public lupuloForm: FormGroup;
   get lupuloArray() {
@@ -94,17 +94,6 @@ export class EditRecetaComponent implements OnInit {
 
     this.insumosServices.getAll().subscribe(insumos => {
       this.insumos = insumos;
-      // this.itemInsumos = insumos.map(insumo => {
-      //   return new SelectItem({
-      //     viewValue: insumo.Nombre,
-      //     value: insumo.id,
-      //     smallValue: insumo.Stock.toString(),
-
-      //   })
-      // });
-      // if (this.dbops === DBOperation.update) {
-
-      // }
       this.dataSourceAgua = new MatTableDataSource(this.receta.AguaReceta);
       this.dataSourceLupulo = new MatTableDataSource(this.receta.LupuloReceta);
       this.dataSourceAdjunto = new MatTableDataSource(this.receta.AdjuntoReceta);
@@ -153,13 +142,11 @@ export class EditRecetaComponent implements OnInit {
       PorcentajeAA: new FormControl(''),
       Tiempo: new FormControl(''),
       IBUS: new FormControl(''),
-      Cantidad: new FormControl(''),
       lupuloArray: this._formBuilder.array(this.receta.LupuloReceta.map(o => new FormGroup({
         Insumo: new FormControl(o.Insumo.id),
         PorcentajeAA: new FormControl(o.PorcentajeAA),
         Tiempo: new FormControl(o.Tiempo),
-        IBUS: new FormControl(o.IBUS),
-        Cantidad: new FormControl(o.Cantidad)
+        IBUS: new FormControl(o.IBUS)
       })))
 
       //this._formBuilder.array([])
@@ -174,13 +161,9 @@ export class EditRecetaComponent implements OnInit {
   public loadEstilos() {
     this.estiloServices.getAll().subscribe(estilos => {
       this.estilos = estilos;
-      //   this.estilosSelect = estilos.map(estilo => { return new SelectItem({ value: estilo.IdEstilo, viewValue: estilo.Nombre }) });
     })
   }
-  // public itemSelected(idInsumo: number, e: any) {
-  //   e = this.insumos.find(x => x.id === idInsumo);
 
-  // }
   compareFn: ((f1: any, f2: any) => boolean) | null = this.compareByValue;
 
   compareByValue(f1: any, f2: any) {
@@ -273,7 +256,6 @@ export class EditRecetaComponent implements OnInit {
           PorcentajeAA: 0,
           Tiempo: '',
           IBUS: '',
-          Cantidad: '',
         }));
         this.receta.LupuloReceta.push(new LupuloModel());
         this.dataSourceLupulo = new MatTableDataSource(this.receta.LupuloReceta);

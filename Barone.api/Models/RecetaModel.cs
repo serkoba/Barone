@@ -14,7 +14,7 @@ namespace Barone.api.Models
         public string IBU { get; set; }
         public string ABV { get; set; }
         public string OG { get; set; }
-        public TimeSpan TiempoEmpaste { get; set; }
+        public string TiempoEmpaste { get; set; }
         public decimal Litros { get; set; }
         public decimal PH { get; set; }
         public string  Sparge { get; set; }

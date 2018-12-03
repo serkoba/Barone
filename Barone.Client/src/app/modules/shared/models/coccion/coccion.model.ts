@@ -10,6 +10,7 @@ export class CoccionModel extends Constructable<Partial<CoccionModel>> {
     public id: number;
     public Receta: RecetaModel;
     public Fecha: number;
+    public FechaFin: string;
     public NroLote: string;
     public Multiplicador: number;
     public Estado: number;
