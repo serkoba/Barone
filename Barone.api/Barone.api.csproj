@@ -421,6 +421,10 @@
     <Compile Include="Migrations\201811281937503_fecha.fin.Designer.cs">
       <DependentUpon>201811281937503_fecha.fin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812071842162_add_Coccion_Barril.cs" />
+    <Compile Include="Migrations\201812071842162_add_Coccion_Barril.Designer.cs">
+      <DependentUpon>201812071842162_add_Coccion_Barril.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Audience.cs" />
     <Compile Include="Models\BaroneapiContext.cs" />
@@ -617,6 +621,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811281937503_fecha.fin.resx">
       <DependentUpon>201811281937503_fecha.fin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812071842162_add_Coccion_Barril.resx">
+      <DependentUpon>201812071842162_add_Coccion_Barril.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

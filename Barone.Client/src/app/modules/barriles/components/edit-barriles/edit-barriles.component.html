@@ -32,14 +32,30 @@
     <div class="row">
       <div class="col-sm-12">
         <mat-form-field class="w-100">
-          <mat-select name="IdEstilo" placeholder="Estilo" [(ngModel)]="barril.IdEstilo" (ngModelChange)="changeSelect($event)">
-            <mat-option *ngFor="let estilo of estilosSelect" [value]="estilo.value">
-              {{estilo.viewValue}}
+          <mat-select name="IdCoccion" placeholder="Coccion" [(ngModel)]="barril.IdCoccion" (ngModelChange)="changeNroLote($event)">
+            <mat-option *ngFor="let coccion of coccionesSelect" [value]="coccion.value">
+              {{coccion.viewValue}}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
     </div>
+    <div *ngIf="HayEstilo()" class="row">
+      <div class="col-sm-12">
+
+        <mat-form-field class="w-100">
+          <input matInput disabled placeholder="Estilo" value="{{barril.Estilo.Nombre}}">
+        </mat-form-field>
+        <!-- <mat-form-field class="w-100">
+          <mat-select name="IdEstilo" placeholder="Estilo" [(ngModel)]="barril.IdEstilo" (ngModelChange)="changeSelect($event)">
+            <mat-option *ngFor="let estilo of estilosSelect" [value]="estilo.value">
+              {{estilo.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field> -->
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-sm-12">
         <mat-form-field class="w-100">

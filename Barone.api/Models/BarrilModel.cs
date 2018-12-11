@@ -15,6 +15,7 @@ namespace Barone.api.Models
         public long? idEntrega { set; get; }
         public EstilosModel Estilo { get; set; }
         public MovimientosModel Entrega { set; get; }
+        public CoccionModel Coccion { get; set; }
 
 
     }

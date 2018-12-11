@@ -21,7 +21,7 @@ namespace Barone.api.Controllers
         // GET: api/CoccionModels
         public IQueryable<CoccionModel> GetCoccionModels()
         {
-            return db.CoccionModels.Include(x => x.Fermentador).Include(x => x.Receta);
+            return db.CoccionModels.Include(x => x.Fermentador).Include(x => x.Receta).Include(x=> x.Receta.Estilo);
         }
         [Route("api/getAllNroLote")]
         public IHttpActionResult GetNroLoteAllCocciones()

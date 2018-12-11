@@ -218,14 +218,37 @@ namespace Barone.api.Controllers
         [ResponseType(typeof(BarrilModel))]
         public IHttpActionResult PostBarrilModel([FromBody] BarrilModel barrilModel)
         {
+            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            db.Entry(barrilModel.Estilo).State = EntityState.Unchanged;
-            db.Entry(barrilModel.Entrega).State = EntityState.Unchanged;
+          
+
+                if (barrilModel.Coccion != null)
+                {
+                barrilModel.Coccion.Receta = null;
+                //db.EstilosModels.Attach(barrilModel.Coccion.Receta.Estilo);
+                //ctx.Entry(barrilModel.Coccion.Receta.Estilo).State = EntityState.Detached;
+                //db.RecetaModels.Attach(barrilModel.Coccion.Receta);
+                db.CoccionModels.Attach(barrilModel.Coccion);
+                db.EstilosModels.Attach(barrilModel.Estilo);
+                //ctx.Entry(barrilModel.Coccion.Receta).State = EntityState.Detached;
+                //db.Entry(barrilModel.Coccion.Receta).State = EntityState.Unchanged;
+
+                //ctx.Entry(barrilModel.Coccion).State = EntityState.Unchanged;
+
+            }
+                
+             
+                    
+                if (barrilModel.Entrega != null)
+                db.Entry(barrilModel.Entrega).State = EntityState.Unchanged;
+               
+            
             db.BarrilModels.Add(barrilModel);
             db.SaveChanges();
+ 
 
             return CreatedAtRoute("DefaultApi", new { id = barrilModel.id }, barrilModel);
         }
@@ -264,6 +287,10 @@ namespace Barone.api.Controllers
                 serverDocument.idEstado = barril.idEstado;
             if (barril.idEntrega != null)
                 serverDocument.idEntrega = barril.idEntrega;
+            if (barril.IdEstilo != null)
+                serverDocument.IdEstilo = barril.IdEstilo;
+            if (barril.Coccion != null)
+                serverDocument.Coccion = barril.Coccion;
 
 
             db.SaveChanges();

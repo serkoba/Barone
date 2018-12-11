@@ -10,6 +10,8 @@ import { EstilosModel } from '../../../shared/models/estilos.model';
 import { EstilosService } from '../../../estilos/services/estilos.service';
 import { BarrilesService } from '../../services/barriles.service';
 import { BarrilModel } from '../../../shared/models/barril.model';
+import { CoccionModel } from 'src/app/modules/shared/models/coccion/coccion.model';
+import { CoccionesService } from 'src/app/modules/coccion/services/cocciones.service';
 
 @Component({
   selector: 'app-barriles-estado',
@@ -28,6 +30,8 @@ export class BarrilesEstadoComponent implements OnInit {
   ];
   estilos: EstilosModel[] = [];
   estilosSelect: SelectItem[] = [];
+  cocciones: CoccionModel[];
+  coccionesSelect: SelectItem[] = [];
   msg: string;
   indLoading: boolean = false;
   modalTitle: string;
@@ -46,12 +50,14 @@ export class BarrilesEstadoComponent implements OnInit {
   filteredFruits: Observable<string[]>;
   barriles: string[] = [];
   IdEstilo: number;
+  IdCoccion: number;
   idEstado: number;
+  CoccionSelected: CoccionModel;
   // allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
   public TodosLosBarriles: boolean;
   @ViewChild('fruitInput') fruitInput: ElementRef;
 
-  constructor(public _snack: SnackManagerService, public estilosServices: EstilosService,
+  constructor(private coccionServices: CoccionesService, public _snack: SnackManagerService, public estilosServices: EstilosService,
     private barrilServices: BarrilesService,
     public dialogRef: MatDialogRef<BarrilesEstadoComponent>) {
 
@@ -100,6 +106,7 @@ export class BarrilesEstadoComponent implements OnInit {
   ngOnInit() {
     this.TodosLosBarriles = false;
     this.loadEstilos();
+    this.loadCocciones();
   }
   public loadEstilos() {
     this.estilosServices.getAll().subscribe(estilos => {
@@ -107,13 +114,27 @@ export class BarrilesEstadoComponent implements OnInit {
       this.estilosSelect = estilos.map(estilo => { return new SelectItem({ value: estilo.IdEstilo, viewValue: estilo.Nombre }) });
     })
   }
+  public loadCocciones() {
+    this.coccionServices.getAll().subscribe(cocciones => {
+      this.cocciones = cocciones;
+      this.coccionesSelect = cocciones.map(coccion => { return new SelectItem({ value: coccion.id, viewValue: coccion.NroLote }) });
+    })
+  }
+  public changeNroLote(idCoccion: number) {
+    this.CoccionSelected = this.cocciones.find(x => x.id === idCoccion);
+    //  this.Estilo = this.barril.Coccion.Receta.Estilo;// this.estilos.find(x => x.IdEstilo === this.barril.Coccion.Receta.Estilo.IdEstilo);
+    this.IdEstilo = this.CoccionSelected.Receta.Estilo.IdEstilo;// this.estilos.find(x => x.IdEstilo === this.barril.Coccion.Receta.Estilo.IdEstilo).IdEstilo;
+  }
+  public HayEstilo() {
+    return this.IdEstilo != undefined;
+  }
   private updateAllBarriles(): Observable<void> {
-    return this.barrilServices.updateAll(new BarrilModel({ idEstado: this.idEstado, IdEstilo: this.IdEstilo }));
+    return this.barrilServices.updateAll(new BarrilModel({ idEstado: this.idEstado, IdEstilo: this.IdEstilo, Coccion: this.CoccionSelected }));
   }
   private updatePartial(): Observable<void> {
     return from(this.barriles).pipe(
       mergeMap(barril => {
-        const barrilModel = new BarrilModel({ NroBarril: barril, idEstado: this.idEstado, IdEstilo: this.IdEstilo });
+        const barrilModel = new BarrilModel({ NroBarril: barril, idEstado: this.idEstado, IdEstilo: this.IdEstilo, Coccion: this.CoccionSelected });
         return this.barrilServices.updatePartial(barrilModel);
       }))
   }

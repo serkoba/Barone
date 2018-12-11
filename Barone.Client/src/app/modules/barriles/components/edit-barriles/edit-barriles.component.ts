@@ -6,6 +6,8 @@ import { EstilosService } from '../../../estilos/services/estilos.service';
 import { EstilosModel } from '../../../shared/models/estilos.model';
 import { SnackManagerService, SelectItem } from '../../../../core/core.module.export';
 import { BarrilesService } from '../../services/barriles.service';
+import { CoccionModel } from 'src/app/modules/shared/models/coccion/coccion.model';
+import { CoccionesService } from 'src/app/modules/coccion/services/cocciones.service';
 
 
 
@@ -25,7 +27,8 @@ export class EditBarrilesComponent implements OnInit {
   ];
   estilos: EstilosModel[] = [];
   estilosSelect: SelectItem[] = [];
-
+  cocciones: CoccionModel[];
+  coccionesSelect: SelectItem[] = [];
   msg: string;
   indLoading: boolean = false;
   dbops: DBOperation;
@@ -36,21 +39,36 @@ export class EditBarrilesComponent implements OnInit {
   barril: BarrilModel;
 
   filteredStates: any;
-  constructor(public barrilServices: BarrilesService, public _snack: SnackManagerService, public estilosServices: EstilosService, public dialogRef: MatDialogRef<EditBarrilesComponent>) { }
+  constructor(public coccionServices: CoccionesService, public barrilServices: BarrilesService, public _snack: SnackManagerService, public estilosServices: EstilosService, public dialogRef: MatDialogRef<EditBarrilesComponent>) { }
 
   ngOnInit() {
     if (typeof (this.barril) == "undefined")
       this.barril = new BarrilModel();
-    this.loadEstilos();
+    //  this.loadEstilos();
+    this.loadCocciones();
   }
-  public loadEstilos() {
-    this.estilosServices.getAll().subscribe(estilos => {
-      this.estilos = estilos;
-      this.estilosSelect = estilos.map(estilo => { return new SelectItem({ value: estilo.IdEstilo, viewValue: estilo.Nombre }) });
+  public loadCocciones() {
+    this.coccionServices.getAll().subscribe(cocciones => {
+      this.cocciones = cocciones;
+      this.coccionesSelect = cocciones.map(coccion => { return new SelectItem({ value: coccion.id, viewValue: coccion.NroLote }) });
     })
+  }
+  // public loadEstilos() {
+  //   this.estilosServices.getAll().subscribe(estilos => {
+  //     this.estilos = estilos;
+  //     this.estilosSelect = estilos.map(estilo => { return new SelectItem({ value: estilo.IdEstilo, viewValue: estilo.Nombre }) });
+  //   })
+  // }
+  public changeNroLote(idCoccion: number) {
+    this.barril.Coccion = this.cocciones.find(x => x.id === idCoccion);
+    this.barril.Estilo = this.barril.Coccion.Receta.Estilo;// this.estilos.find(x => x.IdEstilo === this.barril.Coccion.Receta.Estilo.IdEstilo);
+    this.barril.IdEstilo = this.barril.Coccion.Receta.Estilo.IdEstilo;// this.estilos.find(x => x.IdEstilo === this.barril.Coccion.Receta.Estilo.IdEstilo).IdEstilo;
   }
   public changeSelect(idEstilo: Number) {
     this.barril.Estilo = this.estilos.find(x => x.IdEstilo === idEstilo);
+  }
+  public HayEstilo() {
+    return this.barril.Estilo != undefined;
   }
   onSubmit() {
     switch (this.dbops) {
