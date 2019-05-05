@@ -36,12 +36,12 @@ const routes: Routes = [
     children: [
 
       { path: 'Users', component: AdminusersComponent },
-      { path: 'Clients', component: AdminclientsComponent },
-      { path: 'Barriles', component: AdminbarrilesComponent },
+      // { path: 'Clients', component: AdminclientsComponent },
+      // { path: 'Barriles', component: AdminbarrilesComponent },
       { path: 'Rangos', component: AdminrangosComponent },
       { path: 'Estilos', component: AdminestilosComponent },
       { path: 'Pedidos', component: AdminpedidosComponent },
-      { path: 'Entregas', component: AdminentregasComponent },
+      // { path: 'Entregas', component: AdminentregasComponent },
       { path: 'Pagos', component: AdminpagosComponent },
       { path: 'Fermentador', component: AdminfermentadorComponent },
       { path: 'test', component: TestComponent },
@@ -60,13 +60,18 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   { path: 'logoff', component: LoginComponent },
+  { path: 'Clients', component: AdminclientsComponent },
+  { path: 'Barriles', component: AdminbarrilesComponent },
+  { path: 'Entregas', component: AdminentregasComponent },
+  { path: 'CalendarCocciones', component: CalendarCoccionComponent }
 
 ];
-@NgModule({
-  imports: [RouterModule.forRoot(routes),
-    CommonModule
-  ],
-  exports: [RouterModule],
-  declarations: []
-})
-export class AppRoutingModule { }
+// @NgModule({
+//   imports: [RouterModule.forRoot(routes),
+//     CommonModule
+//   ],
+//   exports: [RouterModule],
+//   declarations: []
+// })
+// export class AppRoutingModule { }
+export const APP_ROUTES = RouterModule.forRoot(routes, {useHash:true});

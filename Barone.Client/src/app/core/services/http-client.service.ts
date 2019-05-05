@@ -246,9 +246,10 @@ export class HttpClientService {
 
   private processHttpError(observer: Observer<any>, url: string, error: any): void {
     this._loader.stop();
-    this._snack.openSnackBar(error.message, 'Error');
+    var errorMessage = JSON.parse(error.error);
+    this._snack.openSnackBar(errorMessage.Message, 'Error');
     error.url = this.getUrl(url);
-
-    observer.error(error);
+///REVISAR ESTA LINEA PARA VER DONDE SE PINTA Y ACOMODARLO.
+    //observer.error(error);
   }
 }
