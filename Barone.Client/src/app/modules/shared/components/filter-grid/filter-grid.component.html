@@ -12,7 +12,10 @@
     </mat-form-field>
 
   </div>
-  <div *ngIf="FilterBarril" class="col-sm-2">
+  <div *ngIf="FilterBarril" class="col-sm-4">
+      <mat-form-field >
+          <input name="NroBarril" matInput placeholder="Nro de Barril" [(ngModel)]="ReportFilter.NroBarril" />
+        </mat-form-field>
     <mat-form-field>
       <mat-select name="Estilo" placeholder="Estilo" [(ngModel)]="ReportFilter.Estilo">
         <mat-option *ngFor="let estilo of estilosSelect" [value]="estilo.value">
@@ -45,9 +48,9 @@
       <mat-datepicker #fecha_hasta></mat-datepicker>
     </mat-form-field>
   </div>
-  <div class="col-sm-4">
+  <div class="col-sm-2">
     <button class="buttons" mat-raised-button (click)="FiltrarInfo()" id="btnEditarEnvio">Filtrar</button>
-    <button class="buttons" mat-raised-button id="btnExportar">Exportar a Excel</button>
+    <!-- <button class="buttons" mat-raised-button id="btnExportar">Exportar a Excel</button> -->
     <button class="buttons" mat-raised-button (click)="initFiltro()" id="btnExportar">Borrar Filtro</button>
   </div>
 </div>

@@ -260,10 +260,12 @@ namespace Barone.api.Controllers
         {
             db.BarrilModels.ToList().ForEach(barril =>
             {
-                if (barril.idEstado != 0)
+                if (barrilModel.idEstado != 0)
                     barril.idEstado = barrilModel.idEstado;
                 if (barril.idEntrega != null)
                     barril.idEntrega = barrilModel.idEntrega;
+                if (barrilModel.IdEstilo != null)
+                    barril.IdEstilo = barrilModel.IdEstilo;
                 db.Entry(barril).State = EntityState.Modified;
            
             });

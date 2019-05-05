@@ -200,7 +200,9 @@
     <Content Include="scripts\angular-mocks.js" />
     <Content Include="scripts\angular.js" />
     <Content Include="scripts\angular.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -225,9 +227,15 @@
     <Compile Include="DTO\NotificationsDTO.cs" />
     <Compile Include="DTO\ReportFilterViewModel.cs" />
     <Compile Include="formats\CustomJwtFormat.cs" />
+<<<<<<< HEAD
     <Compile Include="Migrations\201903282052552_initial.cs" />
     <Compile Include="Migrations\201903282052552_initial.Designer.cs">
       <DependentUpon>201903282052552_initial.cs</DependentUpon>
+=======
+    <Compile Include="Migrations\201904291600551_first_instal.cs" />
+    <Compile Include="Migrations\201904291600551_first_instal.Designer.cs">
+      <DependentUpon>201904291600551_first_instal.cs</DependentUpon>
+>>>>>>> origin/master
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Audience.cs" />
@@ -279,8 +287,13 @@
     <Folder Include="NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <EmbeddedResource Include="Migrations\201903282052552_initial.resx">
       <DependentUpon>201903282052552_initial.cs</DependentUpon>
+=======
+    <EmbeddedResource Include="Migrations\201904291600551_first_instal.resx">
+      <DependentUpon>201904291600551_first_instal.cs</DependentUpon>
+>>>>>>> origin/master
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

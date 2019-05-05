@@ -29,6 +29,12 @@ export class AdminpedidosComponent implements OnInit {
   //Grid Vars start
   columns: any[] = [
     {
+      display: 'Nro Pedido',
+      variable: 'id',
+      filter: 'text',
+      template: 'text'
+    },
+    {
       display: 'Fecha Pactada',
       variable: 'fechaPactada',
       filter: 'date',

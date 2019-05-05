@@ -65,7 +65,7 @@ namespace Barone.api.Controllers
 
             Expression<Func<PedidoModel, bool>> lambda = Expression.Lambda<Func<PedidoModel, bool>>(AllBody, new ParameterExpression[] { param });
 
-            return db.PedidoModels.Where(lambda).Include(x=>x.Cliente).Include(y=>y.Entrega);
+            return db.PedidoModels.Where(lambda).Include(x=>x.Cliente).Include(y=>y.Entrega).OrderByDescending(x=>x.fechaPedido);
         }
 
         // GET: api/PedidoModels
@@ -168,7 +168,11 @@ namespace Barone.api.Controllers
                 return BadRequest(ModelState);
             }
 
-           
+           if (pedidoModel.Entrega!=null && pedidoModel.Entrega.idEntrega != pedidoModel.idEntrega)
+            {
+                var entrega = db.MovimientosModels.Where(x => x.idEntrega == pedidoModel.idEntrega).FirstOrDefault();
+                pedidoModel.Entrega = entrega;
+            }
 
             db.Entry(pedidoModel).State = EntityState.Modified;
 

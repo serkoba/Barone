@@ -144,16 +144,25 @@ namespace Barone.api.Controllers
         [ResponseType(typeof(ClientesModel))]
         public IHttpActionResult DeleteClientesModel(int id)
         {
-            ClientesModel clientesModel = db.ClientesModels.Find(id);
-            if (clientesModel == null)
+            try
             {
-                return NotFound();
+
+
+                ClientesModel clientesModel = db.ClientesModels.Find(id);
+                if (clientesModel == null)
+                {
+                    return NotFound();
+                }
+
+                db.ClientesModels.Remove(clientesModel);
+                db.SaveChanges();
+
+                return Ok(clientesModel);
             }
-
-            db.ClientesModels.Remove(clientesModel);
-            db.SaveChanges();
-
-            return Ok(clientesModel);
+            catch(Exception ex)
+            {
+                return BadRequest("Este Cliente tiene Pedidos Asociados");
+            }
         }
 
         protected override void Dispose(bool disposing)
