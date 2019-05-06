@@ -9,6 +9,7 @@ import { BarrilesEstadoComponent } from '../barriles-estado/barriles-estado.comp
 import { BarrilesEstiloComponent } from '../barriles-estilo/barriles-estilo.component';
 import { ButtonType } from '../../../shared/enum/enums';
 import { SnackManagerService, GridComponent } from '../../../../core/core.module.export';
+import { ReportFilterModel } from 'src/app/modules/shared/models/reporte-filtro.model';
 
 @Component({
   selector: 'adminbarriles',
@@ -98,6 +99,14 @@ export class AdminbarrilesComponent implements OnInit {
         action: DBOperation.delete,
         ishide: this.isREADONLY
       }
+      ,
+      {
+        title: 'Devolver Barril',
+        icon: 'reply',
+        keys: ["id"],
+        action: DBOperation.DevolverBarril,
+        ishide: this.isREADONLY
+      }
 
     ];
   }
@@ -165,6 +174,15 @@ export class AdminbarrilesComponent implements OnInit {
       });
 
   }
+  public FiltrarInfo(ReportFilter: ReportFilterModel) {
+    //  ReportFilter.BarrilFilter = this.barril;
+    //  ReportFilter.ClientFilter = this.Cliente;
+    this.barrilesServices.filtrar(ReportFilter)
+      .subscribe(barriles => {
+        this.barriles = barriles;
+      });
+
+  }
 
   addBarril() {
     this.dbops = DBOperation.create;
@@ -189,6 +207,29 @@ export class AdminbarrilesComponent implements OnInit {
     }, error => {
       this._snack.openSnackBar(error, 'Error');
       //  this.dialogRef.close("error");
+
+    });
+    ///   this.modalTitle = "Confirm to Delete?";
+    ///   this.modalBtnTitle = "Delete";
+    ///   this.user = this.users.filter(x => x.Id == id)[0];
+    ///   this.openDialog();
+  }
+  public DevolverBarril(id: number) {
+    this.dbops = DBOperation.delete;
+    let barril = this.barriles.find(x => x.id == id);
+    if (barril.idEntrega===null){
+      this._snack.openSnackBar("Este Barril no tiene Cliente asociado", 'Error');
+      return;
+    }
+    barril.idEntrega=null;
+    barril.idEstado=1;
+    this.barrilesServices.update(barril).subscribe(() => {
+      const message = "Barril " + barril.NroBarril + " devuelto";
+      this._snack.openSnackBar(message, 'Success');
+      this.loadBarriles();
+    }, error => {
+      this._snack.openSnackBar(error, 'Error');
+
 
     });
     ///   this.modalTitle = "Confirm to Delete?";
@@ -227,8 +268,12 @@ export class AdminbarrilesComponent implements OnInit {
       case DBOperation.CambiarEstiloBarriles:
         this.CambiarEstiloBarriles();
         break;
+        case DBOperation.DevolverBarril:
+        this.DevolverBarril(gridaction.values[0].value);
+        break;
     }
 
   }
+ 
 }
 

@@ -81,6 +81,16 @@ export class IconsAppServices {
         this.iconRegistry.addSvgIcon('arrow_forward',
             this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/outline-arrow_forward-24px.svg'));
 
+            this.iconRegistry.addSvgIcon('reply',
+            this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/baseline-reply-24px.svg'));
+
+            this.iconRegistry.addSvgIcon('search',
+            this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/baseline-search-24px.svg'));
+
+            this.iconRegistry.addSvgIcon('clear',
+            this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/baseline-clear-24px.svg'));
+            
+            
 
 
     }
