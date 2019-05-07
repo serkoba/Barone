@@ -117,7 +117,7 @@ export class AppComponent implements OnInit {
       //  routerPath:'/Home',
       children: [this.createNavItem('Pedidos', '/Pedidos', 'store'),
       this.createNavItem('Entregas', '/Entregas', 'local_shipping'),
-      this.createNavItem('Devoluciones', '/DevolucionBarriles', 'transfer_within_a_station'),
+      this.createNavItem('Devoluciones', '/Barriles', 'transfer_within_a_station'),
       this.createNavItem('Estado/Estilo Barriles', '/Barriles', 'wrap_text'),]
     }));
 

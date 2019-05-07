@@ -1,20 +1,11 @@
+<div class="panel-body">
+  <filter-grid [FilterBarril]="false" [FilterPedEnt]="true" (FilterClicked)="FiltrarInfo($event)"></filter-grid>
 <div class="row">
   <div class="w-95">
-    <!-- <animated-icon [animate]=true></animated-icon>
-      <data-grid [columns]="columns"
-                 [data]="entregas"
-                 [gridbtns]="gridbtns"
-                 [hdrbtns]="hdrbtns"
-                 [sort]="sorting"
-                 [isshowfilter]=true
-                 [isExporttoCSV]=false
-                 [exportFileName]="exportFileName"
-                 [filter]=entregasFilter
-                 (btnclick)="gridaction($event)">
-      </data-grid> -->
 
 
     <data-grid-view #grid [data]="entregas" [PaginatorEnabled]="true" [columnsToDisplay]="columns" [gridbtns]="gridbtns"
       [hdrbtns]="hdrbtns" (btnclick)="gridaction($event)"></data-grid-view>
   </div>
+</div>
 </div>

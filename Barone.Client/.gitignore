@@ -12,6 +12,7 @@
 /obj
 
 # IDEs and editors
+/.vs
 /.idea
 .project
 .classpath

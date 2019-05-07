@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
       .subscribe(response => {
         if (response.success) {
 
-          this._route.navigate(["/Users"]);
+          this._route.navigate(["/Entregas"]);
         }
 
       },

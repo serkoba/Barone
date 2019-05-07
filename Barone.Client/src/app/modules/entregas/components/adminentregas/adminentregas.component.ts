@@ -6,6 +6,7 @@ import { EditEntregasComponent } from '../edit-entregas/edit-entregas.component'
 import { EntregasService } from '../../services/entregas.service';
 import { EntregasPipe } from '../../../shared/filters/entregas.pipe';
 import { SnackManagerService } from '../../../../core/core.module.export';
+import { ReportFilterModel } from 'src/app/modules/shared/models/reporte-filtro.model';
 
 @Component({
   selector: 'adminentregas',
@@ -145,6 +146,16 @@ export class AdminentregasComponent implements OnInit {
 
   ngOnInit() {
     this.loadEntregas();
+
+  }
+  
+
+  public FiltrarInfo(model: ReportFilterModel) {
+
+    this.entregaServices.filtrar(model)
+      .subscribe(entregas => {
+        this.entregas = entregas;
+      });
 
   }
   loadEntregas(): void {

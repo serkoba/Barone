@@ -1,3 +1,5 @@
+<div class="panel-body">
+  <filter-grid [FilterBarril]="false" [FilterPedEnt]="true" (FilterClicked)="FiltrarInfo($event)"></filter-grid>
 <div class="row">
   <div class="w-95">
     <!-- <animated-icon [animate]=true></animated-icon>
@@ -16,4 +18,5 @@
     <data-grid-view #grid [data]="pedidos" [PaginatorEnabled]="true" [columnsToDisplay]="columns" [gridbtns]="gridbtns"
       [hdrbtns]="hdrbtns" (btnclick)="gridaction($event)"></data-grid-view>
   </div>
+</div>
 </div>

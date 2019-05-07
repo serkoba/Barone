@@ -98,6 +98,11 @@ namespace Barone.api.Controllers
             Expression<Func<MovimientosModel, bool>> lambda = Expression.Lambda<Func<MovimientosModel, bool>>(AllBody, new ParameterExpression[] { param });
 
             var result = db.MovimientosModels.Where(lambda).Include(x => x.Cliente);
+            if (model.RazonSocial != null)
+            {
+                var result2 = result.Where(x => x.Cliente.RazonSocial.Equals(model.RazonSocial));
+                result = result2;
+            }
             return result;// db.MovimientosModels.Include(x=>x.Cliente);
         }
 

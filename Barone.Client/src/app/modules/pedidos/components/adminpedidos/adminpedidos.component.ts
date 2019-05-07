@@ -8,6 +8,7 @@ import { EditPedidosComponent } from '../edit-pedidos/edit-pedidos.component';
 import { PedidosService } from '../../services/pedidos.service';
 import { SnackManagerService } from '../../../../core/core.module.export';
 import { EditEntregasComponent } from '../../../entregas/components/edit-entregas/edit-entregas.component';
+import { ReportFilterModel } from 'src/app/modules/shared/models/reporte-filtro.model';
 
 @Component({
   selector: 'adminpedidos',
@@ -186,6 +187,15 @@ export class AdminpedidosComponent implements OnInit {
         this.pedidos = pedidos;
         this.initGridButton();
       });
+  }
+  
+  public FiltrarInfo(model: ReportFilterModel) {
+
+    this.pedidosServices.filtrar(model)
+      .subscribe(pedidos => {
+        this.pedidos = pedidos;
+      });
+
   }
 
   addPedido() {
