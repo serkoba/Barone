@@ -126,20 +126,10 @@ export class AdminrangosComponent implements OnInit {
   }
   loadRangos(): void {
     this.rangos = [];
-    // let video: videos = { id: 23, titulo: "nuevo", video: "rivieramaya.mp4", imagen: "rivera.jpg", fecha: "2012/12/12",pdf:"archivo.pdf",activo:"1",curso:"1",descripcion:"nuevo",modulo:"1"};
-    // this.video = video;
+   
     this.rangosServices.getAll()
       .subscribe(rangos => { this.rangos = rangos; this.initGridButton(); });
-    //  let client:  RangoModel= {
-    //    id: 1, NombreRango: "Perez", fechaDesde: "01/01/2018"
-    //    , fechaHasta: "12/12/2018", precio: "100"
-    //  }
-    // // this.arrVideos = [video];
-    //  this.initGridButton(); 
-    //  this.rangos.push(client);
-    /* this.userServices.getAll()
-       .subscribe(users => { this.users = users; this.initGridButton(); }
-       );*/
+   
   }
 
   addRango() {

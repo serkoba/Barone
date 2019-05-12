@@ -20,7 +20,8 @@ import {
   AuthenticationInterceptorService,
   LoaderService,
   LoaderInterceptorService,
-  TankComponent
+  TankComponent,
+  ChartsComponent
 } from './core.module.export';
 import { ClassTogglerDirective } from './directives/class-toggler.directive';
 import { SearchComponent } from './components/search/search.component';
@@ -41,6 +42,7 @@ import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
 import { AutocompleteInputComponent } from './components/autocomplete-input/autocomplete-input.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { GridComponent } from './components/grid/grid.component';
+import { ChartsModule } from 'ng2-charts';
 
 
 
@@ -54,6 +56,7 @@ import { GridComponent } from './components/grid/grid.component';
     FormsModule,
     RouterModule,
     NgbModule,
+    ChartsModule,
     BrowserAnimationsModule, MatDatepickerModule, MatButtonModule,
     MatAutocompleteModule, MatInputModule, MatSelectModule, MatMenuModule, MatIconModule, MatRadioModule,
     ReactiveFormsModule, MatNativeDateModule,
@@ -88,7 +91,8 @@ import { GridComponent } from './components/grid/grid.component';
     AutocompleteInputComponent,
     LoaderComponent,
     GridComponent,
-    TankComponent
+    TankComponent,
+    ChartsComponent
   ],
   exports: [
     LoginComponent,
@@ -100,7 +104,8 @@ import { GridComponent } from './components/grid/grid.component';
     AutocompleteInputComponent,
     LoaderComponent,
     GridComponent,
-    TankComponent
+    TankComponent,
+    ChartsComponent
   ],
   entryComponents: [SnackBarComponent]
 })

@@ -132,15 +132,10 @@ export class AdminpagosComponent implements OnInit {
   }
   LoadPagos(): void {
     this.pagos = [];
-    // let video: videos = { id: 23, titulo: "nuevo", video: "rivieramaya.mp4", imagen: "rivera.jpg", fecha: "2012/12/12",pdf:"archivo.pdf",activo:"1",curso:"1",descripcion:"nuevo",modulo:"1"};
-    // this.video = video;
-    // this.userServices.getAll()
-    //   .subscribe(users => { this.users = users; this.initGridButton(); });
+   
     this.pagosServices.getAll()
       .subscribe(pagos => { this.pagos = pagos; this.initGridButton(); });
-    /* this.userServices.getAll()
-       .subscribe(users => { this.users = users; this.initGridButton(); }
-       );*/
+   
   }
 
   addPago() {

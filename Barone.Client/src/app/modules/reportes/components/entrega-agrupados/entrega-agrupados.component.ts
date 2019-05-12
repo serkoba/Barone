@@ -94,25 +94,8 @@ export class EntregaAgrupadosComponent implements OnInit {
 
   }
 
-  //   public itemSelected(idCliente: number) {
-  //     // this.cliente.IdCliente = idCliente;
-  //  //   this.pedido.Cliente = this.clientes.find(x => x.IdCliente === idCliente);
-  //   }
-
-
-
-  // public FiltrarInfo() {
-
-  //   this.pedidoServices.GroupByClient(this.pedido)
-  //     .subscribe(pedidos => {
-  //       this.pedidos = pedidos;
-  //     });
-
-  // }
 
   public FiltrarInfo(ReportFilter: ReportFilterModel) {
-    //  ReportFilter.BarrilFilter = this.barril;
-    //  ReportFilter.ClientFilter = this.Cliente;
     this.pedidoServices.GroupByClient(ReportFilter)
       .subscribe(pedidos => {
         this.pedidos = pedidos;

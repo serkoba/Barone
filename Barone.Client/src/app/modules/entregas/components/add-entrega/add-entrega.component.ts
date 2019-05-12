@@ -31,25 +31,11 @@ export class AddEntregaComponent implements OnInit {
     })
   }
 
-
-  //   displayFn(estilo:EstilosModel): string {
-
-  //       return estilo ? estilo.Nombre : this.estilo.Nombre;
-  // }
-
   selected(event: MatAutocompleteSelectedEvent): void {
     this.estilo = event.option.value;
-    // this.fruitInput.nativeElement.value = '';
-    // this.estilosCtrl.setValue(null);
-    // this.reCalculateBarriles();
 
   }
 
-  // setCliente(clienteSelected:ClientsModel){
-  //   if (clienteSelected instanceof Object)
-  //     this.itemSelected.emit(clienteSelected.IdCliente);
-  //   //this.pago.IdCliente=clienteSelected.IdCliente.toString();
-  // }
   private _filter(value: string): EstilosModel[] {
     const filterValue = value.toLowerCase();
 
@@ -57,7 +43,7 @@ export class AddEntregaComponent implements OnInit {
   }
   public submit() {
     this.dialogRef.close();
-    // this.DialogSaved.emit({ Cantidad: this.Cantidad, Estilo: this.estilo });
+
   }
 
 }

@@ -59,7 +59,8 @@ import {
   CoccionesService,
   gridFillComponent,
   StepperCoccionesComponent,
-  CalendarCoccionComponent
+  CalendarCoccionComponent,
+  MainDashboardComponent
 } from './modules.export';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -149,7 +150,8 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     EditCoccionComponent,
     gridFillComponent,
     StepperCoccionesComponent,
-    CalendarCoccionComponent
+    CalendarCoccionComponent,
+    MainDashboardComponent
   ],
   exports: [
     EditUserComponent,
@@ -190,7 +192,8 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     AdmincoccionesComponent,
     gridFillComponent,
     StepperCoccionesComponent,
-    CalendarCoccionComponent
+    CalendarCoccionComponent,
+    MainDashboardComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [EditUserComponent, EditClientsComponent, EditBarrilesComponent, EditRangosComponent, EditPagosComponent,

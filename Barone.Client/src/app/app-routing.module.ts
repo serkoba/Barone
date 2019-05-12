@@ -23,7 +23,8 @@ import {
   AdmincomprasComponent,
   AdminrecetasComponent,
   AdmincoccionesComponent,
-  CalendarCoccionComponent
+  CalendarCoccionComponent,
+  MainDashboardComponent
 } from './modules/modules.export';
 import { TestComponent } from './modules/reportes/components/test/test.component';
 import { AuthGuardService } from './core/core.module.export';
@@ -63,7 +64,8 @@ const routes: Routes = [
   { path: 'Clients', component: AdminclientsComponent },
   { path: 'Barriles', component: AdminbarrilesComponent },
   { path: 'Entregas', component: AdminentregasComponent },
-  { path: 'CalendarCocciones', component: CalendarCoccionComponent }
+  { path: 'CalendarCocciones', component: CalendarCoccionComponent },
+  {path:'Dashboard', component: MainDashboardComponent}
 
 ];
 // @NgModule({

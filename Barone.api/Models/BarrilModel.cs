@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -16,6 +17,8 @@ namespace Barone.api.Models
         public EstilosModel Estilo { get; set; }
         public MovimientosModel Entrega { set; get; }
         public CoccionModel Coccion { get; set; }
+        [NotMapped]
+        public long? Coccion_id { set; get; }
 
 
     }

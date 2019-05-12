@@ -18,7 +18,7 @@ namespace Barone.api
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/api/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromHours(2),
+                AccessTokenExpireTimeSpan = TimeSpan.FromHours(10),
                 Provider = new SimpleAuthorizationServerProvider(),
              //   AccessTokenFormat = new CustomJwtFormat("http://localhost:56770")
             };

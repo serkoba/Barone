@@ -5,8 +5,8 @@ import { EstilosModel } from "./estilos.model";
 
 export class ReportFilterModel extends Constructable<Partial<ReportFilterModel>> {
     public NroBarril: string;
-    public FechaDesde: number;
-    public FechaHasta: number;
+    public FechaDesde: Date;
+    public FechaHasta: Date;
     public RazonSocial: string;
     public Estado: number;
     public Estilo: number;

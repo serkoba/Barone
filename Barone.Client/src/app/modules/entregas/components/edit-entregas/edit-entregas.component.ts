@@ -128,7 +128,7 @@ export class EditEntregasComponent implements OnInit {
         }
 
         return this.barriles.filter(barril => (value == null || barril.NroBarril.toLowerCase().indexOf(filterValue) === 0)
-            && barril.idEstado == TipoEstadoBarril.ParaDespacho && barril.Estilo.Nombre == this.rowSelected.Tipo);
+            && barril.idEstado == TipoEstadoBarril.ParaDespacho && (barril.Estilo && barril.Estilo.Nombre == this.rowSelected.Tipo));
     }
     public rowFocus(row: RowEntrega) {
         this.rowSelected = row;

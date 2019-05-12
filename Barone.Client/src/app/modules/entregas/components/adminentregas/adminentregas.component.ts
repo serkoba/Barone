@@ -184,10 +184,8 @@ export class AdminentregasComponent implements OnInit {
 
     this.entrega = this.entregas.find(x => x.idEntrega === id);
     this.entrega.DetalleEntrega = JSON.parse(this.entrega.DetallePedido.toString());
-    //   this.userServices.getById(id).then(val => { this.user = Object.assign(new User(), val); this.openDialog(); });;
     this.openDialog();
-    //   this.userServices.getById(id).then(val => { this.user = Object.assign(new User(), val); this.openDialog(); });;
-    //   this.openDialog();
+    
   }
   DeleteEntrega(id: number) {
     this.dbops = DBOperation.delete;

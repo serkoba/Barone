@@ -75,20 +75,6 @@ export class EntregasReportesComponent implements OnInit {
 
   ngOnInit() {
     this.entrega = new ReportFilterModel();
-    //  this.entrega.Cliente = new ClientsModel();
-    //  this.SelectedItem = new SelectItem();
-    // this.clientesServices.getAll().subscribe(clientes => {
-    //   this.clientes = clientes;
-    //   this.clientesItems = clientes.map(cliente => {
-    //     return new SelectItem({
-    //       smallValue: `CUIT: ${cliente.CUIT}`,
-    //       viewValue: cliente.RazonSocial,
-    //       value: cliente.IdCliente
-    //     })
-    //   })
-
-
-    // });
     this.loadEntregas();
   }
   loadEntregas(): void {
@@ -99,11 +85,6 @@ export class EntregasReportesComponent implements OnInit {
       });
 
   }
-
-  // public itemSelected(idCliente: number) {
-  //   // this.cliente.IdCliente = idCliente;
-  //   this.entrega.Cliente = this.clientes.find(x => x.IdCliente === idCliente);
-  // }
 
 
 

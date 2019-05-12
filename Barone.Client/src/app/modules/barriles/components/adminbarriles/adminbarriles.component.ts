@@ -175,8 +175,6 @@ export class AdminbarrilesComponent implements OnInit {
 
   }
   public FiltrarInfo(ReportFilter: ReportFilterModel) {
-    //  ReportFilter.BarrilFilter = this.barril;
-    //  ReportFilter.ClientFilter = this.Cliente;
     this.barrilesServices.filtrar(ReportFilter)
       .subscribe(barriles => {
         this.barriles = barriles;
@@ -195,13 +193,11 @@ export class AdminbarrilesComponent implements OnInit {
     this.modalTitle = "Edit Barril";
     this.modalBtnTitle = "Update";
     this.barril = this.barriles.find(x => x.id == id);
-    //   this.userServices.getById(id).then(val => { this.user = Object.assign(new User(), val); this.openDialog(); });;
     this.openDialog(ButtonType.Barril);
   }
   DeleteBarril(id: number) {
     this.dbops = DBOperation.delete;
     this.barrilesServices.delete(id).subscribe(() => {
-      // this.dialogRef.close("success");
       this._snack.openSnackBar("Barril Eliminado", 'Success');
       this.loadBarriles();
     }, error => {
@@ -209,10 +205,7 @@ export class AdminbarrilesComponent implements OnInit {
       //  this.dialogRef.close("error");
 
     });
-    ///   this.modalTitle = "Confirm to Delete?";
-    ///   this.modalBtnTitle = "Delete";
-    ///   this.user = this.users.filter(x => x.Id == id)[0];
-    ///   this.openDialog();
+   
   }
   public DevolverBarril(id: number) {
     this.dbops = DBOperation.delete;
@@ -232,10 +225,7 @@ export class AdminbarrilesComponent implements OnInit {
 
 
     });
-    ///   this.modalTitle = "Confirm to Delete?";
-    ///   this.modalBtnTitle = "Delete";
-    ///   this.user = this.users.filter(x => x.Id == id)[0];
-    ///   this.openDialog();
+    
   }
   public CambiarEstadoBarriles() {
     this.modalTitle = "Cambiar Estado a un Barril";

@@ -102,10 +102,7 @@ export class FilterGridComponent implements OnInit {
   public FiltrarInfo() {
     //   this.ReportFilter.NroBarril = this.NroBarril;
     this.ReportFilter.RazonSocial = this.Cliente == undefined ? null : this.Cliente.RazonSocial;
-    // this.ReportFilter.Estilo = this.Estilo;
-    // this.ReportFilter.Estado = this.Estado;
-    // this.ReportFilter.FechaDesde = this.FechaDesde;
-    // this.ReportFilter.FechaHasta = this.FechaHasta;
+
     this.FilterClicked.emit(this.ReportFilter);
 
   }

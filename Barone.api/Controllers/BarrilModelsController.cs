@@ -292,7 +292,12 @@ namespace Barone.api.Controllers
             if (barril.IdEstilo != null)
                 serverDocument.IdEstilo = barril.IdEstilo;
             if (barril.Coccion != null)
-                serverDocument.Coccion = barril.Coccion;
+            {
+                serverDocument.Coccion_id = barril.Coccion.id;
+                //serverDocument.Coccion = barril.Coccion;
+                //db.Entry(serverDocument.Coccion).State = EntityState.Unchanged;
+            }
+               
 
 
             db.SaveChanges();

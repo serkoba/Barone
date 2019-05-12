@@ -3,6 +3,7 @@ import { HttpClientService } from '../../../core/core.module.export';
 import { Observable } from 'rxjs';
 import { EntregaModel } from '../../shared/models/entrega.model';
 import { ReportFilterModel } from '../../shared/models/reporte-filtro.model';
+import { MovimientosAgrupadosModel } from '../../shared/models/movimientos-agrupados.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,10 @@ export class EntregasService {
   constructor(private _httpClient: HttpClientService) { }
   public getAll(): Observable<EntregaModel[]> {
     return this._httpClient.get<EntregaModel[]>('MovimientosModels');
+  }
+
+  public MovimientosXFecha(model: ReportFilterModel): Observable<MovimientosAgrupadosModel[]> {
+    return this._httpClient.post<ReportFilterModel,MovimientosAgrupadosModel[]>('MovimientosAgrupados',model);
   }
 
   public filtrar(model: ReportFilterModel): Observable<EntregaModel[]> {

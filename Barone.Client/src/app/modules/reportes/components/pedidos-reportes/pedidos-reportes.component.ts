@@ -14,12 +14,6 @@ import { ReportFilterModel } from 'src/app/modules/shared/models/reporte-filtro.
 export class PedidosReportesComponent implements OnInit {
   gridbtns: any[] = [];
   hdrbtns: any[] = [];
-  // Estados: SelectItem[] = [
-  //   { value: 0, viewValue: 'Seleccione Categoria' },
-  //   { value: 1, viewValue: 'Entregadas' },
-  //   { value: 2, viewValue: 'En Progreso' },
-  //   { value: 3, viewValue: 'Entregado' }
-  // ];
 
   columns: any[] = [
     {
@@ -63,29 +57,11 @@ export class PedidosReportesComponent implements OnInit {
     column: 'fechaPactada',
     descending: false
   };
-  // estilosSelect: SelectItem[] = [];
-  //pedido: PedidoModel;
   pedidos: PedidoModel[];
-  //clientes: ClientsModel[] = [];
-  //clientesItems: SelectItem[] = [];
-  //SelectedItem: SelectItem;
   constructor(public pedidoServices: PedidosService, private clientesServices: ClientsService) { }
 
   ngOnInit() {
-    // this.pedido = new ReportFilterModel();
-    //  this.pedido.Cliente = new ClientsModel();
-    // this.SelectedItem = new SelectItem();
-    // this.clientesServices.getAll().subscribe(clientes => {
-    //   this.clientes = clientes;
-    //   this.clientesItems = clientes.map(cliente => {
-    //     return new SelectItem({
-    //       smallValue: `CUIT: ${cliente.CUIT}`,
-    //       viewValue: cliente.RazonSocial,
-    //       value: cliente.IdCliente
-    //     })
-    //   })
-
-    // });
+   
     this.loadPedidos();
   }
   loadPedidos(): void {
@@ -96,11 +72,6 @@ export class PedidosReportesComponent implements OnInit {
       });
 
   }
-
-  // public itemSelected(idCliente: number) {
-  //   // this.cliente.IdCliente = idCliente;
-  //   this.pedido.Cliente = this.clientes.find(x => x.IdCliente === idCliente);
-  // }
 
 
 
