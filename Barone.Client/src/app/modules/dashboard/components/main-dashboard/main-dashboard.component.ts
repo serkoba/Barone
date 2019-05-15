@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BarrilesService } from 'src/app/modules/barriles/services/barriles.service';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { EntregasService } from 'src/app/modules/entregas/services/entregas.service';
 import { ReportFilterModel } from 'src/app/modules/shared/models/reporte-filtro.model';
 import * as moment from 'moment';
+import { ChartsComponent } from 'src/app/core/core.module.export';
 
 @Component({
   selector: 'app-main-dashboard',
@@ -19,7 +20,8 @@ public labels:Label[]=[];
 public labelsBar:Label[]=[];
 public dataBar: ChartDataSets[]=[];
 
-
+@ViewChild('chartPie') public chartPie: ChartsComponent;
+@ViewChild('chartBar') public chartBar: ChartsComponent;
  public pieChartOptions: ChartOptions = {
   responsive: true,
   legend: {
@@ -59,6 +61,7 @@ public ChartColors = [
        this.data = barriles.map(x=> {
         this.labels.push(x.Estado);
          return x.TotalBarriles} );
+         this.chartPie.ShowChart=this.data.length>0;
       });
       
       let ReportFilter = new ReportFilterModel();
@@ -68,28 +71,28 @@ public ChartColors = [
       ReportFilter.FechaDesde=date;
       ReportFilter.Estado=0;
       let arrData : any[]=[];
-      this.entregasServices.MovimientosXFecha(ReportFilter).subscribe(x=>{
-         x.map(x=> {
-          this.labelsBar.push(this.convertToDateFormat(x.Fecha));
+  //     this.entregasServices.MovimientosXFecha(ReportFilter).subscribe(x=>{
+  //        x.map(x=> {
+  //         this.labelsBar.push(this.convertToDateFormat(x.Fecha));
           
-          x.data.map(mov=> {
-            let item =arrData.find(x=>this.convertToEstado(mov.label)===x.label);
-            if (typeof item!=='undefined' ){
-              item.data.push(mov.data);
-            }
-            else {
-              arrData.push({label: this.convertToEstado(mov.label), data:[mov.data]})
-            }
+  //         x.data.map(mov=> {
+  //           let item =arrData.find(x=>this.convertToEstado(mov.label)===x.label);
+  //           if (typeof item!=='undefined' ){
+  //             item.data.push(mov.data);
+  //           }
+  //           else {
+  //             arrData.push({label: this.convertToEstado(mov.label), data:[mov.data]})
+  //           }
 
            
-          });
+  //         });
        
            
-      });
-      this.dataBar =arrData;
+  //     });
+  //     this.dataBar =arrData;
+  //     this.chartBar.ShowChart=this.dataBar.length>0;
 
-
-  });
+  // });
   }
   private convertToDateFormat(date:string){
       return  moment(date).format('YYYY-MM-DD');

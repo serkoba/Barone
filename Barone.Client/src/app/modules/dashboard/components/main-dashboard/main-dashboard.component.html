@@ -9,7 +9,7 @@
           </div>
         </div>
         
-    <app-charts [ChartData]="data" [ChartColors]="ChartColors" [ChartOptions]="pieChartOptions" ChartType='pie' [ChartLabels]="labels"></app-charts>
+    <app-charts #chartPie [ChartData]="data" [ChartColors]="ChartColors" [ChartOptions]="pieChartOptions" ChartType='pie' [ChartLabels]="labels"></app-charts>
   </div>
   
 </div>
@@ -22,7 +22,7 @@
         </div>
       </div>
       
-  <app-charts [ChartDataSets]="dataBar" [ChartOptions]="barChartOptions" ChartType='bar' [ChartLabels]="labelsBar"></app-charts>
+  <app-charts #chartBar [ChartDataSets]="dataBar" [ChartOptions]="barChartOptions" ChartType='bar' [ChartLabels]="labelsBar"></app-charts>
 </div>
 
 </div>

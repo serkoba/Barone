@@ -1,7 +1,7 @@
 <div>
   <div>
-    <div style="display: block">
-      <canvas baseChart
+    <div  style="display: block">
+      <canvas *ngIf="ShowChart" baseChart
         [data]="ChartData"
         [datasets]="ChartDataSets"
         [labels]="ChartLabels"
