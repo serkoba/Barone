@@ -7,3 +7,17 @@ export class EntregasAgrupadasModel extends Constructable<Partial<EntregasAgrupa
     public Cliente: ClientsModel;
     public movimientos: EntregaModel[];
 }
+
+
+export class EntregasAgrupadasByClienteModel extends Constructable<Partial<EntregasAgrupadasByClienteModel>> {
+
+    public Cliente: ClientsModel;
+    public Totales: DetalleEntregas[];
+}
+
+export class DetalleEntregas extends Constructable<Partial<DetalleEntregas>> {
+
+    public Estilo: string;
+    public CantidadLitros: number;
+    public CantidadBarriles: number;
+}

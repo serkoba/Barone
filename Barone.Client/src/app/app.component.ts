@@ -84,7 +84,8 @@ export class AppComponent implements OnInit {
       this.createNavItem('Movimientos', '/EntregaReportes', 'cloud'),
       this.createNavItem('Pedidos', '/PedidoReportes', 'shopping_cart'),
       this.createNavItem('Estado de cuenta', '/EntregasAgrupados', 'swap_horiz'),
-      this.createNavItem('Movimientos de cuentas', '/EstadoCuenta', 'face')]
+      this.createNavItem('Movimientos de cuentas', '/EstadoCuenta', 'face'),
+    this.createNavItem('Consumos x Clientes','/EntregasXEstilo','face')]
     }));
     navNode.push(new NavItem({
       text: 'Produccion',

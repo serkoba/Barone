@@ -12,6 +12,8 @@ using Barone.api.Models;
 using System.Linq.Expressions;
 using Barone.api.DTO;
 using System.Data.Entity.SqlServer;
+using Newtonsoft.Json;
+using Barone.api.Extension;
 
 namespace Barone.api.Controllers
 {
@@ -88,7 +90,102 @@ namespace Barone.api.Controllers
             return FiltrarMovimientosModels(model);
         }
 
-       
+
+        [Route("api/MovimientosModelsGroupByClientEstilos")]
+        public IHttpActionResult PostMovimientosModelsGroupByClientEstilos([FromBody] ReportFilterViewModel model)
+        {
+
+            //var result = db.MovimientosModels.Where(lambda).Include(x => x.Cliente);
+            //return result;// db.MovimientosModels.Include(x=>x.Cliente);
+            //var EstadoBlank = (!model.Estado.HasValue || model.Estado.Value.Equals(0));
+            //var FechaDesdeHastaBlank = (model.FechaDesde.Year == 1 && model.FechaHasta.Year == 1);
+            //var ClientBlank = model.RazonSocial == null;
+            //var resultQuery = from mov in db.MovimientosModels
+            //                  join cli in db.ClientesModels on mov.IdCliente equals cli.IdCliente
+            //                  where (EstadoBlank || model.Estado.Value == mov.Estado)
+            //                  && (FechaDesdeHastaBlank || (model.FechaDesde<= mov.fechaPactada && model.FechaHasta>=mov.fechaPactada))
+            //                  && (ClientBlank || model.RazonSocial== cli.RazonSocial)
+            //                  group mov by mov.IdCliente into movGroup
+            //                  select new { Cliente = movGroup.FirstOrDefault().Cliente, movimientos = movGroup };
+            var filteredMov = from mov in FiltrarMovimientosModels(model)
+                              join cli in db.ClientesModels on mov.IdCliente equals cli.IdCliente
+                              group mov by mov.IdCliente into movGroup
+                              select new { Cliente = movGroup.FirstOrDefault().Cliente, movimientos = movGroup };
+
+
+
+
+            var result = new List<dynamic>();
+            //filteredMov.AsParallel().ForAll(mov =>
+            //{
+            //    var totalByEstilos = new List<GroupByEstilo>();
+
+            //    foreach (var movimiento in mov.movimientos)
+            //    {
+            //        var detallePedidos = JsonConvert.DeserializeObject<IList<DetalleMovimientos>>(movimiento.DetallePedido);
+            //        var queryDetallePedido = from det in detallePedidos
+            //                                 group det by det.Tipo into detGroup
+            //                                 select new GroupByEstilo
+            //                                 {
+            //                                     Estilo = detGroup.Key,
+            //                                     CantidadLitros = (from barriles in detGroup.SelectMany(x => x.BarrilesEntrega)
+            //                                                       join barr in db.BarrilModels on barriles.nombre equals barr.NroBarril
+            //                                                       select barr.CantidadLitros.ToNullableInt()).Sum(),
+            //                                     CantidadBarriles = (from barriles in detGroup.SelectMany(x => x.BarrilesEntrega)
+            //                                                         select barriles).Count()
+
+            //                                 };
+            //        totalByEstilos.AddRange(queryDetallePedido);
+
+            //    }
+
+            //    var groupByCliente = totalByEstilos.GroupBy(x => x.Estilo, (estilos, totals) => new GroupByEstilo
+            //    {
+            //        Estilo = estilos,
+            //        CantidadLitros = totals.Sum(x => x.CantidadLitros),
+            //        CantidadBarriles = totals.Sum(x => x.CantidadBarriles)
+            //    });
+
+            //    result.Add(new { mov.Cliente, Totales = groupByCliente });
+
+            //});
+            foreach (var mov in filteredMov)
+            {
+                var totalByEstilos = new List<GroupByEstilo>();
+                foreach (var movimiento in mov.movimientos)
+                {
+                    var detallePedidos = JsonConvert.DeserializeObject<IList<DetalleMovimientos>>(movimiento.DetallePedido);
+                    var queryDetallePedido = from det in detallePedidos
+                                             group det by det.Tipo into detGroup
+                                             select new GroupByEstilo
+                                             {
+                                                 Estilo = detGroup.Key,
+                                                 CantidadLitros = (from barriles in detGroup.SelectMany(x => x.BarrilesEntrega)
+                                                                   join barr in db.BarrilModels on barriles.nombre equals barr.NroBarril
+                                                                   select barr.CantidadLitros.ToNullableInt()).Sum(),
+                                                 CantidadBarriles = detGroup.SelectMany(x => x.BarrilesEntrega).Count()
+                                                                     
+
+                                             };
+                    totalByEstilos.AddRange(queryDetallePedido);
+
+                }
+
+                var groupByCliente = totalByEstilos.GroupBy(x => x.Estilo, (estilos, totals) => new GroupByEstilo
+                {
+                    Estilo = estilos,
+                    CantidadLitros = totals.Sum(x => x.CantidadLitros),
+                    CantidadBarriles = totals.Sum(x => x.CantidadBarriles)
+                });
+
+                result.Add(new { mov.Cliente, Totales = groupByCliente });
+
+            }
+
+
+            return Ok(result);
+
+        }
 
         [Route("api/MovimientosModelsGroupByClient")]
         public IHttpActionResult PostFiltrarEstadoMovimientosModels([FromBody] ReportFilterViewModel model)

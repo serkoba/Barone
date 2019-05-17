@@ -224,9 +224,11 @@
     <Compile Include="Controllers\UserModelsController.cs" />
     <Compile Include="DTO\BarrilXEstadoReporte.cs" />
     <Compile Include="DTO\CuentasDebeHaberDTO.cs" />
+    <Compile Include="DTO\DetalleMovimientos.cs" />
     <Compile Include="DTO\MovimientosXFecha.cs" />
     <Compile Include="DTO\NotificationsDTO.cs" />
     <Compile Include="DTO\ReportFilterViewModel.cs" />
+    <Compile Include="Extension\intExtension.cs" />
     <Compile Include="formats\CustomJwtFormat.cs" />
     <Compile Include="Migrations\201904291600551_first_instal.cs" />
     <Compile Include="Migrations\201904291600551_first_instal.Designer.cs">
@@ -279,7 +281,6 @@
   <ItemGroup>
     <Folder Include="ActionFilters\" />
     <Folder Include="App_Data\" />
-    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904291600551_first_instal.resx">

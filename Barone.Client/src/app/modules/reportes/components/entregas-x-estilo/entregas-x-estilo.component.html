@@ -1,0 +1,28 @@
+<div class="panel-body">
+  <filter-grid [FilterBarril]="false" [FilterPedEnt]="true" (FilterClicked)="FiltrarInfo($event)"></filter-grid>
+
+  <div class="row scrollable">
+    <div class="w-95">
+
+      <mat-accordion multi="true">
+        <mat-expansion-panel *ngFor="let item of entregas">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+
+              <mat-panel-title>
+                Razon Social: {{item.Cliente.RazonSocial}}
+              </mat-panel-title>
+              <mat-panel-description>
+                CUIT: {{item.Cliente.CUIT}}
+              </mat-panel-description>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <data-grid-view [PaginatorEnabled]="false" #grid [data]="item.Totales" [columnsToDisplay]="columns"></data-grid-view>
+
+
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+</div>

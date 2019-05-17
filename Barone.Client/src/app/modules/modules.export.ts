@@ -59,6 +59,7 @@ export * from './reportes/components/entregas-reportes/entregas-reportes.compone
 export * from './reportes/components/pedidos-reportes/pedidos-reportes.component';
 export * from './reportes/components/entrega-agrupados/entrega-agrupados.component';
 export * from './reportes/components/estado-cuenta-reporte/estado-cuenta-reporte.component';
+export * from './reportes/components/entregas-x-estilo/entregas-x-estilo.component';
 export * from './shared/models/reporte-agrupado.model';
 export * from './shared/models/entregas-agrupadas.model';
 export * from './shared/models/cuentas-debe-haber.model';

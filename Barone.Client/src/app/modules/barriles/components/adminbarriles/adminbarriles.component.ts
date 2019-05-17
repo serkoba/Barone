@@ -216,6 +216,7 @@ export class AdminbarrilesComponent implements OnInit {
     }
     barril.idEntrega=null;
     barril.idEstado=1;
+    barril.idEntrega=null;
     this.barrilesServices.update(barril).subscribe(() => {
       const message = "Barril " + barril.NroBarril + " devuelto";
       this._snack.openSnackBar(message, 'Success');

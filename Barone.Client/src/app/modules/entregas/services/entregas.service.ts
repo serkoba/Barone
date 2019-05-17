@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { EntregaModel } from '../../shared/models/entrega.model';
 import { ReportFilterModel } from '../../shared/models/reporte-filtro.model';
 import { MovimientosAgrupadosModel } from '../../shared/models/movimientos-agrupados.model';
+import { EntregasAgrupadasByClienteModel } from '../../shared/models/entregas-agrupadas.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,9 @@ export class EntregasService {
 
   public filtrar(model: ReportFilterModel): Observable<EntregaModel[]> {
     return this._httpClient.post<ReportFilterModel, EntregaModel[]>('FiltrarMovimientos', model);
+  }
+  public MovimientosXEstilosXCliente(model: ReportFilterModel): Observable<EntregasAgrupadasByClienteModel[]> {
+    return this._httpClient.post<ReportFilterModel, EntregasAgrupadasByClienteModel[]>('MovimientosModelsGroupByClientEstilos', model);
   }
 
   public update(model: EntregaModel): Observable<void> {

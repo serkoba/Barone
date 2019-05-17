@@ -14,18 +14,14 @@ export class ChartsComponent implements OnInit {
     responsive: true,
     
   };
-  @Input() public ChartLabels: Label[] = ['Download', 'Sales'];
+  @Input() public ChartLabels: Label[] 
   @Input() public ChartType: ChartType = 'pie';
   public ChartLegend = true;
   public ChartPlugins = [pluginDataLabels];
 
-  @Input() public ChartData: number[]=[300, 500, 100];
+  @Input() public ChartData: number[];
 
-  @Input() public ChartDataSets: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
-   
-  ];
+   @Input() public ChartDataSets: ChartDataSets[];
 
  @Input() public ChartColors = [
   ];

@@ -71,28 +71,28 @@ public ChartColors = [
       ReportFilter.FechaDesde=date;
       ReportFilter.Estado=0;
       let arrData : any[]=[];
-  //     this.entregasServices.MovimientosXFecha(ReportFilter).subscribe(x=>{
-  //        x.map(x=> {
-  //         this.labelsBar.push(this.convertToDateFormat(x.Fecha));
+      this.entregasServices.MovimientosXFecha(ReportFilter).subscribe(x=>{
+         x.map(x=> {
+          this.labelsBar.push(this.convertToDateFormat(x.Fecha));
           
-  //         x.data.map(mov=> {
-  //           let item =arrData.find(x=>this.convertToEstado(mov.label)===x.label);
-  //           if (typeof item!=='undefined' ){
-  //             item.data.push(mov.data);
-  //           }
-  //           else {
-  //             arrData.push({label: this.convertToEstado(mov.label), data:[mov.data]})
-  //           }
+          x.data.map(mov=> {
+            let item =arrData.find(x=>this.convertToEstado(mov.label)===x.label);
+            if (typeof item!=='undefined' ){
+              item.data.push(mov.data);
+            }
+            else {
+              arrData.push({label: this.convertToEstado(mov.label), data:[mov.data]})
+            }
 
            
-  //         });
+          });
        
            
-  //     });
-  //     this.dataBar =arrData;
-  //     this.chartBar.ShowChart=this.dataBar.length>0;
+      });
+      this.dataBar =arrData;
+      this.chartBar.ShowChart=this.dataBar.length>0;
 
-  // });
+  });
   }
   private convertToDateFormat(date:string){
       return  moment(date).format('YYYY-MM-DD');

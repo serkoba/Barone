@@ -24,7 +24,8 @@ import {
   AdminrecetasComponent,
   AdmincoccionesComponent,
   CalendarCoccionComponent,
-  MainDashboardComponent
+  MainDashboardComponent,
+  EntregasXEstiloComponent
 } from './modules/modules.export';
 import { TestComponent } from './modules/reportes/components/test/test.component';
 import { AuthGuardService } from './core/core.module.export';
@@ -53,6 +54,7 @@ const routes: Routes = [
       { path: 'EntregasAgrupados', component: EntregaAgrupadosComponent },
       { path: 'EstadoCuenta', component: EstadoCuentaReporteComponent },
       { path: 'Proveedores', component: AdminproveedoresComponent },
+      {path:'EntregasXEstilo',component: EntregasXEstiloComponent},
       { path: 'Insumos', component: AdmininsumosComponent },
       { path: 'Compras', component: AdmincomprasComponent },
       { path: 'Recetas', component: AdminrecetasComponent },
