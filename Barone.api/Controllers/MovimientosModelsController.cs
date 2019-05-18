@@ -94,7 +94,10 @@ namespace Barone.api.Controllers
         [Route("api/MovimientosModelsGroupByClientEstilos")]
         public IHttpActionResult PostMovimientosModelsGroupByClientEstilos([FromBody] ReportFilterViewModel model)
         {
+            try
+            {
 
+            
             //var result = db.MovimientosModels.Where(lambda).Include(x => x.Cliente);
             //return result;// db.MovimientosModels.Include(x=>x.Cliente);
             //var EstadoBlank = (!model.Estado.HasValue || model.Estado.Value.Equals(0));
@@ -115,7 +118,7 @@ namespace Barone.api.Controllers
 
 
 
-            var result = new List<dynamic>();
+            var result = new List<MovimientosXEstilos>();
             //filteredMov.AsParallel().ForAll(mov =>
             //{
             //    var totalByEstilos = new List<GroupByEstilo>();
@@ -178,12 +181,18 @@ namespace Barone.api.Controllers
                     CantidadBarriles = totals.Sum(x => x.CantidadBarriles)
                 });
 
-                result.Add(new { mov.Cliente, Totales = groupByCliente });
+                result.Add(new MovimientosXEstilos { Cliente= mov.Cliente, Totales = groupByCliente });
 
             }
 
 
             return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.InnerException.Message);
+            }
 
         }
 

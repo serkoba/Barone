@@ -225,6 +225,7 @@
     <Compile Include="DTO\BarrilXEstadoReporte.cs" />
     <Compile Include="DTO\CuentasDebeHaberDTO.cs" />
     <Compile Include="DTO\DetalleMovimientos.cs" />
+    <Compile Include="DTO\MovimientosXEstilos.cs" />
     <Compile Include="DTO\MovimientosXFecha.cs" />
     <Compile Include="DTO\NotificationsDTO.cs" />
     <Compile Include="DTO\ReportFilterViewModel.cs" />
