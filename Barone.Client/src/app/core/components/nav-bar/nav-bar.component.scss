@@ -1,238 +1,238 @@
-/* The side navigation menu */
-.login-button{
-    height: 40px;
-    width: 40px;
-    display: flex;
-    margin-top: -1vh;
+// /* The side navigation menu */
+// .login-button{
+//     height: 40px;
+//     width: 40px;
+//     display: flex;
+//     margin-top: -1vh;
     
-}
+// }
 
-.sticky-top {
-    z-index: 1000!important;
-}
+// .sticky-top {
+//     z-index: 1000!important;
+// }
 
-.sidenav {
-    height: 100%;
-    /* 100% Full-height */
-    width: 0;
-    /* 0 width - change this with JavaScript */
-    position: fixed;
-    /* Stay in place */
-    z-index: 1;
-    /* Stay on top */
-    top: 0;
-    /* Stay at the top */
-    left: 0;
-    background-color: #B8B8B8;
-    /* Black*/
-    overflow-x: hidden;
-    /* Disable horizontal scroll */
-    padding-top: 60px;
-    /* Place content 60px from the top */
-    transition: 0.5s;
-    /* 0.5 second transition effect to slide in the sidenav */
-}
-
-
-/* The navigation menu links */
-
-.sidenav a {
-    //padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    //font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-}
-
-.sidenav a span {
-    font-size: 20px;
-}
-
-.material-icons {
-    font-size: 19px!important;
-}
-
-.mat-expansion-panel-header {
-    font-size: 20px!important;
-}
+// .sidenav {
+//     height: 100%;
+//     /* 100% Full-height */
+//     width: 0;
+//     /* 0 width - change this with JavaScript */
+//     position: fixed;
+//     /* Stay in place */
+//     z-index: 1;
+//     /* Stay on top */
+//     top: 0;
+//     /* Stay at the top */
+//     left: 0;
+//     background-color: #B8B8B8;
+//     /* Black*/
+//     overflow-x: hidden;
+//     /* Disable horizontal scroll */
+//     padding-top: 60px;
+//     /* Place content 60px from the top */
+//     transition: 0.5s;
+//     /* 0.5 second transition effect to slide in the sidenav */
+// }
 
 
-/* When you mouse over the navigation links, change their color */
+// /* The navigation menu links */
 
-.sidenav a:hover {
-    color: #f1f1f1;
-}
+// .sidenav a {
+//     //padding: 8px 8px 8px 32px;
+//     text-decoration: none;
+//     //font-size: 25px;
+//     color: #818181;
+//     display: block;
+//     transition: 0.3s;
+// }
+
+// .sidenav a span {
+//     font-size: 20px;
+// }
+
+// .material-icons {
+//     font-size: 19px!important;
+// }
+
+// .mat-expansion-panel-header {
+//     font-size: 20px!important;
+// }
 
 
-/* Position and style the close button (top right corner) */
+// /* When you mouse over the navigation links, change their color */
 
-.sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-}
+// .sidenav a:hover {
+//     color: #f1f1f1;
+// }
 
 
-/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+// /* Position and style the close button (top right corner) */
+
+// .sidenav .closebtn {
+//     position: absolute;
+//     top: 0;
+//     right: 25px;
+//     font-size: 36px;
+//     margin-left: 50px;
+// }
 
 
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+// /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
 
-@media screen and (max-height: 450px) {
-    .sidenav {
-        padding-top: 15px;
-    }
-    .sidenav a {
-        font-size: 18px;
-    }
-}
 
-.navbar {
-    padding: 0;
-    border-bottom: thin solid #080808;
-    .navbar-brand {
-        padding: 0;
-        color: #fff;
-        text-transform: uppercase;
-        img {
-            max-height: 40px;
-        }
-        span {
-            margin: 0 10px;
-        }
-    }
-    .nav-item {
-        font-size: 12px;
-        text-transform: uppercase;
-        &.active {
-            background: #3a3a3a;
-        }
-        .nav-link {
-            padding-left: 5px;
-        }
-    }
-    .dropdown-menu {
-        left: unset;
-        right: 0;
-    }
-    .card {
-        -moz-box-direction: normal;
-        -moz-box-orient: vertical;
-        background-color: #fff;
-        border-radius: 0.25rem;
-        display: flex;
-        flex-direction: column;
-        position: relative;
-        margin-bottom: 1px;
-        border: none;
-    }
-    .card-header:first-child {
-        border-radius: 0;
-    }
-    .card-header {
-        background-color: #f7f7f9;
-        margin-bottom: 0;
-        padding: 0!important;
-        border: none;
-        width: 100%;
-    }
-    .card-header a i {
-        float: left;
-        font-size: 25px;
-        padding: 5px 0;
-        margin: 0 25px 0 0px;
-        color: #195C9D;
-    }
-    .card-header i {
-        float: right;
-        font-size: 30px;
-        width: 1%;
-        margin-top: 8px;
-        margin-right: 10px;
-    }
-    .card-header a {
-        width: 97%;
-        float: left;
-        color: #565656;
-    }
-    .card-header p {
-        margin: 0;
-    }
-    .card-header h3 {
-        margin: 0 0 0px;
-        font-size: 20px;
-        font-family: 'Slabo 27px', serif;
-        font-weight: bold;
-        color: #3fc199;
-    }
-    .btn {
-        font-size: 2rem!important;
-    }
-}
+// /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 
-.spacer {
-    flex: 1 1 auto;
-}
+// @media screen and (max-height: 450px) {
+//     .sidenav {
+//         padding-top: 15px;
+//     }
+//     .sidenav a {
+//         font-size: 18px;
+//     }
+// }
 
-.container {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
+// .navbar {
+//     padding: 0;
+//     border-bottom: thin solid #080808;
+//     .navbar-brand {
+//         padding: 0;
+//         color: #fff;
+//         text-transform: uppercase;
+//         img {
+//             max-height: 40px;
+//         }
+//         span {
+//             margin: 0 10px;
+//         }
+//     }
+//     .nav-item {
+//         font-size: 12px;
+//         text-transform: uppercase;
+//         &.active {
+//             background: #3a3a3a;
+//         }
+//         .nav-link {
+//             padding-left: 5px;
+//         }
+//     }
+//     .dropdown-menu {
+//         left: unset;
+//         right: 0;
+//     }
+//     .card {
+//         -moz-box-direction: normal;
+//         -moz-box-orient: vertical;
+//         background-color: #fff;
+//         border-radius: 0.25rem;
+//         display: flex;
+//         flex-direction: column;
+//         position: relative;
+//         margin-bottom: 1px;
+//         border: none;
+//     }
+//     .card-header:first-child {
+//         border-radius: 0;
+//     }
+//     .card-header {
+//         background-color: #f7f7f9;
+//         margin-bottom: 0;
+//         padding: 0!important;
+//         border: none;
+//         width: 100%;
+//     }
+//     .card-header a i {
+//         float: left;
+//         font-size: 25px;
+//         padding: 5px 0;
+//         margin: 0 25px 0 0px;
+//         color: #195C9D;
+//     }
+//     .card-header i {
+//         float: right;
+//         font-size: 30px;
+//         width: 1%;
+//         margin-top: 8px;
+//         margin-right: 10px;
+//     }
+//     .card-header a {
+//         width: 97%;
+//         float: left;
+//         color: #565656;
+//     }
+//     .card-header p {
+//         margin: 0;
+//     }
+//     .card-header h3 {
+//         margin: 0 0 0px;
+//         font-size: 20px;
+//         font-family: 'Slabo 27px', serif;
+//         font-weight: bold;
+//         color: #3fc199;
+//     }
+//     .btn {
+//         font-size: 2rem!important;
+//     }
+// }
 
-mat-sidenav {
-    width: 250px;
-    ;
-}
+// .spacer {
+//     flex: 1 1 auto;
+// }
 
-.circle {
-    border-radius: 50%;
-}
+// .container {
+//     position: absolute;
+//     top: 0;
+//     bottom: 0;
+//     left: 0;
+//     right: 0;
+// }
 
-.with-bg {
-    //   background: url('../../assets/images/office.jpg') no-repeat center;
-    overflow: hidden;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: -1;
-    max-height: 130px;
-}
+// mat-sidenav {
+//     width: 250px;
+//     ;
+// }
 
-.no-shadow {
-    box-shadow: none !important;
-}
+// .circle {
+//     border-radius: 50%;
+// }
 
- ::ng-deep .mat-expansion-panel-body {
-    padding: 0px !important;
-    padding-left: 10px !important;
-}
+// .with-bg {
+//     //   background: url('../../assets/images/office.jpg') no-repeat center;
+//     overflow: hidden;
+//     position: absolute;
+//     top: 0;
+//     right: 0;
+//     bottom: 0;
+//     left: 0;
+//     z-index: -1;
+//     max-height: 130px;
+// }
 
-.header-box-shadow {
-    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
-}
+// .no-shadow {
+//     box-shadow: none !important;
+// }
 
-.bottom-to-top {
-    border: 0px;
-    border-right: 1px;
-    border-style: solid;
-    border-image: linear-gradient(to top, #c1c1c1, rgba(0, 0, 0, 0)) 1 100%
-}
+//  ::ng-deep .mat-expansion-panel-body {
+//     padding: 0px !important;
+//     padding-left: 10px !important;
+// }
 
-.bg-grey {
-    background-color: #CCC;
-}
+// .header-box-shadow {
+//     box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+// }
 
-.navbar-logo {
-    display: inline-block;
-    width: 13%;
-    padding-left: 3%;
-    padding-right: 3%;
-}
+// .bottom-to-top {
+//     border: 0px;
+//     border-right: 1px;
+//     border-style: solid;
+//     border-image: linear-gradient(to top, #c1c1c1, rgba(0, 0, 0, 0)) 1 100%
+// }
+
+// .bg-grey {
+//     background-color: #CCC;
+// }
+
+// .navbar-logo {
+//     display: inline-block;
+//     width: 13%;
+//     padding-left: 3%;
+//     padding-right: 3%;
+// }

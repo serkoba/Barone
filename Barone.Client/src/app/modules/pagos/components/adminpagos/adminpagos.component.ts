@@ -77,20 +77,20 @@ export class AdminpagosComponent implements OnInit {
 
       }];
     this.gridbtns = [
-      {
-        title: 'Editar',
-        icon: 'create',
-        keys: ['idPago'],
-        action: DBOperation.update,
-        ishide: this.isREADONLY
-      },
-      {
-        title: 'Borrar',
-        icon: 'clear',
-        keys: ["idPago"],
-        action: DBOperation.delete,
-        ishide: this.isREADONLY
-      }
+      // {
+      //   title: 'Editar',
+      //   icon: 'create',
+      //   keys: ['idPago'],
+      //   action: DBOperation.update,
+      //   ishide: this.isREADONLY
+      // },
+      // {
+      //   title: 'Borrar',
+      //   icon: 'clear',
+      //   keys: ["idPago"],
+      //   action: DBOperation.delete,
+      //   ishide: this.isREADONLY
+      // }
 
     ];
   }

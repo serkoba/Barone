@@ -2,13 +2,24 @@ import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter }
 import { Router } from '@angular/router';
 import { NavItem } from '../../models/nav-item';
 import { isNullOrUndefined } from 'util';
-import { NgbAccordionConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCollapse } from '@ng-bootstrap/ng-bootstrap';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss'],
-  providers:[NgbAccordionConfig]
+  animations: [
+    trigger('visibleSidebarState', [
+      state('expanded', style({ transform: 'none', pointerEvents: 'auto', willChange: 'initial' })),
+      state('expanded--animate', style({ transform: 'none', pointerEvents: 'auto', willChange: 'initial' })),
+      state('collapsed--left', style({ transform: 'translateX(-110%)' })),
+      state('collapsed--right', style({ transform: 'translateX(110%)' })),
+      state('collapsed--top', style({ transform: 'translateY(-110%)' })),
+      state('collapsed--bottom', style({ transform: 'translateY(110%)' })),
+      transition('expanded--animate <=> *', animate('0.3s cubic-bezier(0, 0, 0.3, 1)'))
+    ])],
+  providers:[NgbCollapse]
 })
 export class NavBarComponent implements OnInit {
 
@@ -30,8 +41,8 @@ export class NavBarComponent implements OnInit {
   /**
    * this is a button that shows a dropdown with different actions
    */
-  @Input() public actionButtons: NavItem[];
-  public actionButtons2: NavItem[];
+  // @Input() public actionButtons: NavItem[];
+  // public actionButtons2: NavItem[];
   /**
    * true or false that allows hide the nav bar
    */
@@ -40,10 +51,11 @@ export class NavBarComponent implements OnInit {
    * event fired when you click in an option
    */
   @Output() public navItemClick: EventEmitter<string> = new EventEmitter();
+  public ClassesToToggle = ['show','collapsed'];
   public collapsed = false;
 
-  constructor(private _router: Router,private config: NgbAccordionConfig) { 
-    this.config.closeOthers = true;
+  constructor(private _router: Router) { 
+    //this.config.closeOthers = true;
    // this.config.type = 'info';
   }
 
@@ -52,7 +64,7 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit() {
     this.navigations=this.navigation;
-    this.actionButtons2=this.actionButtons;
+   // this.actionButtons2=this.actionButtons;
     // this._router.events.subscribe((res) => {
     //   this.activeLinkIndex = this.getCurrentActiveLink();
     // });
@@ -64,11 +76,32 @@ export class NavBarComponent implements OnInit {
     // var contentHeight = screenHeight - navHeight;
 
   }
-  public toggle(){
-this.divMain.nativeElement.classList.add('toggled');
-this.buttonHamburger.nativeElement.classList.remove('is-closed');
-this.buttonHamburger.nativeElement.classList.add('is-open');
-this.overlay.nativeElement.show();
+  public toggle(element: string, itemLink:string){
+  //  this.resetNav();
+    let _destinationElement = document.getElementById(element);
+    let _itemLink= document.getElementById(itemLink);
+    _destinationElement.classList.toggle('show');
+    _itemLink.classList.toggle('collapsed');
+// this.divMain.nativeElement.classList.add('toggled');
+// this.buttonHamburger.nativeElement.classList.remove('is-closed');
+// this.buttonHamburger.nativeElement.classList.add('is-open');
+// this.overlay.nativeElement.show();
+  }
+  public accordionEnabled(element:string){
+    let _destinationElement = document.getElementById(element);
+   // let isToggled=_destinationElement.classList.contains('toggled');
+    _destinationElement.classList.toggle('toggled');
+   
+   
+  }
+  public resetNav(){
+    this.ClassesToToggle.forEach(className => {
+      let _elements = Array.from(document.getElementsByClassName(className));
+      _elements.forEach(element=>{
+        element.classList.toggle(className);
+      })
+
+    })
   }
 
   public openNav() {

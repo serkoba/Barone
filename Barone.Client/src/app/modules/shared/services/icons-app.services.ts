@@ -89,6 +89,12 @@ export class IconsAppServices {
 
             this.iconRegistry.addSvgIcon('clear',
             this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/baseline-clear-24px.svg'));
+
+
+            this.iconRegistry.addSvgIcon('beer',
+            this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/iconmonstr-beer-12.svg'));
+
+            
             
             
 

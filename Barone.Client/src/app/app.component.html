@@ -1,7 +1,19 @@
+<div id="wrapper">
 <!--The content below is only a placeholder and can be replaced.-->
-<nav-bar [hideNav]="hideNav()" [navigation]="setNodesWithPermission()" (navItemClick)="NavItemClicked($event)"
-    [actionButtons]="actionButtons"></nav-bar>
-<div id="container" class="component-container">
-    <router-outlet></router-outlet>
+<nav-bar *ngIf="hideNav()"  [navigation]="setNodesWithPermission()" (navItemClick)="NavItemClicked($event)"
+   ></nav-bar>
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+            <app-header *ngIf="hideNav()" [actionButtons]="actionButtons"></app-header>
+            <div class="container-fluid">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
 </div>
+<!-- <div id="container" class="component-container">
+    <router-outlet></router-outlet>
+</div> -->
 <bar-loader></bar-loader>

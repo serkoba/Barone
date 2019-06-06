@@ -7,7 +7,7 @@ export const environment = {
   apiUrl: 'http://localhost:56770/api',
   loginUrl: '/login',
   backgroundLogin: '../../assets/images/fondo4.jpg',
-  logoutUrl: 'logoff',
+  logoutUrl: '/logoff',
   rootStore: '',
   relativeRoot: '',
   logoUrl: '../../assets/images/logoB-b.png',

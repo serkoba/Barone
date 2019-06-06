@@ -35,11 +35,14 @@
 @import "../styles/barone-app-theme.scss";
 @import "../../node_modules/material-design-icons/iconfont/material-icons.css";
 @import "fonts/font-awesome";
+@import './scss/sb-admin-2.scss';
 @import '_custom';
+@import 'sb-admin';
 @import 'elegant-icons-style';
 @import 'line-icons';
 @import 'nav-menu';
 @import 'hamburguer';
+
 @font-face {
     font-family: Monserrat;
     src: url('/assets/fonts/montserrat/Montserrat-Light.ttf');

@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
     buttons.push(
       new NavItem({
         text: 'Log-off',
-        routerPath: this._frameworkConfiguration.configuration.logoutUrl,
+        routerPath:  this._frameworkConfiguration.configuration.logoutUrl,
         icon: 'vpn_key',
         kind: 'link'
       }));
@@ -55,7 +55,7 @@ export class AppComponent implements OnInit {
   }
 
   public hideNav(): boolean {
-    return !this.session.loggedIn();
+    return this.session.loggedIn();
   }
 
   public setNodesWithPermission(): NavItem[] {
@@ -106,7 +106,7 @@ export class AppComponent implements OnInit {
       //  routerPath:'/Home',
       children: [this.createNavItem('Rangos', '/Rangos', 'insert_invitation'),
       this.createNavItem('Estilos', '/Estilos', 'dvr'),
-      this.createNavItem('Barriles', '/Barriles', 'cloud'),
+      this.createNavItem('Barriles', '/Barriles', 'beer'),
       this.createNavItem('Clientes', '/Clients', 'supervisor_account'),
       this.createNavItem('Pagos', '/Pagos', 'attach_money'),
       this.createNavItem('Usuarios', '/Users', 'contacts')]
@@ -129,7 +129,9 @@ export class AppComponent implements OnInit {
       text: text,
       routerPath: routerPath,// this._frameworkConfiguration.configuration.logoutUrl,
       icon: icon,
-      kind: 'link'
+      kind: 'link',
+      activeClassName:'active'
+
     })
   }
 

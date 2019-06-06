@@ -84,7 +84,7 @@ namespace Barone.api.Controllers
                                                      Select(item => new CuentasDebeHaberDTO()
                                                      {
                                                          Descripcion = item.Tipo == 1 ? "Efectivo" : item.Tipo == 2 ? "Cheque" : item.Tipo == 3 ? "Devolucion" : "",
-                                                         DebeImporte = item.Importe,
+                                                         HaberImporte = item.Importe,
 
                                                          Fecha = item.FechaPago,
                                                          IdCliente = item.IdCliente,
@@ -98,7 +98,7 @@ namespace Barone.api.Controllers
                                                      (item => new CuentasDebeHaberDTO()
                                                      {
                                                          Descripcion = "Nro Remito: " + item.idEntrega + ", " + (item.Estado == 1 ? "Pendiente" : item.Estado == 2 ? "En Progreso" : item.Estado == 3 ? "Entregado" : "Incompleto"),
-                                                         HaberImporte = Convert.ToDouble(item.TotalImporte?.ToString()),
+                                                         DebeImporte = Convert.ToDouble(item.TotalImporte?.ToString()),
                                                          Fecha = item.fechaPactada,
                                                          IdCliente = item.IdCliente,
                                                          Cliente = item.Cliente

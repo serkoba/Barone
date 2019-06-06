@@ -1,3 +1,5 @@
+<!-- 
+
 <nav *ngIf="!hideNav" class="navbar sticky-top navbar-expand-lg navbar-dark bg-grey">
     <div *ngIf="logo!==undefined">
         <a class="navbar-brand" href="" routerLink="{{logo.routerPath}}">
@@ -36,8 +38,74 @@
         </span>
 
     </div>
-</nav>
+</nav> -->
 
+<!-- 
+<div id="mySidenav" class="sidenav"> -->
+
+
+     
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"  id="accordionSidebar">
+
+      
+
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                  <i class="fa fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">Barone <sup>2</sup></div>
+              </a>
+
+              <hr class="sidebar-divider my-0">
+
+              <li *ngFor="let item of navigations" class="nav-item active">
+                    <a  *ngIf="!item.hasChildren" class="nav-link" routerLink="{{item.routerPath}}">
+                            <mat-icon *ngIf="item.icon !== ''" svgIcon="{{item.icon}}"></mat-icon>
+                      <span> {{item.text}}</span></a>
+                      <a *ngIf="item.hasChildren"  class="nav-link collapsed" id="linkItem_{{item.text}}" (click)="toggle('collapseOption_' + item.text,'linkItem_' + item.text)" href="javascript:void(0);" data-toggle="collapse" [attr.data-target] ="'collapseOption_' + item.text" aria-expanded="true" [attr.aria-controls]="'collapseOption_' + item.text">
+                        <mat-icon *ngIf="item.icon !== ''" svgIcon="{{item.icon}}">{{item.icon}}</mat-icon>
+                  <span>{{item.text}}</span>
+                </a>
+                <div *ngIf="item.hasChildren" id="collapseOption_{{item.text}}" class="collapse "  [attr.aria-labelledby]="'headingTwo_' + item.text" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                      <h6 class="collapse-header">{{item.text}}</h6>
+                      <a class="collapse-item" *ngFor="let child of item.children" routerLinkActive="active" routerLink="{{child.routerPath}}">{{child.text}}</a>
+                      
+                    </div>
+                  </div>
+                  </li>
+
+<!-- 
+                  <li class="nav-item" *ngIf="item.hasChildren">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                <mat-icon *ngIf="item.icon !== ''" svgIcon="{{item.icon}}">{{item.icon}}</mat-icon>
+                          <span>{{item.text}}</span>
+                        </a>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                          <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">{{item.text}}</h6>
+                            <a class="collapse-item" *ngFor="let child of item.children" routerLink="{{child.routerPath}}">{{child.text}}</a>
+                            
+                          </div>
+                        </div>
+                      </li> -->
+
+
+                     
+ <!-- Divider -->
+ <hr class="sidebar-divider d-none d-md-block">
+
+ <!-- Sidebar Toggler (Sidebar) -->
+ <div class="text-center d-none d-md-inline">
+   <button class="rounded-circle border-0" id="sidebarToggle" (click)="accordionEnabled('accordionSidebar')"></button>
+ </div>
+                  
+                  
+</ul>
+
+    
+    <!-- </div> -->
+<!-- 
 <div id="mySidenav" class="sidenav">
 
 
@@ -84,9 +152,7 @@
                                     <mat-icon *ngIf="child.icon !== ''" svgIcon="{{child.icon}}"></mat-icon>
                                     <span> {{child.text}}</span>
                                 </a>
-                                <!-- <button mat-icon-button class="mr-3">
-              <mat-icon>info</mat-icon>
-            </button> -->
+                               
                             </mat-list-item>
 
 
@@ -98,6 +164,6 @@
         </mat-sidenav>
     </mat-sidenav-container>
 
-</div>
+</div> -->
 
 <!-- Use any element to open the sidenav -->

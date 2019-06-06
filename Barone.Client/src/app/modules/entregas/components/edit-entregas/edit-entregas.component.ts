@@ -9,7 +9,7 @@ import { ClientsService } from '../../../clients/services/clients.service';
 import { ItemChip } from '../../../shared/models/item-chip';
 import { BarrilesService } from '../../../barriles/services/barriles.service';
 import { FormControl } from '@angular/forms';
-import { Observable, from, of } from 'rxjs';
+import { Observable, from, of, concat } from 'rxjs';
 import { startWith, map, concatMap, mergeMap, last, switchMap } from 'rxjs/operators';
 import { RowEntrega } from '../../../shared/models/row-entrega';
 import { AddEntregaComponent } from '../add-entrega/add-entrega.component';
@@ -174,7 +174,14 @@ export class EditEntregasComponent implements OnInit {
 
 
 
-            }), last())
+            })
+            , last(),
+            concatMap(()=>{
+                let saldo= +this.entrega.Cliente.SaldoCuenta;
+                saldo += this.returnSaldo(this.entrega.TotalImporte);
+                this.entrega.Cliente.SaldoCuenta=saldo.toString();
+                 return this.clientesServices.update(this.entrega.Cliente); 
+            }))
             .subscribe((result) => {
                 this.dialogRef.close("success");
 
@@ -191,7 +198,12 @@ export class EditEntregasComponent implements OnInit {
     }
 
 
-
+    public returnSaldo(saldo:string){
+        if (isNaN(+saldo)){
+          return 0;
+        }
+        return +saldo;
+      }
 
     public add(event: MatChipInputEvent, row: RowEntrega): void {
         const input = event.input;

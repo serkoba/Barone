@@ -23,3 +23,4 @@ export * from './services/auth-guard.service';
 export * from './models/select-item';
 export * from './components/tank/tank.component';
 export * from './components/charts/charts.component';
+export * from './components/header/header.component';

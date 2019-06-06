@@ -43,6 +43,7 @@ import { AutocompleteInputComponent } from './components/autocomplete-input/auto
 import { LoaderComponent } from './components/loader/loader.component';
 import { GridComponent } from './components/grid/grid.component';
 import { ChartsModule } from 'ng2-charts';
+import { HeaderComponent } from './components/header/header.component';
 
 
 
@@ -92,7 +93,8 @@ import { ChartsModule } from 'ng2-charts';
     LoaderComponent,
     GridComponent,
     TankComponent,
-    ChartsComponent
+    ChartsComponent,
+    HeaderComponent
   ],
   exports: [
     LoginComponent,
@@ -105,7 +107,8 @@ import { ChartsModule } from 'ng2-charts';
     LoaderComponent,
     GridComponent,
     TankComponent,
-    ChartsComponent
+    ChartsComponent,
+    HeaderComponent
   ],
   entryComponents: [SnackBarComponent]
 })

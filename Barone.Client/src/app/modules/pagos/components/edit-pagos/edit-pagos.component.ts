@@ -8,7 +8,7 @@ import { ClientsService } from '../../../clients/services/clients.service';
 import { ClientsModel } from '../../../shared/models/clients.model';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
+import { startWith, map, concatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'edit-pagos',
@@ -69,13 +69,27 @@ export class EditPagosComponent implements OnInit {
 
 
   }
+  public returnSaldo(saldo:string){
+    if (isNaN(+saldo)){
+      return 0;
+    }
+    return +saldo;
+  }
 
   onSubmit() {
     switch (this.dbops) {
       case DBOperation.create:
 
-        this.pagosServices.insert(this.pago).subscribe((result) => {
-          this.pago.idPago = result.idPago;
+        this.pagosServices.insert(this.pago)
+        .pipe(concatMap((pago)=>{
+          this.pago.idPago = pago.idPago;
+          let saldo= +this.pago.Cliente.SaldoCuenta;
+          saldo -= this.returnSaldo(this.pago.Importe);
+          this.pago.Cliente.SaldoCuenta=saldo.toString();
+           return this.clientesServices.update(this.pago.Cliente); 
+        }))
+        .subscribe(() => {
+        
           this.dialogRef.close("success");
           this._snack.openSnackBar("Pago Creado Exitosamente", 'Success');
 

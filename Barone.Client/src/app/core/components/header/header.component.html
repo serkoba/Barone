@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+  
+
+  <!-- Topbar Navbar -->
+  <ul class="navbar-nav ml-auto">
+
+   
+  
+
+    <div class="topbar-divider d-none d-sm-block"></div>
+
+  
+
+
+    <li class="nav-item dropdown no-arrow" *ngFor="let button of actionButtons; let i=index">
+      <a class="nav-link dropdown-toggle" ClassToggler="drOptions" href="javascript:void(0);" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="mr-2 d-none d-lg-inline text-gray-600 small">Usuario</span>
+        <img class="img-profile rounded-circle" src="./assets/images/profile.jpg">
+      </a>
+      <!-- Dropdown - User Information -->
+      <div id="drOptions"  class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+
+          <a *ngFor="let child of button.children"  class="dropdown-item" routerLink="{{child.routerPath}}">
+              <mat-icon *ngIf="child.icon !== ''" svgIcon="{{child.icon}}"></mat-icon>
+        <span> {{child.text}}</span></a>
+
+        <!-- <a class="dropdown-item" routerLink="{{child.routerPath}}">
+            <mat-icon>{{child.icon}}</mat-icon>
+                    {{child.text}}
+         
+        </a> -->
+      </div>
+    </li>
+
+  </ul>
+
+</nav>
