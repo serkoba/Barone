@@ -21,7 +21,8 @@ export class EditPagosComponent implements OnInit {
   Tipos: SelectItem[] = [
     { value: 0, viewValue: 'Seleccione Categoria' },
     { value: 1, viewValue: 'Efectivo' },
-    { value: 2, viewValue: 'Cheque' }
+    { value: 2, viewValue: 'Cheque' },
+    {value: 3 , viewValue:'Transferencia'}
   ];
 
   msg: string;

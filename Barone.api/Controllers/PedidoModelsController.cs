@@ -65,7 +65,7 @@ namespace Barone.api.Controllers
 
             Expression<Func<PedidoModel, bool>> lambda = Expression.Lambda<Func<PedidoModel, bool>>(AllBody, new ParameterExpression[] { param });
 
-            return db.PedidoModels.Where(lambda).Include(x=>x.Cliente).Include(y=>y.Entrega).OrderByDescending(x=>x.fechaPedido);
+            return db.PedidoModels.Where(lambda).Include(x=>x.Cliente).Include(y=>y.Entrega).OrderByDescending(x=>x.id);
         }
 
         // GET: api/PedidoModels

@@ -231,9 +231,9 @@
     <Compile Include="DTO\ReportFilterViewModel.cs" />
     <Compile Include="Extension\intExtension.cs" />
     <Compile Include="formats\CustomJwtFormat.cs" />
-    <Compile Include="Migrations\201904291600551_first_instal.cs" />
-    <Compile Include="Migrations\201904291600551_first_instal.Designer.cs">
-      <DependentUpon>201904291600551_first_instal.cs</DependentUpon>
+    <Compile Include="Migrations\201906182022063_add_description_Pagos.cs" />
+    <Compile Include="Migrations\201906182022063_add_description_Pagos.Designer.cs">
+      <DependentUpon>201906182022063_add_description_Pagos.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Audience.cs" />
@@ -284,8 +284,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201904291600551_first_instal.resx">
-      <DependentUpon>201904291600551_first_instal.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201906182022063_add_description_Pagos.resx">
+      <DependentUpon>201906182022063_add_description_Pagos.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

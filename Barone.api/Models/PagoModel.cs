@@ -15,6 +15,7 @@ namespace Barone.api.Models
         public DateTime FechaPago { set; get; }
         public int? IdCliente { set; get; }
         public double Importe { set; get; }
+        public string Descripcion { get; set; }
         public ClientesModel Cliente { set; get; }
 
     }

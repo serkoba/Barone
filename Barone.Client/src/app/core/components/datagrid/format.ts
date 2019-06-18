@@ -46,6 +46,10 @@ export class Format implements PipeTransform {
                 return this.returnEstadoCoccion(input);
             case 'unidadmedida':
                 return this.returnUnidadMedida(input);
+                case 'pago':
+                return this.returnPago(input);
+                case 'currency':
+                    return this.returnCurrency(input);
             case 'text':
                 return input;
             case 'date':
@@ -64,6 +68,14 @@ export class Format implements PipeTransform {
                 return input;
         }
     }
+    private returnCurrency(input:any){
+      return  input.toLocaleString('en-EN', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        });
+    }
 
     private returnEstadoBarril(input: any) {
         switch (input) {
@@ -75,6 +87,20 @@ export class Format implements PipeTransform {
                 return 'En Progreso';
             case 4:
                 return 'Reservado';
+
+            default:
+                break;
+        }
+    }
+    private returnPago(input: any) {
+        const inputString = input.toString();
+        switch (inputString) {
+            case "1":
+                return 'Efectivo'
+            case "2":
+                return 'Cheque'
+                case "3":
+                    return 'Transferencia'
 
             default:
                 break;

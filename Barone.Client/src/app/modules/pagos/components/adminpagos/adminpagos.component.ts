@@ -33,7 +33,8 @@ export class AdminpagosComponent implements OnInit {
     {
       display: 'Tipo',
       variable: 'Tipo',
-      filter: 'text'
+      filter: 'Pago',
+      template:'text'
     },
     {
       display: 'Fecha Vencimiento',
@@ -50,6 +51,12 @@ export class AdminpagosComponent implements OnInit {
     {
       display: 'Importe',
       variable: 'Importe',
+      filter: 'currency',
+      template: 'text'
+    },
+    {
+      display: 'Descripcion',
+      variable: 'Descripcion',
       filter: 'text',
       template: 'text'
     },

@@ -8,6 +8,7 @@ export class PagosModel  extends Constructable<Partial<PagosModel>>{
     IdCliente:number;
     Cliente: ClientsModel;
     Importe: string;
+    Descripcion:string;
     Tipo:number;
     
 }

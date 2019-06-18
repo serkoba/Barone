@@ -52,7 +52,7 @@ export class AdminentregasComponent implements OnInit {
     {
       display: 'Total',
       variable: 'TotalImporte',
-      filter: 'text',
+      filter: 'currency',
       template: 'text'
     },
     {
