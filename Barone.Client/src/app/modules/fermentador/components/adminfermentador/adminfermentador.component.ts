@@ -26,19 +26,22 @@ export class AdminfermentadorComponent implements OnInit {
       display: 'Identificador',
       variable: 'Identificador',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Capacidad',
       variable: 'Capacidad',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Acciones',
       variable: 'acciones',
       filter: 'text',
-      template: 'acciones'
+      template: 'acciones',
+      Sumarizable:false
     }
   ];
   sorting: any = {

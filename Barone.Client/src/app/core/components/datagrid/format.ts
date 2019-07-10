@@ -34,6 +34,8 @@ export class Format implements PipeTransform {
                 return this.getDate(input.fechaDesde);
             case 'cliente':
                 return input.RazonSocial;
+                case 'entregacliente':
+                    return this.returnEntregaCliente(input);
             case 'fermentador':
                 return input.Identificador;
             case 'receta':
@@ -67,6 +69,12 @@ export class Format implements PipeTransform {
             default:
                 return input;
         }
+    }
+    private returnEntregaCliente(input: any): any {
+        if (typeof input !=='undefined'){
+            return input.Cliente.RazonSocial;
+        }
+        return '';
     }
     private returnCurrency(input:any){
       return  input.toLocaleString('en-EN', {

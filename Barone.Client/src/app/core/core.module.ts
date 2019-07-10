@@ -21,7 +21,8 @@ import {
   LoaderService,
   LoaderInterceptorService,
   TankComponent,
-  ChartsComponent
+  ChartsComponent,
+  BoxDashboardComponent
 } from './core.module.export';
 import { ClassTogglerDirective } from './directives/class-toggler.directive';
 import { SearchComponent } from './components/search/search.component';
@@ -94,7 +95,8 @@ import { HeaderComponent } from './components/header/header.component';
     GridComponent,
     TankComponent,
     ChartsComponent,
-    HeaderComponent
+    HeaderComponent,
+    BoxDashboardComponent
   ],
   exports: [
     LoginComponent,
@@ -108,7 +110,8 @@ import { HeaderComponent } from './components/header/header.component';
     GridComponent,
     TankComponent,
     ChartsComponent,
-    HeaderComponent
+    HeaderComponent,
+    BoxDashboardComponent
   ],
   entryComponents: [SnackBarComponent]
 })

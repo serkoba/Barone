@@ -6,6 +6,7 @@ import { EntregasService } from 'src/app/modules/entregas/services/entregas.serv
 import { ReportFilterModel } from 'src/app/modules/shared/models/reporte-filtro.model';
 import * as moment from 'moment';
 import { ChartsComponent } from 'src/app/core/core.module.export';
+import { ReporteAgrupado } from 'src/app/modules/shared/models/reporte-agrupado.model';
 
 @Component({
   selector: 'app-main-dashboard',
@@ -16,12 +17,16 @@ export class MainDashboardComponent implements OnInit {
 
   constructor(public barrilServices: BarrilesService, public entregasServices:EntregasService) { }
 public data:number[]=[];
+public data2:ReporteAgrupado[]=[];
+public dataXEstilo:number[]=[];
 public labels:Label[]=[];
+public labelsEstilos:Label[]=[];
 public labelsBar:Label[]=[];
 public dataBar: ChartDataSets[]=[];
 
 @ViewChild('chartPie') public chartPie: ChartsComponent;
 @ViewChild('chartBar') public chartBar: ChartsComponent;
+@ViewChild('chartPieEstilos') public chartPieEstilos: ChartsComponent;
  public pieChartOptions: ChartOptions = {
   responsive: true,
   legend: {
@@ -56,12 +61,25 @@ public ChartColors = [
   },
 ];
   ngOnInit() {
-    this.barrilServices.getBarrilesAgrupados()
+    // this.barrilServices.getBarrilesAgrupados()
+    //   .subscribe(barriles => {
+    //    this.data = barriles.map(x=> {
+    //     this.labels.push(x.Estado);
+    //      return x.TotalBarriles} );
+    //      this.chartPie.ShowChart=this.data.length>0;
+    //   });
+
+      this.barrilServices.getBarrilesAgrupados()
       .subscribe(barriles => {
-       this.data = barriles.map(x=> {
-        this.labels.push(x.Estado);
-         return x.TotalBarriles} );
-         this.chartPie.ShowChart=this.data.length>0;
+       this.data2 = barriles;
+      });
+
+      this.barrilServices.getBarrilesAgrupadosByEstilos()
+      .subscribe(barrilesXEstilos => {
+       this.dataXEstilo = barrilesXEstilos.map(y=> {
+        this.labelsEstilos.push(y.Estado);
+         return y.TotalBarriles} );
+         this.chartPieEstilos.ShowChart=this.dataXEstilo.length>0;
       });
       
       let ReportFilter = new ReportFilterModel();

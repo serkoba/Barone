@@ -34,25 +34,29 @@ export class AdminbarrilesComponent implements OnInit {
       display: 'Nro de Barril',
       variable: 'NroBarril',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Estado',
       variable: 'idEstado',
       filter: 'estadobarril',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Estilo',
       variable: 'Estilo',
       filter: 'estilo',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Cant. Litros',
       variable: 'CantidadLitros',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Acciones',

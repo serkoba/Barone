@@ -61,6 +61,7 @@ export class EditBarrilesComponent implements OnInit {
   // }
   public changeNroLote(idCoccion: number) {
     this.barril.Coccion = this.cocciones.find(x => x.id === idCoccion);
+    this.barril.Coccion_id=this.barril.Coccion.id;
     this.barril.Estilo = this.barril.Coccion.Receta.Estilo;// this.estilos.find(x => x.IdEstilo === this.barril.Coccion.Receta.Estilo.IdEstilo);
     this.barril.IdEstilo = this.barril.Coccion.Receta.Estilo.IdEstilo;// this.estilos.find(x => x.IdEstilo === this.barril.Coccion.Receta.Estilo.IdEstilo).IdEstilo;
   }

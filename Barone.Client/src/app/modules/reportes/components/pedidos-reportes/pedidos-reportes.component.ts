@@ -20,37 +20,43 @@ export class PedidosReportesComponent implements OnInit {
       display: 'Fecha Pactada',
       variable: 'fechaPactada',
       filter: 'date',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Fecha Pedido',
       variable: 'fechaPedido',
       filter: 'date',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Cliente',
       variable: 'Cliente',
       filter: 'Cliente',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Detalle',
       variable: 'DetallePedido',
       filter: 'detallePedido',
-      template: 'detallePedido'
+      template: 'detallePedido',
+      Sumarizable:false
     },
     {
       display: 'Total Barriles',
       variable: 'TotalBarriles',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Estado',
       variable: 'Estado',
       filter: 'Estado',
-      template: 'estado'
+      template: 'estado',
+      Sumarizable:false
     }
   ];
   sorting: any = {

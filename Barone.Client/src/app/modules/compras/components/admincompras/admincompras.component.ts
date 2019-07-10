@@ -27,37 +27,43 @@ export class AdmincomprasComponent implements OnInit {
       display: 'Fecha Compra',
       variable: 'FechaCompra',
       filter: 'date',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Cantidad',
       variable: 'Cantidad',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Insumo',
       variable: 'Insumo',
       filter: 'insumo',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Proveedor',
       variable: 'Proveedor',
       filter: 'cliente',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Precio',
       variable: 'Precio',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Acciones',
       variable: 'acciones',
       filter: 'text',
-      template: 'acciones'
+      template: 'acciones',
+      Sumarizable:false
     }
   ];
   sorting: any = {

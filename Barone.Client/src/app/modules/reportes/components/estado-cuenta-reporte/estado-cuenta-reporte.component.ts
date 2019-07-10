@@ -21,25 +21,29 @@ export class EstadoCuentaReporteComponent implements OnInit {
       display: 'Fecha',
       variable: 'Fecha',
       filter: 'date',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Descripcion',
       variable: 'Descripcion',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Debe',
       variable: 'DebeImporte',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Haber',
       variable: 'HaberImporte',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     }
   ];
 

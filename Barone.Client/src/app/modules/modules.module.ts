@@ -61,7 +61,8 @@ import {
   StepperCoccionesComponent,
   CalendarCoccionComponent,
   MainDashboardComponent,
-  EntregasXEstiloComponent
+  EntregasXEstiloComponent,
+  BarrilesAgrupadosComponent
 } from './modules.export';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -69,6 +70,7 @@ import { CoreModule } from '../core/core.module';
 import { AdminestilosComponent } from './estilos/components/adminestilos/adminestilos.component';
 import { EditEstilosComponent } from './estilos/components/edit-estilos/edit-estilos.component';
 import { EstilosPipe } from './shared/filters/estilos.pipe';
+
 
 
 
@@ -153,7 +155,8 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     StepperCoccionesComponent,
     CalendarCoccionComponent,
     MainDashboardComponent,
-    EntregasXEstiloComponent
+    EntregasXEstiloComponent,
+    BarrilesAgrupadosComponent
   ],
   exports: [
     EditUserComponent,
@@ -196,7 +199,8 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     StepperCoccionesComponent,
     CalendarCoccionComponent,
     MainDashboardComponent,
-    EntregasXEstiloComponent
+    EntregasXEstiloComponent,
+    BarrilesAgrupadosComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [EditUserComponent, EditClientsComponent, EditBarrilesComponent, EditRangosComponent, EditPagosComponent,

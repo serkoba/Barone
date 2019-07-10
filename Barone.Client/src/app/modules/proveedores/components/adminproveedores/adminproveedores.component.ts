@@ -26,25 +26,29 @@ export class AdminproveedoresComponent implements OnInit {
       display: 'Razon Social',
       variable: 'RazonSocial',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Direccion',
       variable: 'Direccion',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Email',
       variable: 'Email',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Acciones',
       variable: 'acciones',
       filter: 'text',
-      template: 'acciones'
+      template: 'acciones',
+      Sumarizable:false
     }
   ];
   sorting: any = {

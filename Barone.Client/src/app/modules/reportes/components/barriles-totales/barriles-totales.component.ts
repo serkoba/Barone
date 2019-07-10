@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { BarrilModel } from 'src/app/modules/shared/models/barril.model';
 import { BarrilesService } from 'src/app/modules/barriles/services/barriles.service';
 import { ReporteAgrupado } from 'src/app/modules/shared/models/reporte-agrupado.model';
@@ -13,18 +13,21 @@ export class BarrilesTotalesComponent implements OnInit {
   gridbtns: any[] = [];
   hdrbtns: any[] = [];
   barriles: ReporteAgrupado[];
+  @Input() public TipoReporte:string;
   columns: any[] = [
     {
       display: 'Estado',
       variable: 'Estado',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'TotalBarriles',
       variable: 'TotalBarriles',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     }]
   constructor(public barrilServices: BarrilesService) { }
 
@@ -34,7 +37,8 @@ export class BarrilesTotalesComponent implements OnInit {
 
   public loadBarriles(): void {
     this.barriles = [];
-    this.barrilServices.getBarrilesAgrupados()
+    let barrilesQuery = this.TipoReporte==='Estado'?this.barrilServices.getBarrilesAgrupados():this.barrilServices.getBarrilesAgrupadosByEstilos();
+    barrilesQuery
       .subscribe(barriles => {
         this.barriles = barriles;
       });

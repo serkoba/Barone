@@ -30,37 +30,43 @@ export class AdmincoccionesComponent implements OnInit {
       display: 'Nro de Lote ',
       variable: 'NroLote',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Fecha',
       variable: 'Fecha',
       filter: 'date',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Fermentador',
       variable: 'Fermentador',
       filter: 'Fermentador',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Receta',
       variable: 'Receta',
       filter: 'Receta',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Estado',
       variable: 'Estado',
       filter: 'EstadoCoccion',
-      template: 'estado'
+      template: 'estado',
+      Sumarizable:false
     },
     {
       display: 'Acciones',
       variable: 'acciones',
       filter: 'text',
-      template: 'acciones'
+      template: 'acciones',
+      Sumarizable:false
     }
   ];
   sorting: any = {

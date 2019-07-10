@@ -28,43 +28,50 @@ export class AdminpagosComponent implements OnInit {
       display: 'Fecha Pago',
       variable: 'FechaPago',
       filter: 'date',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Tipo',
       variable: 'Tipo',
       filter: 'Pago',
-      template:'text'
+      template:'text',
+      Sumarizable:false
     },
     {
       display: 'Fecha Vencimiento',
       variable: 'fechaVencimiento',
       filter: 'date',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Cliente',
       variable: 'Cliente',
       filter: 'Cliente',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Importe',
       variable: 'Importe',
       filter: 'currency',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Descripcion',
       variable: 'Descripcion',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Acciones',
       variable: 'acciones',
       filter: 'text',
-      template: 'acciones'
+      template: 'acciones',
+      Sumarizable:false
     }
   ];
   sorting: any = {
@@ -84,20 +91,20 @@ export class AdminpagosComponent implements OnInit {
 
       }];
     this.gridbtns = [
-      // {
-      //   title: 'Editar',
-      //   icon: 'create',
-      //   keys: ['idPago'],
-      //   action: DBOperation.update,
-      //   ishide: this.isREADONLY
-      // },
-      // {
-      //   title: 'Borrar',
-      //   icon: 'clear',
-      //   keys: ["idPago"],
-      //   action: DBOperation.delete,
-      //   ishide: this.isREADONLY
-      // }
+      {
+        title: 'Editar',
+        icon: 'create',
+        keys: ['idPago'],
+        action: DBOperation.update,
+        ishide: this.isREADONLY
+      },
+      {
+        title: 'Borrar',
+        icon: 'clear',
+        keys: ["idPago"],
+        action: DBOperation.delete,
+        ishide: this.isREADONLY
+      }
 
     ];
   }

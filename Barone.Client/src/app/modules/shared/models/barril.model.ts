@@ -1,6 +1,7 @@
 import { Constructable } from "../../../core/models/constructable";
 import { EstilosModel } from "./estilos.model";
 import { CoccionModel } from "./coccion/coccion.model";
+import { EntregaModel } from "./entrega.model";
 
 export class BarrilModel extends Constructable<Partial<BarrilModel>>{
     id: number;
@@ -10,6 +11,7 @@ export class BarrilModel extends Constructable<Partial<BarrilModel>>{
     idEntrega?: number;
     IdEstilo?: number;
     Estilo?: EstilosModel;
-    IdCoccion?: number;
+    Coccion_id?: number;
     Coccion?: CoccionModel;
+    Entrega? :EntregaModel;
 }

@@ -25,7 +25,8 @@ import {
   AdmincoccionesComponent,
   CalendarCoccionComponent,
   MainDashboardComponent,
-  EntregasXEstiloComponent
+  EntregasXEstiloComponent,
+  BarrilesAgrupadosComponent
 } from './modules/modules.export';
 import { TestComponent } from './modules/reportes/components/test/test.component';
 import { AuthGuardService } from './core/core.module.export';
@@ -48,7 +49,7 @@ const routes: Routes = [
       { path: 'Fermentador', component: AdminfermentadorComponent },
       { path: 'test', component: TestComponent },
       { path: 'BarrilesEstado', component: BarrilEstadoReporteComponent },
-      { path: 'BarrilesAgrupados', component: BarrilesTotalesComponent },
+      { path: 'BarrilesAgrupados/:TipoReporte', component: BarrilesAgrupadosComponent },
       { path: 'EntregaReportes', component: EntregasReportesComponent },
       { path: 'PedidoReportes', component: PedidosReportesComponent },
       { path: 'EntregasAgrupados', component: EntregaAgrupadosComponent },

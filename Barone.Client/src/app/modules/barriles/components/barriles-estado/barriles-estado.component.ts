@@ -129,12 +129,12 @@ export class BarrilesEstadoComponent implements OnInit {
     return this.IdEstilo != undefined;
   }
   private updateAllBarriles(): Observable<void> {
-    return this.barrilServices.updateAll(new BarrilModel({ idEstado: this.idEstado, IdEstilo: this.IdEstilo, Coccion: this.CoccionSelected }));
+    return this.barrilServices.updateAll(new BarrilModel({ idEstado: this.idEstado, IdEstilo: this.IdEstilo,Coccion_id:this.IdCoccion, Coccion: this.CoccionSelected }));
   }
   private updatePartial(): Observable<void> {
     return from(this.barriles).pipe(
       mergeMap(barril => {
-        const barrilModel = new BarrilModel({ NroBarril: barril, idEstado: this.idEstado, IdEstilo: this.IdEstilo, Coccion: this.CoccionSelected });
+        const barrilModel = new BarrilModel({ NroBarril: barril, idEstado: this.idEstado, IdEstilo: this.IdEstilo,Coccion_id:this.IdCoccion, Coccion: this.CoccionSelected });
         return this.barrilServices.updatePartial(barrilModel);
       }))
   }

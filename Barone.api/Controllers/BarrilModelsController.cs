@@ -11,6 +11,8 @@ using System.Web.Http.Description;
 using Barone.api.Models;
 using System.Linq.Expressions;
 using Barone.api.DTO;
+using System.Data.Entity.Core;
+using System.Threading.Tasks;
 
 namespace Barone.api.Controllers
 {
@@ -54,7 +56,7 @@ namespace Barone.api.Controllers
             Expression<Func<BarrilModel, bool>> lambda = Expression.Lambda<Func<BarrilModel, bool>>(AllBody, new ParameterExpression[] { param });
 
             
-                var result= db.BarrilModels.Where(lambda).Include(x=>x.Estilo).Include(x => x.Estilo.rangoPrecio);
+                var result= db.BarrilModels.Where(lambda).Include(x=>x.Entrega).Include(x=>x.Entrega.Cliente).Include(x=>x.Estilo).Include(x => x.Estilo.rangoPrecio);
 
             if (razonSocial != null)
             {
@@ -118,7 +120,7 @@ namespace Barone.api.Controllers
             Expression<Func<BarrilModel, bool>> lambda = Expression.Lambda<Func<BarrilModel, bool>>(AllBody, new ParameterExpression[] { param });
 
 
-            var result = db.BarrilModels.Where(lambda).Include(x => x.Estilo).Include(x => x.Estilo.rangoPrecio);
+            var result = db.BarrilModels.Where(lambda).Include(x=>x.Entrega).Include(x=>x.Entrega.Cliente).Include(x => x.Estilo).Include(x => x.Estilo.rangoPrecio);
 
             if (model.RazonSocial != null)
             {
@@ -162,6 +164,30 @@ namespace Barone.api.Controllers
                              
                          
                                   
+            return result;
+
+        }
+        [Route("api/BarrilesAgrupadosByEstilo")]
+        public IEnumerable<BarrilXEstadoReporte> GetBarrilModelsAgrupadosByEstilos()
+        {
+
+
+            var result = (from b in db.BarrilModels.Include(x=>x.Coccion).Include(x=>x.Coccion.Receta).Include(x=>x.Coccion.Receta.Estilo)
+                          group b by b.Coccion.Receta.Estilo.Nombre into x
+                          select new BarrilXEstadoReporte
+                          {
+                              Estado =x.Key.ToString().Equals("")?"Sin Estilo": x.Key.ToString(),
+                              TotalBarriles = x.Count()
+                          }).AsEnumerable()
+                         .Select(x => new BarrilXEstadoReporte()
+                         {
+                             Estado = x.Estado,
+                             TotalBarriles = x.TotalBarriles
+                         }
+                         );
+
+
+
             return result;
 
         }
@@ -279,28 +305,65 @@ namespace Barone.api.Controllers
             db.SaveChanges();
             return StatusCode(HttpStatusCode.OK);
         }
+        public void HaveUserResolveConcurrency(BarrilModel entity,
+                                       BarrilModel databaseValues,
+                                       BarrilModel resolvedValues)
+        {
+            // Show the current, database, and resolved values to the user and have
+            // them update the resolved values to get the correct resolution.
+        }
 
         [AcceptVerbs("PATCH")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PatchBarrilModel(BarrilModel barril)
+        public  IHttpActionResult PatchBarrilModel([FromBody] BarrilModel barril)
         {
-            BarrilModel serverDocument = db.BarrilModels.Where(x => x.NroBarril == barril.NroBarril).FirstOrDefault();
+
+
+            try
+            {
+            BarrilModel serverDocument = db.BarrilModels.Where(x => x.NroBarril == barril.NroBarril).Include(x=>x.Coccion).SingleOrDefault();
+              //  barril.id = serverDocument.id;
             if (barril.idEstado != 0)
-                serverDocument.idEstado = barril.idEstado;
+                    serverDocument.idEstado = barril.idEstado;
             if (barril.idEntrega != null)
-                serverDocument.idEntrega = barril.idEntrega;
+                    serverDocument.idEntrega = barril.idEntrega;
             if (barril.IdEstilo != null)
-                serverDocument.IdEstilo = barril.IdEstilo;
+                    serverDocument.IdEstilo = barril.IdEstilo;
             if (barril.Coccion != null)
             {
-                serverDocument.Coccion_id = barril.Coccion.id;
-                //serverDocument.Coccion = barril.Coccion;
+                    //barril.Coccion = serverDocument.Coccion;
+                    //serverDocument.Coccion = barril.Coccion;
+                    //   db.Entry(barril.Coccion).State = EntityState.Unchanged;
+
+                    serverDocument.Coccion_id = barril.Coccion_id;
+                    //db.Entry(serverDocument).Reference(x => x.Coccion).CurrentValue = barril.Coccion;
+                   // serverDocument.Coccion = barril.Coccion;
+                   
+                    //db.Entry(serverDocument.Coccion).State = EntityState.Unchanged;
+                    //db.Entry(serverDocument.Coccion.Receta).State = EntityState.Unchanged;
+                    //db.Entry(serverDocument.Coccion.Fermentador).State = EntityState.Unchanged;
+                }
+
+                db.Entry(barril).State = EntityState.Detached;
+                //db.Entry(serverDocument).CurrentValues.SetValues(barril);
                 //db.Entry(serverDocument.Coccion).State = EntityState.Unchanged;
+                //db.Entry(serverDocument).State = EntityState.Modified;
+
+                //db.Entry(serverDocument.Coccion).State = EntityState.Unchanged;
+                //db.Entry(serverDocument).State = EntityState.Modified;
+                //db.Entry(barril).State = EntityState.Added;
+                //db.Entry(barril.Coccion).State = EntityState.Detached;
+
+                
+        
+
+             db.SaveChanges();
             }
+            catch (OptimisticConcurrencyException ex)
+            {
                
-
-
-            db.SaveChanges();
+                var result = ex.Data;
+            }
             return StatusCode(HttpStatusCode.OK);
         }
 

@@ -27,37 +27,43 @@ export class EntregasReportesComponent implements OnInit {
       display: 'Fecha ',
       variable: 'fecha',
       filter: 'date',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Fecha Pactada',
       variable: 'fechaPactada',
       filter: 'date',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Cliente',
       variable: 'Cliente',
       filter: 'Cliente',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Nro de Remito',
       variable: 'idEntrega',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Total',
       variable: 'TotalImporte',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Estado',
       variable: 'Estado',
       filter: 'Estado',
-      template: 'estado'
+      template: 'estado',
+      Sumarizable:false
     }
   ];
   sorting: any = {

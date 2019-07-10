@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,6 +8,7 @@ namespace Barone.api.Models
 {
     public class CoccionModel
     {
+        [Key]
         public int id { get; set; }
         public RecetaModel Receta { get; set; }
         public DateTime Fecha { get; set; }

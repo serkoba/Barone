@@ -33,7 +33,7 @@ export class GridComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.displayedColumns = this.columnsToDisplay.map(column => column.variable );
+    this.displayedColumns = this.columnsToDisplay.map(column => typeof column.matColumnDef ==='undefined'? column.variable:column.matColumnDef );
 
 
 
@@ -49,6 +49,9 @@ export class GridComponent implements OnInit {
     //   this.dataSource.paginator = this.paginator;
     //   this.dataSource.sort = this.sort;
     // });
+  }
+  public checkColumnExist(column:any){
+   return typeof column.matColumnDef ==='undefined';
   }
   ngAfterViewInit(){
     this.sort.sortChange.subscribe(()=>{
@@ -86,6 +89,28 @@ export class GridComponent implements OnInit {
     this.btnclick.emit(keyds);
   }
 
+  public getTotalColumn(column:any){
+    if (column.Sumarizable){
+    const result =  this.data.map(t => t[column.variable]).reduce((acc, value) => acc + this.convertNumber(value) , 0);
+    return result;
+    }
+    if (this.columnsToDisplay.findIndex(x=>x.Variable === column.Variable)==0){
+      return 'Total';
+    }
+    return '';
+  }
+  public enabledFooter(){
+    return this.columnsToDisplay.some(x=>x.Sumarizable);
+  }
+  public convertNumber(value):number{
+  
+    const result = parseInt(value);
+    if (result===null){
+      return 0;
+    }
+    return result;
+   
+  }
 }
 
 

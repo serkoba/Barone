@@ -103,7 +103,13 @@ export class EditPagosComponent implements OnInit {
         break;
       case DBOperation.update:
 
-        this.pagosServices.update(this.pago).subscribe(() => {
+        this.pagosServices.update(this.pago).pipe(concatMap(()=>{
+          let saldo= +this.pago.Cliente.SaldoCuenta;
+          saldo -= this.returnSaldo(this.pago.Importe);
+          this.pago.Cliente.SaldoCuenta=saldo.toString();
+           return this.clientesServices.update(this.pago.Cliente); 
+        }))
+        .subscribe(() => {
           this.dialogRef.close("success");
           this._snack.openSnackBar("Pago Actualizado", 'Success');
 
@@ -116,7 +122,12 @@ export class EditPagosComponent implements OnInit {
         break;
       case DBOperation.delete:
 
-        this.pagosServices.delete(this.pago.idPago).subscribe(() => {
+        this.pagosServices.delete(this.pago.idPago).pipe(concatMap(()=>{
+          let saldo= +this.pago.Cliente.SaldoCuenta;
+          saldo -= this.returnSaldo(this.pago.Importe);
+          this.pago.Cliente.SaldoCuenta=saldo.toString();
+           return this.clientesServices.update(this.pago.Cliente); 
+        })).subscribe(() => {
           this.dialogRef.close("success");
           this._snack.openSnackBar("Pago Eliminado", 'Success');
 

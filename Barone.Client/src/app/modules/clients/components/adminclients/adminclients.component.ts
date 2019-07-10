@@ -27,31 +27,36 @@ export class AdminclientsComponent implements OnInit {
       display: 'Razon Social',
       variable: 'RazonSocial',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'CUIT',
       variable: 'CUIT',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'domicilio',
       variable: 'domicilio',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Saldo',
       variable: 'SaldoCuenta',
-      filter: 'text',
-      template: 'text'
+      filter: 'currency',
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Acciones',
       variable: 'acciones',
       filter: 'text',
-      template: 'acciones'
+      template: 'acciones',
+      Sumarizable:false
     }
   ];
   sorting: any = {

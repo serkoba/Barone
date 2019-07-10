@@ -27,31 +27,38 @@ export class AdminestilosComponent implements OnInit {
       display: 'Nombre Rango',
       variable: 'Nombre',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Fecha Desde',
       variable: 'rangoPrecio',
+      matColumnDef:'fechaDesde',
       filter: 'rangoPrecio.fechaDesde',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Fecha Hasta',
+      matColumnDef:'fechaHasta',
       variable: 'rangoPrecio',
       filter: 'rangoPrecio.fechaHasta',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Precio',
       variable: 'rangoPrecio',
       filter: 'rangoPrecio.precio',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Acciones',
       variable: 'acciones',
       filter: 'text',
-      template: 'acciones'
+      template: 'acciones',
+      Sumarizable:false
     }
   ];
   sorting: any = {

@@ -21,19 +21,22 @@ export class EntregasXEstiloComponent implements OnInit {
       display: 'Estilo ',
       variable: 'Estilo',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Cantidad Litros',
       variable: 'CantidadLitros',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:true
     },
     {
       display: 'Cantidad Barriles',
       variable: 'CantidadBarriles',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:true
     }
   ];
 

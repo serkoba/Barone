@@ -26,25 +26,29 @@ export class AdmininsumosComponent implements OnInit {
       display: 'Nombre',
       variable: 'Nombre',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Unidad de Medida',
       variable: 'TipoUnidadMedida',
       filter: 'unidadmedida',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Stock',
       variable: 'Stock',
       filter: 'text',
-      template: 'text'
+      template: 'text',
+      Sumarizable:false
     },
     {
       display: 'Acciones',
       variable: 'acciones',
       filter: 'text',
-      template: 'acciones'
+      template: 'acciones',
+      Sumarizable:false
     }
   ];
   sorting: any = {

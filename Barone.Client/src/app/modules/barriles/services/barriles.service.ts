@@ -17,6 +17,9 @@ export class BarrilesService {
   public getBarrilesAgrupados(): Observable<ReporteAgrupado[]> {
     return this._httpClient.get<ReporteAgrupado[]>('BarrilesAgrupados');
   }
+  public getBarrilesAgrupadosByEstilos(): Observable<ReporteAgrupado[]> {
+    return this._httpClient.get<ReporteAgrupado[]>('BarrilesAgrupadosByEstilo');
+  }
   public filtrar(model: ReportFilterModel): Observable<BarrilModel[]> {
     return this._httpClient.post<ReportFilterModel, BarrilModel[]>('FiltrarBarriles', model);
   }
