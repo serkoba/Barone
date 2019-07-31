@@ -239,6 +239,18 @@
     <Compile Include="Migrations\201907071158579_update.coccion3.Designer.cs">
       <DependentUpon>201907071158579_update.coccion3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907311728332_add-Description.cs" />
+    <Compile Include="Migrations\201907311728332_add-Description.Designer.cs">
+      <DependentUpon>201907311728332_add-Description.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907311742117_add-ciudad.cs" />
+    <Compile Include="Migrations\201907311742117_add-ciudad.Designer.cs">
+      <DependentUpon>201907311742117_add-ciudad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907311749480_add-telefono.cs" />
+    <Compile Include="Migrations\201907311749480_add-telefono.Designer.cs">
+      <DependentUpon>201907311749480_add-telefono.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Audience.cs" />
     <Compile Include="Models\BaroneapiContext.cs" />
@@ -293,6 +305,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907071158579_update.coccion3.resx">
       <DependentUpon>201907071158579_update.coccion3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907311728332_add-Description.resx">
+      <DependentUpon>201907311728332_add-Description.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907311742117_add-ciudad.resx">
+      <DependentUpon>201907311742117_add-ciudad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907311749480_add-telefono.resx">
+      <DependentUpon>201907311749480_add-telefono.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

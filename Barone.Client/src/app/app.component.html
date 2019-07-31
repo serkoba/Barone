@@ -1,6 +1,6 @@
 <div id="wrapper">
 <!--The content below is only a placeholder and can be replaced.-->
-<nav-bar *ngIf="hideNav()"  [navigation]="setNodesWithPermission()" (navItemClick)="NavItemClicked($event)"
+<nav-bar *ngIf="hideNav()" [RoleUser]="getRoleUser()"  [navigation]="setNodesWithPermission()" (navItemClick)="NavItemClicked($event)"
    ></nav-bar>
     <div id="content-wrapper" class="d-flex flex-column">
 

@@ -37,6 +37,7 @@ export class NavBarComponent implements OnInit {
    * set element that have the nav tool
    */
   @Input() public navigation: NavItem[];
+  @Input() public RoleUser:string[];
   public navigations: NavItem[];
   /**
    * this is a button that shows a dropdown with different actions
@@ -58,8 +59,6 @@ export class NavBarComponent implements OnInit {
     //this.config.closeOthers = true;
    // this.config.type = 'info';
   }
-
- 
   
 
   ngOnInit() {

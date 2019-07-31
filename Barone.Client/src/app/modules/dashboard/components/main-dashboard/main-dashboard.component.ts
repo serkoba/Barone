@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import { ChartsComponent } from 'src/app/core/core.module.export';
 import { ReporteAgrupado } from 'src/app/modules/shared/models/reporte-agrupado.model';
 
+
 @Component({
   selector: 'app-main-dashboard',
   templateUrl: './main-dashboard.component.html',
@@ -18,7 +19,7 @@ export class MainDashboardComponent implements OnInit {
   constructor(public barrilServices: BarrilesService, public entregasServices:EntregasService) { }
 public data:number[]=[];
 public data2:ReporteAgrupado[]=[];
-public dataXEstilo:number[]=[];
+public dataXEstilo:ChartDataSets[]=[];
 public labels:Label[]=[];
 public labelsEstilos:Label[]=[];
 public labelsBar:Label[]=[];
@@ -27,6 +28,7 @@ public dataBar: ChartDataSets[]=[];
 @ViewChild('chartPie') public chartPie: ChartsComponent;
 @ViewChild('chartBar') public chartBar: ChartsComponent;
 @ViewChild('chartPieEstilos') public chartPieEstilos: ChartsComponent;
+public barriles: ReporteAgrupado[];
  public pieChartOptions: ChartOptions = {
   responsive: true,
   legend: {
@@ -76,10 +78,16 @@ public ChartColors = [
 
       this.barrilServices.getBarrilesAgrupadosByEstilos()
       .subscribe(barrilesXEstilos => {
-       this.dataXEstilo = barrilesXEstilos.map(y=> {
+        let arrBarrilXEstilo: any[]=[]
+       arrBarrilXEstilo = barrilesXEstilos.map(y=> {
         this.labelsEstilos.push(y.Estado);
-         return y.TotalBarriles} );
-         this.chartPieEstilos.ShowChart=this.dataXEstilo.length>0;
+        return y.TotalBarriles;
+        //return {label: y.Estado, data:[y.TotalBarriles]}
+         } );
+       //  this.chartPieEstilos.ShowChart=this.dataXEstilo.length>0;
+       this.dataXEstilo=[{label:'Barriles',data:arrBarrilXEstilo}];
+       this.chartPieEstilos.ShowChart=this.dataXEstilo.length>0;
+        
       });
       
       let ReportFilter = new ReportFilterModel();
@@ -111,6 +119,15 @@ public ChartColors = [
       this.chartBar.ShowChart=this.dataBar.length>0;
 
   });
+  this.loadWidgetBarriles();
+  }
+  loadWidgetBarriles(): void {
+    this.barriles = [];
+    this.barrilServices.getBarrilesAgrupadosByEstilos(1)
+      .subscribe(barriles => {
+        this.barriles = barriles;
+      });
+
   }
   private convertToDateFormat(date:string){
       return  moment(date).format('YYYY-MM-DD');

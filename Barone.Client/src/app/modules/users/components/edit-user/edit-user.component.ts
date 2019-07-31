@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { DBOperation } from '../../../../core/enum/enum.enum';
 import { User } from '../../../shared/models/user.model';
 import { MatDialogRef } from '@angular/material';
+import { UserService } from '../../services/users.service';
+import { concatMap } from 'rxjs/internal/operators/concatMap';
+import { SnackManagerService } from 'src/app/core/core.module.export';
 
 @Component({
   selector: 'app-edit-user',
@@ -24,7 +27,7 @@ export class EditUserComponent implements OnInit {
   ];
 
   filteredStates: any;
-  constructor(public dialogRef: MatDialogRef<EditUserComponent>) { }
+  constructor(private _snack: SnackManagerService, public userServices:UserService,public dialogRef: MatDialogRef<EditUserComponent>) { }
 
   ngOnInit() {
     if (typeof (this.user) == "undefined")
@@ -33,52 +36,41 @@ export class EditUserComponent implements OnInit {
   onSubmit() {
     switch (this.dbops) {
       case DBOperation.create:
-        /* this._userService.post(Global.BASE_USER_ENDPOINT, formData.value).subscribe(
-           data => {
-             if (data == 1) //Success
-             {
-               this.dialogRef.close("success");
-             }
-             else {
-               this.dialogRef.close("error");
-             }
-           },
-           error => {
-             this.dialogRef.close("error");
-           }
-         );*/
+        this.userServices.insert(this.user)
+        .subscribe(() => {
+        
+          this.dialogRef.close("success");
+          this._snack.openSnackBar("Usuario Creado Exitosamente", 'Success');
+
+        }, error => {
+          this._snack.openSnackBar(error, 'Error');
+          this.dialogRef.close("error");
+
+        });
         break;
       case DBOperation.update:
-        /*   this._userService.put(Global.BASE_USER_ENDPOINT, formData._value.Id, formData._value).subscribe(
-             data => {
-               if (data == 1) //Success
-               {
-                 this.dialogRef.close("success");
-               }
-               else {
-                 this.dialogRef.close("error");
-               }
-             },
-             error => {
-               this.dialogRef.close("error");
-             }
-           );*/
+        this.userServices.update(this.user)
+        .subscribe(() => {
+          this.dialogRef.close("success");
+          this._snack.openSnackBar("Usuario Actualizado", 'Success');
+
+        }, error => {
+          this._snack.openSnackBar(error, 'Error');
+          this.dialogRef.close("error");
+
+        });
         break;
       case DBOperation.delete:
-        /*  this._userService.delete(Global.BASE_USER_ENDPOINT, formData._value.Id).subscribe(
-            data => {
-              if (data == 1) //Success
-              {
-                this.dialogRef.close("success");
-              }
-              else {
-                this.dialogRef.close("error");
-              }
-            },
-            error => {
-              this.dialogRef.close("error");
-            }
-          );*/
+        this.userServices.delete(this.user.idUser)
+        .subscribe(() => {
+          this.dialogRef.close("success");
+          this._snack.openSnackBar("Pago Eliminado", 'Success');
+
+        }, error => {
+          this._snack.openSnackBar(error, 'Error');
+          this.dialogRef.close("error");
+
+        });
         break;
 
     }

@@ -91,6 +91,54 @@ namespace Barone.api.Controllers
         }
 
 
+        [Route("api/MovimientosModelsGroupByEstilos")]
+        public IHttpActionResult PostMovimientosModelsGroupByEstilos([FromBody] ReportFilterViewModel model)
+        {
+            try
+            {
+                
+               
+                    var totalByEstilos = new List<GroupByEstilo>();
+                    foreach (var movimiento in FiltrarMovimientosModels(model))
+                    {
+                        var detallePedidos = JsonConvert.DeserializeObject<IList<DetalleMovimientos>>(movimiento.DetallePedido);
+                        var queryDetallePedido = from det in detallePedidos
+                                                 group det by det.Tipo into detGroup
+                                                 select new GroupByEstilo
+                                                 {
+                                                     Estilo = detGroup.Key,
+                                                     CantidadLitros = (from barriles in detGroup.SelectMany(x => x.BarrilesEntrega)
+                                                                       join barr in db.BarrilModels on barriles.nombre equals barr.NroBarril
+                                                                       select barr.CantidadLitros.ToNullableInt()).Sum(),
+                                                     CantidadBarriles = detGroup.SelectMany(x => x.BarrilesEntrega).Count()
+
+
+                                                 };
+                        totalByEstilos.AddRange(queryDetallePedido);
+
+                    }
+
+                    var groupByEstilo = totalByEstilos.GroupBy(x => x.Estilo, (estilos, totals) => new GroupByEstilo
+                    {
+                        Estilo = estilos,
+                        CantidadLitros = totals.Sum(x => x.CantidadLitros),
+                        CantidadBarriles = totals.Sum(x => x.CantidadBarriles)
+                    });
+
+               
+
+
+                return Ok(groupByEstilo);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.InnerException.Message);
+            }
+
+        }
+
+
         [Route("api/MovimientosModelsGroupByClientEstilos")]
         public IHttpActionResult PostMovimientosModelsGroupByClientEstilos([FromBody] ReportFilterViewModel model)
         {

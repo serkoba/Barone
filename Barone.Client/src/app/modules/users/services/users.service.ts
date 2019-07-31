@@ -23,21 +23,21 @@ export class UserService {
     
   }
 
-  getById(id: number) {
-
+  public getById(id: number):Observable<User> {
+    return this._httpClient.get<User>(`UserModels/${id}`);
    
   }
 
-  public create(user: User) {
-   
+  public insert(model: User):Observable<User> {
+    return this._httpClient.post<User, User>('UserModels', model);
   }
 
- public update(user: User) {
-  
+ public update(model: User) :Observable<void>{
+  return this._httpClient.put<User, void>('UserModels', model);
   }
 
- public  delete(id: number) {
-   
+ public  delete(id: number) : Observable<User>{
+  return this._httpClient.delete<User>(`UserModels/${id}`);
   }
 
   // private helper methods

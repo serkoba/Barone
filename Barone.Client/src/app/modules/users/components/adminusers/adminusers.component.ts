@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { DBOperation } from '../../../../core/enum/enum.enum';
 import { User } from '../../../shared/models/user.model';
 import { UserService } from '../../services/users.service';
-import { UserPipe } from '../../../shared/filters/user.pipe';
 import { MatDialog } from '@angular/material';
 import { EditUserComponent } from '../edit-user/edit-user.component';
+import { SnackManagerService } from 'src/app/core/core.module.export';
 
 @Component({
   selector: 'adminusers',
@@ -59,13 +59,15 @@ export class AdminusersComponent implements OnInit {
       }];
     this.gridbtns = [
       {
-        title: 'Edit',
+        title: 'Editar',
+        icon: 'create',
         keys: ['idUser'],
         action: DBOperation.update,
         ishide: this.isREADONLY
       },
       {
-        title: 'X',
+        title: 'Borrar',
+        icon: 'clear',
         keys: ["idUser"],
         action: DBOperation.delete,
         ishide: this.isREADONLY
@@ -74,7 +76,7 @@ export class AdminusersComponent implements OnInit {
     ];
   }
 
-  constructor(private userServices: UserService, public userFilter: UserPipe, private dialog: MatDialog) { }
+  constructor(private _snack: SnackManagerService,private userServices: UserService, private dialog: MatDialog) { }
   openDialog() {
     let dialogRef = this.dialog.open(EditUserComponent);
     dialogRef.componentInstance.dbops = this.dbops;
@@ -137,15 +139,20 @@ export class AdminusersComponent implements OnInit {
     this.dbops = DBOperation.update;
     this.modalTitle = "Edit User";
     this.modalBtnTitle = "Update";
-    //   this.userServices.getById(id).then(val => { this.user = Object.assign(new User(), val); this.openDialog(); });;
-    //   this.openDialog();
+    this.user = this.users.find(x => x.idUser === id);
+       this.openDialog();
   }
   deleteUser(id: number) {
     this.dbops = DBOperation.delete;
-    ///   this.modalTitle = "Confirm to Delete?";
-    ///   this.modalBtnTitle = "Delete";
-    ///   this.user = this.users.filter(x => x.Id == id)[0];
-    ///   this.openDialog();
+    this.userServices.delete(id).subscribe(() => {
+      // this.dialogRef.close("success");
+      this._snack.openSnackBar("Usuario Eliminado", 'Success');
+      this.LoadUsers();
+    }, error => {
+      this._snack.openSnackBar(error, 'Error');
+      //  this.dialogRef.close("error");
+
+    });
   }
 
   gridaction(gridaction: any): void {

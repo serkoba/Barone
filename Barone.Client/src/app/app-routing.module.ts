@@ -26,7 +26,8 @@ import {
   CalendarCoccionComponent,
   MainDashboardComponent,
   EntregasXEstiloComponent,
-  BarrilesAgrupadosComponent
+  BarrilesAgrupadosComponent,
+  EntregasXEstilosComponent
 } from './modules/modules.export';
 import { TestComponent } from './modules/reportes/components/test/test.component';
 import { AuthGuardService } from './core/core.module.export';
@@ -56,6 +57,7 @@ const routes: Routes = [
       { path: 'EstadoCuenta', component: EstadoCuentaReporteComponent },
       { path: 'Proveedores', component: AdminproveedoresComponent },
       {path:'EntregasXEstilo',component: EntregasXEstiloComponent},
+      {path:'EntregasXEstilos',component: EntregasXEstilosComponent},
       { path: 'Insumos', component: AdmininsumosComponent },
       { path: 'Compras', component: AdmincomprasComponent },
       { path: 'Recetas', component: AdminrecetasComponent },

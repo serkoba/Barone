@@ -13,6 +13,7 @@ export class ClientsModel  extends Constructable<Partial<ClientsModel>>{
   ciudad: string;
   provincia: string;
   pais: string;
+  description:string;
   
 }
 

@@ -1,0 +1,14 @@
+<div class="panel-body">
+  <filter-grid [FilterBarril]="false" [FilterPedEnt]="true" (FilterClicked)="FiltrarInfo($event)"></filter-grid>
+
+  <div class="row scrollable">
+    <div class="w-95">
+
+     
+
+          <data-grid-view [PaginatorEnabled]="false" #grid [data]="entregas" [columnsToDisplay]="columns"></data-grid-view>
+
+      
+    </div>
+  </div>
+</div>

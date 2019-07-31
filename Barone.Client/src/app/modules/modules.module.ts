@@ -62,7 +62,8 @@ import {
   CalendarCoccionComponent,
   MainDashboardComponent,
   EntregasXEstiloComponent,
-  BarrilesAgrupadosComponent
+  BarrilesAgrupadosComponent,
+  EntregasXEstilosComponent
 } from './modules.export';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -156,7 +157,8 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     CalendarCoccionComponent,
     MainDashboardComponent,
     EntregasXEstiloComponent,
-    BarrilesAgrupadosComponent
+    BarrilesAgrupadosComponent,
+    EntregasXEstilosComponent
   ],
   exports: [
     EditUserComponent,
@@ -200,7 +202,8 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     CalendarCoccionComponent,
     MainDashboardComponent,
     EntregasXEstiloComponent,
-    BarrilesAgrupadosComponent
+    BarrilesAgrupadosComponent,
+    EntregasXEstilosComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [EditUserComponent, EditClientsComponent, EditBarrilesComponent, EditRangosComponent, EditPagosComponent,

@@ -4,6 +4,49 @@
     <box-dashboard [data]="data2"></box-dashboard>
   </div>
   </div>
+  <div class="row mt-3">
+      <div class="col-xl-5">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex flex-wrap justify-content-between">
+                <h4 class="card-title mb-3">Entregas (Ultima semana)</h4>
+                <hr>
+            </div>
+          </div>
+          
+      <app-charts #chartBar [ChartDataSets]="dataBar" [ChartOptions]="barChartOptions" ChartType='bar' [ChartLabels]="labelsBar"></app-charts>
+    </div>
+    </div>
+    <div class="col-xl-5">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex flex-wrap justify-content-between">
+                    <h4 class="card-title mb-3">Barriles en Camara</h4>
+                    <hr>
+                </div>
+              </div>
+          <mat-accordion multi="true" class="my-headers-align">
+            <mat-expansion-panel *ngFor="let item of barriles">
+              <mat-expansion-panel-header >
+                <mat-panel-title>
+    
+                  <mat-panel-title>
+                    {{item.Estado}}
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    Barriles: {{item.TotalBarriles}}
+                  </mat-panel-description>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+    
+              <!-- <data-grid-view [PaginatorEnabled]="false" #grid [data]="item.movimientos" [columnsToDisplay]="columns"></data-grid-view> -->
+    
+    
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
+    </div>
 <div class="row  mt-3">
   <!-- <div class="col-xl-5">
       <div class="card">
@@ -18,7 +61,7 @@
   </div>
   
 </div> -->
-<div class="col-xl-5">
+<div class="col-xl-10">
   <div class="card">
     <div class="card-body">
       <div class="d-flex flex-wrap justify-content-between">
@@ -26,23 +69,13 @@
           <hr>
       </div>
     </div>
-    
-<app-charts #chartPieEstilos [ChartData]="dataXEstilo" [ChartColors]="ChartColors" [ChartOptions]="pieChartOptions" ChartType='pie' [ChartLabels]="labelsEstilos"></app-charts>
+    <app-charts #chartPieEstilos [ChartDataSets]="dataXEstilo" [ChartOptions]="barChartOptions" ChartType='bar' [ChartLabels]="labelsEstilos"></app-charts>
+<!-- <app-charts #chartPieEstilos [ChartData]="dataXEstilo" [ChartColors]="ChartColors" [ChartOptions]="pieChartOptions" ChartType='pie' [ChartLabels]="labelsEstilos"></app-charts> -->
 </div>
 
 </div>
-<div class="col-xl-5">
-    <div class="card">
-      <div class="card-body">
-        <div class="d-flex flex-wrap justify-content-between">
-            <h4 class="card-title mb-3">Entregas (Ultima semana)</h4>
-            <hr>
-        </div>
-      </div>
-      
-  <app-charts #chartBar [ChartDataSets]="dataBar" [ChartOptions]="barChartOptions" ChartType='bar' [ChartLabels]="labelsBar"></app-charts>
-</div>
-</div>
+
 
 </div>
+
 </div>

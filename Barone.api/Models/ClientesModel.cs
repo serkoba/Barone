@@ -16,6 +16,11 @@ namespace Barone.api.Models
         public string domicilio { get; set; }
         public double margen { get; set; }
         public double SaldoCuenta { set; get; }
+        public string description { get; set; }
+        public string ciudad { get; set; }
+        public string provincia { get; set; }
+        public string pais { get; set; }
+        public string Telefono { get; set; }
 
     }
 }

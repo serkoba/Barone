@@ -41,17 +41,14 @@ namespace Barone.api.Controllers
 
         // PUT: api/UserModels/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutUserModel(long id, UserModel userModel)
+        public IHttpActionResult PutUserModel([FromBody] UserModel userModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != userModel.idUser)
-            {
-                return BadRequest();
-            }
+           
 
             db.Entry(userModel).State = EntityState.Modified;
 
@@ -59,19 +56,12 @@ namespace Barone.api.Controllers
             {
                 db.SaveChanges();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException ex)
             {
-                if (!UserModelExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return BadRequest(ex.Message);
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return StatusCode(HttpStatusCode.OK);
         }
 
         // POST: api/UserModels

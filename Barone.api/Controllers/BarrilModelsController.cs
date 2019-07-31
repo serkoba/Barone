@@ -167,12 +167,13 @@ namespace Barone.api.Controllers
             return result;
 
         }
-        [Route("api/BarrilesAgrupadosByEstilo")]
-        public IEnumerable<BarrilXEstadoReporte> GetBarrilModelsAgrupadosByEstilos()
+        [Route("api/BarrilesAgrupadosByEstilo/{idEstado}")]
+        public IEnumerable<BarrilXEstadoReporte> GetBarrilModelsAgrupadosByEstilos(int? idEstado)
         {
 
 
             var result = (from b in db.BarrilModels.Include(x=>x.Coccion).Include(x=>x.Coccion.Receta).Include(x=>x.Coccion.Receta.Estilo)
+                          where (!idEstado.HasValue ||  b.idEstado==idEstado.Value )
                           group b by b.Coccion.Receta.Estilo.Nombre into x
                           select new BarrilXEstadoReporte
                           {

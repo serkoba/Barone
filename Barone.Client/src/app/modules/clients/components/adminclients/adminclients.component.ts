@@ -52,6 +52,13 @@ export class AdminclientsComponent implements OnInit {
       Sumarizable:false
     },
     {
+      display: 'Descripcion',
+      variable: 'description',
+      filter: 'text',
+      template: 'text',
+      Sumarizable:false
+    },
+    {
       display: 'Acciones',
       variable: 'acciones',
       filter: 'text',

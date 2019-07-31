@@ -60,7 +60,10 @@ export class SessionDataService  implements Initializable{
     }
   
     public hasRole(role: string): boolean {
-      return this.getValue('roles').find(r => r.toLowerCase() === role) !== undefined;
+      return this.getValue('roles').find(r => r.toLowerCase() === role.toLowerCase()) !== undefined;
+    }
+    public getRoles(): string[] {
+      return this.getValue('roles');
     }
   
     public hasRoles(roles: string[]): boolean {
