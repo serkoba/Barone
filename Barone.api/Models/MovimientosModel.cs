@@ -16,8 +16,8 @@ namespace Barone.api.Models
         public int IdCliente { set; get; }
         public string DetallePedido { set; get; }
         public string subtotal { set; get; }
-        public string TotalLitros { set; get; }
-        public string TotalBarriles { set; get; }
+        public int TotalLitros { set; get; }
+        public int TotalBarriles { set; get; }
         public string bonificacionCliente { set; get; }
         public string TotalImporte { set; get; }
         public int Estado { set; get; }

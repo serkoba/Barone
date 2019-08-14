@@ -26,6 +26,8 @@ export class Format implements PipeTransform {
                 return this.returnEstado(input);
             case 'estilo':
                 return input.Nombre;
+                case 'coccion':
+                    return input.NroLote;
             case 'rangoprecio.precio':
                 return input.precio;
             case 'rangoprecio.fechahasta':
@@ -36,6 +38,8 @@ export class Format implements PipeTransform {
                 return input.RazonSocial;
                 case 'entregacliente':
                     return this.returnEntregaCliente(input);
+                    case 'entrega.fechapactada':
+                        return this.getDate(input.fechaPactada);
             case 'fermentador':
                 return input.Identificador;
             case 'receta':
@@ -76,6 +80,13 @@ export class Format implements PipeTransform {
         }
         return '';
     }
+    private returnEntregaFechaPactada(input: any): any {
+        if (typeof input !=='undefined'){
+            return input.fechaPactada;
+        }
+        return '';
+    }
+    
     private returnCurrency(input:any){
       return  input.toLocaleString('en-EN', {
             style: 'currency',

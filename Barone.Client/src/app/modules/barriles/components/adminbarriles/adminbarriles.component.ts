@@ -52,6 +52,13 @@ export class AdminbarrilesComponent implements OnInit {
       Sumarizable:false
     },
     {
+      display: 'Nro Lote',
+      variable: 'Coccion',
+      filter: 'coccion',
+      template: 'text',
+      Sumarizable:false
+    },
+    {
       display: 'Cant. Litros',
       variable: 'CantidadLitros',
       filter: 'text',

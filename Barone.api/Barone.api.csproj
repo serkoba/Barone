@@ -251,6 +251,10 @@
     <Compile Include="Migrations\201907311749480_add-telefono.Designer.cs">
       <DependentUpon>201907311749480_add-telefono.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908141700393_changestringToInt.cs" />
+    <Compile Include="Migrations\201908141700393_changestringToInt.Designer.cs">
+      <DependentUpon>201908141700393_changestringToInt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Audience.cs" />
     <Compile Include="Models\BaroneapiContext.cs" />
@@ -314,6 +318,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907311749480_add-telefono.resx">
       <DependentUpon>201907311749480_add-telefono.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908141700393_changestringToInt.resx">
+      <DependentUpon>201908141700393_changestringToInt.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

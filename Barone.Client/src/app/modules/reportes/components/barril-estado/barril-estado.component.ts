@@ -46,6 +46,13 @@ export class BarrilEstadoReporteComponent implements OnInit {
       Sumarizable:false
     },
     {
+      display: 'Nro de Lote',
+      variable: 'Coccion',
+      filter: 'coccion',
+      template: 'text',
+      Sumarizable:false
+    },
+    {
       display: 'Cant. Litros',
       variable: 'CantidadLitros',
       filter: 'text',
@@ -56,6 +63,14 @@ export class BarrilEstadoReporteComponent implements OnInit {
       display: 'Cliente',
       variable: 'Entrega',
       filter: 'entregacliente',
+      template: 'text',
+      Sumarizable:false
+    },
+    {
+      display: 'Fecha Entrega',
+      variable: 'Entrega',
+      matColumnDef:'fechaPactada',
+      filter: 'entrega.fechapactada',
       template: 'text',
       Sumarizable:false
     }

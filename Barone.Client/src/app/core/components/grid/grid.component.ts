@@ -53,6 +53,7 @@ export class GridComponent implements OnInit {
   public checkColumnExist(column:any){
    return typeof column.matColumnDef ==='undefined';
   }
+
   ngAfterViewInit(){
     this.sort.sortChange.subscribe(()=>{
       console.log('cambio orden');

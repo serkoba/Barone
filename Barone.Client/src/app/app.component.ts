@@ -97,8 +97,9 @@ if (isAdminUser){
       this.createNavItem('Pedidos', '/PedidoReportes', 'shopping_cart'),
       this.createNavItem('Estado de cuenta', '/EntregasAgrupados', 'swap_horiz'),
       this.createNavItem('Movimientos de cuentas', '/EstadoCuenta', 'face'),
-    this.createNavItem('Consumos x Clientes','/EntregasXEstilo','face'),
-    this.createNavItem('Consumos x Estilos','/EntregasXEstilos','face')]
+    this.createNavItem('Clientes Detalle','/EntregasXEstilo','face'),
+    this.createNavItem('Consumos x Estilos','/EntregasXEstilos','face'),
+  this.createNavItem('Consumo x Cliente','/EntregasXCliente','face')]
     }));
   }
     navNode.push(new NavItem({

@@ -65,6 +65,26 @@ namespace Barone.api.Controllers
             return result;// db.MovimientosModels.Include(x=>x.Cliente);
         }
 
+        [Route("api/MovimientosByCliente")]
+        public IEnumerable<GroupByEstilo> PostMovimientosByCliente([FromBody] ReportFilterViewModel model)
+        {
+            var result = FiltrarMovimientosModels(model);
+
+            var result2 = (from b in result
+                           group b by b.Cliente.RazonSocial into x
+                           select new GroupByEstilo
+                           {
+                               Estilo = x.Key.ToString(),
+                               CantidadBarriles = x.Sum(y=> y.TotalBarriles),
+                               CantidadLitros= x.Sum(y=>y.TotalLitros)
+                           }).AsEnumerable();
+
+
+
+            return result2;
+
+        }
+
         [Route("api/MovimientosAgrupados")]
         public IEnumerable<MovimientosXFecha> PostMovimientosModelsAgrupados([FromBody] ReportFilterViewModel model)
         {

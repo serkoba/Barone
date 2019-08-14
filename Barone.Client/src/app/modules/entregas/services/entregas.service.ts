@@ -31,6 +31,12 @@ export class EntregasService {
     return this._httpClient.post<ReportFilterModel, DetalleEntregas[]>('MovimientosModelsGroupByEstilos', model);
   }
 
+  public MovimientosByCliente(model: ReportFilterModel): Observable<DetalleEntregas[]> {
+    return this._httpClient.post<ReportFilterModel, DetalleEntregas[]>('MovimientosByCliente', model);
+  }
+
+  
+
   public update(model: EntregaModel): Observable<void> {
     return this._httpClient.put<EntregaModel, void>('MovimientosModels', model);
   }

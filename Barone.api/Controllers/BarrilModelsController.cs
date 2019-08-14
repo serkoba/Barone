@@ -56,7 +56,7 @@ namespace Barone.api.Controllers
             Expression<Func<BarrilModel, bool>> lambda = Expression.Lambda<Func<BarrilModel, bool>>(AllBody, new ParameterExpression[] { param });
 
             
-                var result= db.BarrilModels.Where(lambda).Include(x=>x.Entrega).Include(x=>x.Entrega.Cliente).Include(x=>x.Estilo).Include(x => x.Estilo.rangoPrecio);
+                var result= db.BarrilModels.Where(lambda).Include(x=>x.Entrega).Include(x=>x.Entrega.Cliente).Include(x=>x.Estilo).Include(x => x.Estilo.rangoPrecio).Include(x=>x.Coccion);
 
             if (razonSocial != null)
             {
@@ -120,7 +120,7 @@ namespace Barone.api.Controllers
             Expression<Func<BarrilModel, bool>> lambda = Expression.Lambda<Func<BarrilModel, bool>>(AllBody, new ParameterExpression[] { param });
 
 
-            var result = db.BarrilModels.Where(lambda).Include(x=>x.Entrega).Include(x=>x.Entrega.Cliente).Include(x => x.Estilo).Include(x => x.Estilo.rangoPrecio);
+            var result = db.BarrilModels.Where(lambda).Include(x=>x.Entrega).Include(x=>x.Entrega.Cliente).Include(x => x.Estilo).Include(x => x.Estilo.rangoPrecio).Include(x=>x.Coccion);
 
             if (model.RazonSocial != null)
             {
@@ -170,21 +170,25 @@ namespace Barone.api.Controllers
         [Route("api/BarrilesAgrupadosByEstilo/{idEstado}")]
         public IEnumerable<BarrilXEstadoReporte> GetBarrilModelsAgrupadosByEstilos(int? idEstado)
         {
+            var groupedBarrels = (from b in db.BarrilModels
+                                  where (!idEstado.HasValue || b.idEstado == idEstado.Value)
+                                  group b by b.IdEstilo into x
+                                  select new BarrilXEstadoReporte
+                                  {
+                                      Estado = x.Key.ToString(),
+                                      TotalBarriles = x.Count()
+                                  }
+                          );
+
+            var result = (from b in groupedBarrels
+                          join e in db.EstilosModels.DefaultIfEmpty() on b.Estado equals e.IdEstilo.ToString()
 
 
-            var result = (from b in db.BarrilModels.Include(x=>x.Coccion).Include(x=>x.Coccion.Receta).Include(x=>x.Coccion.Receta.Estilo)
-                          where (!idEstado.HasValue ||  b.idEstado==idEstado.Value )
-                          group b by b.Coccion.Receta.Estilo.Nombre into x
-                          select new BarrilXEstadoReporte
+                          select  new BarrilXEstadoReporte
                           {
-                              Estado =x.Key.ToString().Equals("")?"Sin Estilo": x.Key.ToString(),
-                              TotalBarriles = x.Count()
-                          }).AsEnumerable()
-                         .Select(x => new BarrilXEstadoReporte()
-                         {
-                             Estado = x.Estado,
-                             TotalBarriles = x.TotalBarriles
-                         }
+                              Estado = e.Nombre,
+                              TotalBarriles = b.TotalBarriles
+                          }
                          );
 
 
@@ -192,7 +196,10 @@ namespace Barone.api.Controllers
             return result;
 
         }
-
+       private string GetNombreEstilo(string id)
+        {
+            return db.EstilosModels.FirstOrDefault(x => x.IdEstilo == int.Parse(id)).Nombre;
+        }
         private string ConvertToStringEstado(string key)
         {
 
@@ -242,6 +249,7 @@ namespace Barone.api.Controllers
         }
 
         // POST: api/BarrilModels
+        [Route("api/InsertBarrilModels")]
         [ResponseType(typeof(BarrilModel))]
         public IHttpActionResult PostBarrilModel([FromBody] BarrilModel barrilModel)
         {
@@ -275,9 +283,9 @@ namespace Barone.api.Controllers
             
             db.BarrilModels.Add(barrilModel);
             db.SaveChanges();
- 
 
-            return CreatedAtRoute("DefaultApi", new { id = barrilModel.id }, barrilModel);
+            return Ok(new { id = barrilModel.id });
+          //  return CreatedAtRoute("DefaultApi", new { id = barrilModel.id }, barrilModel);
         }
 
 

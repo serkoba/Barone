@@ -153,7 +153,6 @@ export class EditEntregasComponent implements OnInit {
     public finishEntrega() {
         const HayPedido = this.pedido != undefined;
         this.entrega.Estado = 3;
-
         this.entregaServices.update(this.entrega)
             .pipe(concatMap((entregaInserted) => {
                 const pedido = new PedidoModel({ Estado: "3", idEntrega: this.entrega.idEntrega });

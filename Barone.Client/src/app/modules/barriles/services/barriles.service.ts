@@ -36,7 +36,7 @@ export class BarrilesService {
     return this._httpClient.patch<BarrilModel, void>('BarrilModels', model);
   }
   public insert(model: BarrilModel): Observable<BarrilModel> {
-    return this._httpClient.post<BarrilModel, BarrilModel>('BarrilModels', model);
+    return this._httpClient.post<BarrilModel, BarrilModel>('InsertBarrilModels', model);
   }
   public delete(idBarril: number): Observable<BarrilModel> {
     return this._httpClient.delete<BarrilModel>(`BarrilModels/${idBarril}`);

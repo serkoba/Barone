@@ -36,6 +36,10 @@
   {{element[column.variable] | format : column.filter}}
 </ng-template>
 
+<ng-template #doubleproperty let-column="column" let-element="element">
+  {{element[column.variable3] | format : column.filter }}
+</ng-template>
+
 
 <ng-template #currencyText let-column="column" let-element="element">
   {{element[column.variable] | currency}}
