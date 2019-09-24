@@ -14,10 +14,10 @@ export class ComprasService {
   public UpdateStock(operation: OperationsStock, model: ComprasModel): Observable<void> {
     switch (operation) {
       case OperationsStock.Add:
-        model.Insumo.Stock = model.Insumo.Stock + model.Cantidad;
+        model.Insumo.Stock = +model.Insumo.Stock + +model.Cantidad;
         break;
       case OperationsStock.Substract:
-        model.Insumo.Stock = model.Insumo.Stock - model.Cantidad;
+        model.Insumo.Stock = +model.Insumo.Stock - +model.Cantidad;
         break;
       default:
         break;
