@@ -26,4 +26,8 @@ export class FermentadorService {
   public delete(idpago: number): Observable<FermentadorModel> {
     return this._httpClient.delete<FermentadorModel>(`FermentadorModels/${idpago}`);
   }
+
+  public embarrilar(model: FermentadorModel): Observable<void> {
+    return this._httpClient.post<FermentadorModel, void>('Embarrilar', model);
+  }
 }

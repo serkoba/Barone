@@ -85,15 +85,12 @@ namespace Barone.api.Controllers
 
             return StatusCode(HttpStatusCode.OK);
         }
+        
 
         // POST: api/CoccionModels
         [ResponseType(typeof(CoccionModel))]
         public IHttpActionResult PostCoccionModel(CoccionModel coccionModel)
         {
-            if (coccionModel.FechaFin.Year.Equals(1))
-            {
-                coccionModel.FechaFin = DateTime.Now;
-            }
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

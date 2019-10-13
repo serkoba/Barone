@@ -218,6 +218,7 @@
     <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\PagoModelsController.cs" />
     <Compile Include="Controllers\PedidoModelsController.cs" />
+    <Compile Include="Controllers\ProductoModelsController.cs" />
     <Compile Include="Controllers\ProveedoresModelsController.cs" />
     <Compile Include="Controllers\rangosPreciosModelsController.cs" />
     <Compile Include="Controllers\RecetaModelsController.cs" />
@@ -225,6 +226,7 @@
     <Compile Include="DTO\BarrilXEstadoReporte.cs" />
     <Compile Include="DTO\CuentasDebeHaberDTO.cs" />
     <Compile Include="DTO\DetalleMovimientos.cs" />
+    <Compile Include="DTO\FermentadorDTO.cs" />
     <Compile Include="DTO\MovimientosXEstilos.cs" />
     <Compile Include="DTO\MovimientosXFecha.cs" />
     <Compile Include="DTO\NotificationsDTO.cs" />
@@ -255,6 +257,34 @@
     <Compile Include="Migrations\201908141700393_changestringToInt.Designer.cs">
       <DependentUpon>201908141700393_changestringToInt.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909261938007_add-column-lupulo.cs" />
+    <Compile Include="Migrations\201909261938007_add-column-lupulo.Designer.cs">
+      <DependentUpon>201909261938007_add-column-lupulo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910041451120_addVolumen_Coccion.cs" />
+    <Compile Include="Migrations\201910041451120_addVolumen_Coccion.Designer.cs">
+      <DependentUpon>201910041451120_addVolumen_Coccion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910091909540_add_embarrilado.cs" />
+    <Compile Include="Migrations\201910091909540_add_embarrilado.Designer.cs">
+      <DependentUpon>201910091909540_add_embarrilado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910130729552_add_products.cs" />
+    <Compile Include="Migrations\201910130729552_add_products.Designer.cs">
+      <DependentUpon>201910130729552_add_products.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910131024016_add_product.cs" />
+    <Compile Include="Migrations\201910131024016_add_product.Designer.cs">
+      <DependentUpon>201910131024016_add_product.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910131100187_add-stockProducto.cs" />
+    <Compile Include="Migrations\201910131100187_add-stockProducto.Designer.cs">
+      <DependentUpon>201910131100187_add-stockProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910131316254_update_cantidad_stock.cs" />
+    <Compile Include="Migrations\201910131316254_update_cantidad_stock.Designer.cs">
+      <DependentUpon>201910131316254_update_cantidad_stock.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Audience.cs" />
     <Compile Include="Models\BaroneapiContext.cs" />
@@ -269,9 +299,11 @@
     <Compile Include="Models\ClientesModel.cs" />
     <Compile Include="Models\PagoModel.cs" />
     <Compile Include="Models\PedidoModel.cs" />
+    <Compile Include="Models\ProductoModel.cs" />
     <Compile Include="Models\ProveedoresModel.cs" />
     <Compile Include="Models\rangosPreciosModel.cs" />
     <Compile Include="Models\RecetaModel.cs" />
+    <Compile Include="Models\StockProductoModel.cs" />
     <Compile Include="Models\Token.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -321,6 +353,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908141700393_changestringToInt.resx">
       <DependentUpon>201908141700393_changestringToInt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909261938007_add-column-lupulo.resx">
+      <DependentUpon>201909261938007_add-column-lupulo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910041451120_addVolumen_Coccion.resx">
+      <DependentUpon>201910041451120_addVolumen_Coccion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910091909540_add_embarrilado.resx">
+      <DependentUpon>201910091909540_add_embarrilado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910130729552_add_products.resx">
+      <DependentUpon>201910130729552_add_products.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910131024016_add_product.resx">
+      <DependentUpon>201910131024016_add_product.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910131100187_add-stockProducto.resx">
+      <DependentUpon>201910131100187_add-stockProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910131316254_update_cantidad_stock.resx">
+      <DependentUpon>201910131316254_update_cantidad_stock.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

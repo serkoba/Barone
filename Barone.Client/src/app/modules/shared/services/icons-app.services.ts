@@ -93,6 +93,12 @@ export class IconsAppServices {
 
             this.iconRegistry.addSvgIcon('beer',
             this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/iconmonstr-beer-12.svg'));
+            this.iconRegistry.addSvgIcon('delete_forever',
+            this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/delete_forever-24px.svg'));
+            this.iconRegistry.addSvgIcon('assignment',
+            this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/assignment-24px.svg'));
+            
+            
 
             
             

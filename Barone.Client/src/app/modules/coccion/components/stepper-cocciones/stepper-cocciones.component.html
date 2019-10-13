@@ -61,6 +61,23 @@
 
               </div>
             </div>
+            <div id="LupulosForm" class="row">
+              <div class="col-sm-12 inline">
+
+                <div *ngFor="let lupulo of coccion._lupulos; let i = index">
+                 
+                  <div class="row">
+                    <div class="col">
+                      <grid-fill [Title]="'Lupulos'" [data]="lupulo.LupuloMediciones" [columnsToDisplay]="columnLupulos"></grid-fill>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <!--LUPULO-->
+            
+            
           </mat-step>
           <mat-step>
             <div id="FermentacionForm" class="row">

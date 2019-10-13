@@ -51,5 +51,11 @@ namespace Barone.api.Models
         public System.Data.Entity.DbSet<Barone.api.Models.RecetaModel> RecetaModels { get; set; }
 
         public System.Data.Entity.DbSet<Barone.api.Models.CoccionModel> CoccionModels { get; set; }
+
+        public System.Data.Entity.DbSet<Barone.api.Models.ProductoModel> ProductoModels { get; set; }
+
+        public System.Data.Entity.DbSet<Barone.api.Models.StockProductoModel> StockProductoModels { get; set; }
+
+        
     }
 }

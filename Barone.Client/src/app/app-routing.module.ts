@@ -28,7 +28,8 @@ import {
   EntregasXEstiloComponent,
   BarrilesAgrupadosComponent,
   EntregasXEstilosComponent,
-  EntregasXClienteComponent
+  EntregasXClienteComponent,
+  AdminproductosComponent
 } from './modules/modules.export';
 import { TestComponent } from './modules/reportes/components/test/test.component';
 import { AuthGuardService } from './core/core.module.export';
@@ -46,7 +47,7 @@ const routes: Routes = [
       { path: 'Rangos', component: AdminrangosComponent },
       { path: 'Estilos', component: AdminestilosComponent },
       { path: 'Pedidos', component: AdminpedidosComponent },
-      // { path: 'Entregas', component: AdminentregasComponent },
+       { path: 'Productos', component: AdminproductosComponent },
       { path: 'Pagos', component: AdminpagosComponent },
       { path: 'Fermentador', component: AdminfermentadorComponent },
       { path: 'test', component: TestComponent },

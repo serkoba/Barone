@@ -7,6 +7,8 @@ import { MatDialog } from '@angular/material';
 import { EditCoccionComponent } from '../edit-coccion/edit-coccion.component';
 import { StepperCoccionesComponent } from '../stepper-cocciones/stepper-cocciones.component';
 import { ButtonType } from 'src/app/modules/shared/enum/enums';
+import { StepperCocciones2Component } from '../stepper-cocciones2/stepper-cocciones2.component';
+import { RendimientoComponent } from '../rendimiento/rendimiento.component';
 
 
 @Component({
@@ -107,7 +109,14 @@ export class AdmincoccionesComponent implements OnInit {
         action: DBOperation.IniciarCoccion,
         ishide: this.isREADONLY
       }
-
+      ,
+      {
+        title: 'Rendimiento',
+        icon: 'assignment',
+        keys: ["id"],
+        action: DBOperation.Rendimiento,
+        ishide: this.isREADONLY
+      }
     ];
   }
 
@@ -115,10 +124,19 @@ export class AdmincoccionesComponent implements OnInit {
     private coccionesServices: CoccionesService, private dialog: MatDialog) { }
   public openDialog(tipoDialog = null) {
     let dialogRef = null;
-    if (tipoDialog == null)
-      dialogRef = this.dialog.open(EditCoccionComponent);
-    else
-      dialogRef = this.dialog.open(StepperCoccionesComponent);
+    switch (tipoDialog) {
+      case ButtonType.Rendimiento:
+          dialogRef = this.dialog.open(RendimientoComponent);
+        break;
+    case ButtonType.IniciarCoccion:
+        dialogRef = this.dialog.open(StepperCocciones2Component);
+      break;
+      default:
+          dialogRef = this.dialog.open(EditCoccionComponent);
+        break;
+    }
+   
+    
 
     dialogRef.componentInstance.dbops = this.dbops;
     dialogRef.componentInstance.modalTitle = this.modalTitle;
@@ -197,17 +215,31 @@ export class AdmincoccionesComponent implements OnInit {
     this.dbops = DBOperation.IniciarCoccion;
     this.modalTitle = "Iniciar Coccion";
     this.modalBtnTitle = "Guardar";
-
+    
     this.coccion = this.cocciones.find(x => x.id === id);
+    this.coccion.FechaCoccion = new Date().toDateString();
     this.coccion._medicionesMash = JSON.parse(this.coccion.MedicionesMash);
     this.coccion._hervor = JSON.parse(this.coccion.Hervor);
+    this.coccion._lupulos=JSON.parse(this.coccion.Lupulos);
     this.coccion._fermentacion = JSON.parse(this.coccion.Fermentacion);
     this.coccion._carbonatacion = JSON.parse(this.coccion.Carbonatacion);
+    this.coccion._VolumenMediciones= JSON.parse(this.coccion.VolumenMediciones);
     //this.coccion.DetalleEntrega = JSON.parse(this.entrega.DetallePedido.toString());
     //   this.userServices.getById(id).then(val => { this.user = Object.assign(new User(), val); this.openDialog(); });;
     this.openDialog(ButtonType.IniciarCoccion);
     //   this.userServices.getById(id).then(val => { this.user = Object.assign(new User(), val); this.openDialog(); });;
     //   this.openDialog();
+  }
+  public openRendimiento(idCoccion:number){
+    this.coccion = this.cocciones.find(x => x.id === idCoccion);
+    if (this.coccion.DetalleEmbarrilado!=null){
+    this.coccion._DetalleEmbarrilado = JSON.parse(this.coccion.DetalleEmbarrilado);
+    this.openDialog(ButtonType.Rendimiento);
+    }
+    else
+    {
+      this._snack.openSnackBar("Esta coccion no esta finalizada", 'Warning');
+    }
   }
 
 
@@ -228,6 +260,9 @@ export class AdmincoccionesComponent implements OnInit {
       case DBOperation.IniciarCoccion:
         this.iniciarCoccion(gridaction.values[0].value);
         break;
+        case DBOperation.Rendimiento:
+          this.openRendimiento(gridaction.values[0].value);
+          break;
 
     }
 

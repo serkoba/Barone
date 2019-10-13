@@ -8,7 +8,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Barone.api.DTO;
 using Barone.api.Models;
+using Newtonsoft.Json;
 
 namespace Barone.api.Controllers
 {
@@ -18,9 +20,19 @@ namespace Barone.api.Controllers
         private BaroneapiContext db = new BaroneapiContext();
 
         // GET: api/FermentadorModels
-        public IQueryable<FermentadorModel> GetFermentadorModels()
+        public IQueryable<FermentadorDTO> GetFermentadorModels()
         {
-            return db.FermentadorModels;
+            
+            var result = from fer in db.FermentadorModels
+                       //  join cocc in db.CoccionModels.Where(x=>!x.FechaFin.HasValue && x.FechaCoccion.HasValue).OrderByDescending(x=> x.FechaCoccion).FirstOrDefault() on fer.id equals cocc.Fermentador.id 
+                         select new FermentadorDTO()
+                         {
+                             id = fer.id,
+                             Capacidad = fer.Capacidad,
+                             Identificador = fer.Identificador,
+                             coccion = db.CoccionModels.Where(x=>x.FechaCoccion.HasValue && !x.FechaFin.HasValue &&  x.Fermentador.id==fer.id).OrderByDescending(x=>x.FechaCoccion).FirstOrDefault().NroLote
+                         };
+            return result;
         }
 
         // GET: api/FermentadorModels/5
@@ -34,6 +46,29 @@ namespace Barone.api.Controllers
             }
 
             return Ok(fermentadorModel);
+        }
+        [Route("api/Embarrilar")]
+        [ResponseType(typeof(void))]
+        public IHttpActionResult Embarrilar([FromBody]FermentadorModel fermentadorModel)
+        {
+            var ultimaCoccion = db.CoccionModels.Where(x => x.Fermentador.id== fermentadorModel.id && !x.FechaFin.HasValue).OrderByDescending(x => x.FechaCoccion).FirstOrDefault();
+            if (ultimaCoccion == null)
+            {
+                return BadRequest("Este Fermentador no tiene coccion disponible");
+            }
+            var fechaFinEmbarrilado = DateTime.Now;
+            var diasEnTanque = Math.Round( fechaFinEmbarrilado.Subtract(ultimaCoccion.FechaCoccion.Value).TotalDays, MidpointRounding.AwayFromZero);
+            var barriles = db.BarrilModels.Where(x => x.Coccion_id == ultimaCoccion.id);
+            
+            var Rendimiento = new {Latas=0,
+                                   Barriles =barriles.Count(),
+                                   TotalLitros =barriles.ToList().Sum(x=> long.Parse( x.CantidadLitros)),
+                                   DiasEnTanque= diasEnTanque};
+            ultimaCoccion.DetalleEmbarrilado = JsonConvert.SerializeObject(Rendimiento);
+            ultimaCoccion.FechaFin = fechaFinEmbarrilado;
+            db.SaveChanges();
+            return Ok();
+
         }
 
         // PUT: api/FermentadorModels/5

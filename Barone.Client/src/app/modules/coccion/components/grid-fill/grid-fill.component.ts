@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, ViewChild, TemplateRef, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material';
+import { InsumoModel } from 'src/app/modules/shared/models/insumo.model';
+import { InsumosService } from 'src/app/modules/insumos/services/insumos.service';
 
 @Component({
   selector: 'grid-fill',
@@ -14,12 +16,13 @@ export class gridFillComponent implements OnInit {
   @ViewChild('text') public text: TemplateRef<ElementRef>;
   ///Form Data
   public displayedColumns: string[];
+  public insumos: InsumoModel[];
   dataSource = new MatTableDataSource<any[]>();
   public dataForm: FormGroup;
   get dataArray() {
     return this.dataForm.get('dataArray') as FormArray;
   }
-  constructor(public _formBuilder: FormBuilder) { }
+  constructor(public _formBuilder: FormBuilder, private insumosServices: InsumosService) { }
 
   ngOnInit() {
     this.displayedColumns = this.columnsToDisplay.map(column => column.variable);
@@ -27,6 +30,18 @@ export class gridFillComponent implements OnInit {
 
     this.dataForm.addControl('dataArray', this._formBuilder.array(this.data.map(o => this.toFormGroup(o, false))));
     this.dataSource = new MatTableDataSource(this.data);
+    this.initInsumos();
+  }
+  private initInsumos(){
+    this.insumosServices.getAll().subscribe(insumos => {
+      this.insumos = insumos;
+    });
+  }
+  compareFn: ((f1: any, f2: any) => boolean) | null = this.compareByValue;
+
+  
+  compareByValue(f1: any, f2: any) {
+    return f1 && f2 && f1.Nombre === f2.Nombre;
   }
 
   toFormGroup(row: any, empty: boolean) {

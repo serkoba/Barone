@@ -92,9 +92,16 @@ export * from './shared/services/icons-app.services';
 
 export * from './coccion/components/admincocciones/admincocciones.component';
 export * from './coccion/components/edit-coccion/edit-coccion.component';
+export * from './coccion/components/rendimiento/rendimiento.component';
 export * from './coccion/services/cocciones.service';
 export * from './coccion/components/grid-fill/grid-fill.component';
 export * from './coccion/components/stepper-cocciones/stepper-cocciones.component';
+export * from './coccion/components/stepper-cocciones2/stepper-cocciones2.component';
 export * from './coccion/components/calendar-coccion/calendar-coccion.component';
 
 export * from './dashboard/components/main-dashboard/main-dashboard.component';
+
+export * from './productos/components/adminproductos/adminproductos.component';
+export * from './productos/components/edit-productos/edit-productos.component';
+export * from './productos/services/productos.service';
+export * from './productos/components/producto-estilo/producto-estilo.component';

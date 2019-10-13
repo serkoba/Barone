@@ -37,6 +37,13 @@ export class AdminfermentadorComponent implements OnInit {
       Sumarizable:false
     },
     {
+      display: 'Coccion',
+      variable: 'coccion',
+      filter: 'text',
+      template: 'text',
+      Sumarizable:false
+    },
+    {
       display: 'Acciones',
       variable: 'acciones',
       filter: 'text',
@@ -74,6 +81,13 @@ export class AdminfermentadorComponent implements OnInit {
         keys: ["id"],
         action: DBOperation.delete,
         ishide: this.isREADONLY
+      },
+      {
+        title: 'Embarrilado Finalizado',
+        icon: 'delete_forever',
+        keys: ["id"],
+        action: DBOperation.FinEmbarrilado,
+        ishide: this.isREADONLY
       }
 
     ];
@@ -110,6 +124,7 @@ export class AdminfermentadorComponent implements OnInit {
     });
   }
 
+
   ngOnInit() {
     this.loadFermentadores();
 
@@ -145,6 +160,18 @@ export class AdminfermentadorComponent implements OnInit {
 
     });
   }
+  Embarrilar(id: number) {
+    this.dbops = DBOperation.FinEmbarrilado;
+    let fermentador = this.fermentadores.find(x => x.id === id);
+    this.fermentadorServices.embarrilar(fermentador).subscribe(() => {
+      this._snack.openSnackBar("Embarrilado Finalizado", 'Success');
+      this.loadFermentadores();
+    }, error => {
+      this._snack.openSnackBar(error, 'Error');
+
+
+    });
+  }
 
   gridaction(gridaction: any): void {
 
@@ -158,6 +185,8 @@ export class AdminfermentadorComponent implements OnInit {
       case DBOperation.delete:
         this.DeleteFermentador(gridaction.values[0].value);
         break;
+        case DBOperation.FinEmbarrilado:
+          this.Embarrilar(gridaction.values[0].value);
     }
 
   }

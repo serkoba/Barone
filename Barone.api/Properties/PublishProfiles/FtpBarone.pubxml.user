@@ -17,10 +17,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/24/2019 21:11:30</publishTime>
     </File>
     <File Include="bin/Barone.api.dll">
-      <publishTime>05/02/2019 23:37:52</publishTime>
+      <publishTime>08/14/2019 19:11:53</publishTime>
     </File>
     <File Include="bin/Barone.api.pdb">
-      <publishTime>05/02/2019 23:37:52</publishTime>
+      <publishTime>08/14/2019 19:11:53</publishTime>
     </File>
     <File Include="bin/de/Microsoft.OData.Edm.resources.dll">
       <publishTime>05/03/2017 20:29:28</publishTime>
@@ -275,7 +275,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/24/2019 21:11:30</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/02/2019 23:37:52</publishTime>
+      <publishTime>08/14/2019 19:11:53</publishTime>
     </File>
   </ItemGroup>
 </Project>

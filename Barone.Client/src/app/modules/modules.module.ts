@@ -64,7 +64,13 @@ import {
   EntregasXEstiloComponent,
   BarrilesAgrupadosComponent,
   EntregasXEstilosComponent,
-  EntregasXClienteComponent
+  EntregasXClienteComponent,
+  StepperCocciones2Component,
+  AdminproductosComponent,
+  EditProductosComponent,
+  ProductosService,
+  RendimientoComponent,
+  ProductoEstiloComponent
 } from './modules.export';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -72,6 +78,8 @@ import { CoreModule } from '../core/core.module';
 import { AdminestilosComponent } from './estilos/components/adminestilos/adminestilos.component';
 import { EditEstilosComponent } from './estilos/components/edit-estilos/edit-estilos.component';
 import { EstilosPipe } from './shared/filters/estilos.pipe';
+
+
 
 
 
@@ -161,7 +169,12 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     BarrilesAgrupadosComponent,
     EntregasXEstilosComponent,
     EntregasXClienteComponent,
-    EntregasXClienteComponent
+    EntregasXClienteComponent,
+    StepperCocciones2Component,
+    RendimientoComponent,
+    AdminproductosComponent,
+    EditProductosComponent,
+    ProductoEstiloComponent
   ],
   exports: [
     EditUserComponent,
@@ -207,7 +220,12 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     EntregasXEstiloComponent,
     BarrilesAgrupadosComponent,
     EntregasXEstilosComponent,
-    EntregasXClienteComponent
+    EntregasXClienteComponent,
+    StepperCocciones2Component,
+    RendimientoComponent,
+    AdminproductosComponent,
+    EditProductosComponent,
+    ProductoEstiloComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [EditUserComponent, EditClientsComponent, EditBarrilesComponent, EditRangosComponent, EditPagosComponent,
@@ -222,7 +240,11 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     EditComprasComponent,
     EditRecetaComponent,
     EditCoccionComponent,
-    StepperCoccionesComponent],
+    StepperCoccionesComponent,
+    StepperCocciones2Component,
+    RendimientoComponent,
+    EditProductosComponent,
+    ProductoEstiloComponent],
   providers: [UserPipe, UserService, ClientsService, ClientPipe, BarrilPipe,
     BarrilesService, RangosService, RangoPipe, PedidosService,
     PedidosPipe,
@@ -238,7 +260,8 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     ComprasService,
     RecetasService,
     IconsAppServices,
-    CoccionesService]
+    CoccionesService,
+  ProductosService]
 })
 export class ModulesModule {
   public static forRoot(): ModuleWithProviders {

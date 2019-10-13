@@ -1,10 +1,12 @@
 export enum ButtonType {
   Barril = "Barril",
+  Producto="Producto",
   BarrilEstado = "BarrilEstado",
   BarrilEstilo = "BarrilEstilo",
   AsignarEntregaAPedidos = "AsignarEntregaAPedidos",
   Pedidos = "Pedidos",
-  IniciarCoccion = "IniciarCoccion"
+  IniciarCoccion = "IniciarCoccion",
+  Rendimiento = "Rendimiento"
 }
 export enum TipoIngredienteEnum {
   Malta = 1,

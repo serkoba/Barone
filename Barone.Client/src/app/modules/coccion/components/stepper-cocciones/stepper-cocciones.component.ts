@@ -12,6 +12,7 @@ import { CoccionesService } from '../../services/cocciones.service';
 import { SnackManagerService, SelectItem } from 'src/app/core/core.module.export';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { InsumosService } from 'src/app/modules/insumos/services/insumos.service';
+import { LupuloModel, LupuloMediciones } from 'src/app/modules/shared/models/receta/lupulo.model';
 
 @Component({
   selector: 'stepper-cocciones',
@@ -49,6 +50,39 @@ export class StepperCoccionesComponent implements OnInit {
       filter: 'text',
       template: 'text'
     }]
+
+    columnLupulos: any[] =
+    [{
+      display: 'Insumo',
+      variable: 'Insumo',
+      filter: 'text',
+      template: 'dropdown'
+    },
+    {
+      display: 'Cantidad',
+      variable: 'Cantidad',
+      filter: 'text',
+      template: 'text'
+    },
+    {
+      display: 'PorcentajeAA',
+      variable: 'PorcentajeAA',
+      filter: 'text',
+      template: 'text'
+    },
+    {
+      display: 'Tiempo',
+      variable: 'Tiempo',
+      filter: 'text',
+      template: 'text'
+    },
+    {
+      display: 'IBUS',
+      variable: 'IBUS',
+      filter: 'text',
+      template: 'text'
+    }];
+
   columnsHervor: any[] = [
     {
       display: 'LitrosEnOlla',
@@ -119,6 +153,10 @@ export class StepperCoccionesComponent implements OnInit {
       this.coccion._hervor = [];
       this.fillHervor();
     }
+    if (this.coccion.Lupulos==null){
+      this.coccion._lupulos=[];
+      this.fillLupulos();
+    }
     if (this.coccion.Fermentacion == null) {
       this.coccion._fermentacion = new FermentacionModel();
       this.coccion._fermentacion.Mediciones = [MedicionesFermentacionModel.empty()];
@@ -128,6 +166,15 @@ export class StepperCoccionesComponent implements OnInit {
     }
 
     this.loadEstilos();
+  }
+ 
+  public fillLupulos() {
+
+    for (let index = 1; index <= this.coccion.Multiplicador; index++) {
+      this.coccion._lupulos.push(LupuloMediciones.empty());
+
+    }
+
   }
   public fillMash() {
 
@@ -157,6 +204,7 @@ export class StepperCoccionesComponent implements OnInit {
     this.coccion.Hervor = JSON.stringify(this.coccion._hervor);
     this.coccion.Fermentacion = JSON.stringify(this.coccion._fermentacion);
     this.coccion.Carbonatacion = JSON.stringify(this.coccion._carbonatacion);
+    this.coccion.Lupulos=JSON.stringify(this.coccion._lupulos);
     switch (this.dbops) {
       // case DBOperation.create:
 

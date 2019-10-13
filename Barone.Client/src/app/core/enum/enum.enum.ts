@@ -8,7 +8,9 @@ export enum DBOperation {
   ComenzarEntrega = 7,
   ver = 8,
   IniciarCoccion = 9,
-  DevolverBarril=10
+  DevolverBarril=10,
+  FinEmbarrilado=11,
+  Rendimiento=12
 };
 export enum Options {
   default = 1,

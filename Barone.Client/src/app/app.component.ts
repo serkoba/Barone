@@ -115,6 +115,7 @@ if (isAdminUser){
       //  routerPath:'/Home',
       children: [this.createNavItem('Rangos', '/Rangos', 'insert_invitation'),
       this.createNavItem('Estilos', '/Estilos', 'dvr'),
+      this.createNavItem('Productos','/Productos','beer'),
       this.createNavItem('Barriles', '/Barriles', 'beer'),
       this.createNavItem('Clientes', '/Clients', 'supervisor_account'),
       this.createNavItem('Pagos', '/Pagos', 'attach_money'),

@@ -59,6 +59,28 @@ namespace Barone.api.Controllers
             return StatusCode(HttpStatusCode.OK);
         }
 
+
+
+        // POST: api/InsumoModels
+        [Route("api/UpdateStock")]
+        [ResponseType(typeof(InsumoModel))]
+        public IHttpActionResult PostUpdateStock(InsumoModel insumoModel)
+        {
+
+            var insumoToUpdate = db.InsumoModels.SingleOrDefault(x => x.id == insumoModel.id);
+            insumoToUpdate.Stock -= insumoModel.Stock;
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return StatusCode(HttpStatusCode.OK);
+        }
+
         // POST: api/InsumoModels
         [ResponseType(typeof(InsumoModel))]
         public IHttpActionResult PostInsumoModel(InsumoModel insumoModel)
