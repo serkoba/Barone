@@ -59,10 +59,12 @@ namespace Barone.api.Controllers
             var fechaFinEmbarrilado = DateTime.Now;
             var diasEnTanque = Math.Round( fechaFinEmbarrilado.Subtract(ultimaCoccion.FechaCoccion.Value).TotalDays, MidpointRounding.AwayFromZero);
             var barriles = db.BarrilModels.Where(x => x.Coccion_id == ultimaCoccion.id);
-            
-            var Rendimiento = new {Latas=0,
+            var latas = db.StockProductoModels.Where(x => x.Coccion.id == ultimaCoccion.id);
+            var TotalLitrosBarriles = barriles.ToList().Sum(x => long.Parse(x.CantidadLitros));
+            var TotalLitrosLatas = latas.Sum(x => x.Producto.Litros * x.Cantidad);
+            var Rendimiento = new {Latas=latas.Sum(x=>x.Cantidad),
                                    Barriles =barriles.Count(),
-                                   TotalLitros =barriles.ToList().Sum(x=> long.Parse( x.CantidadLitros)),
+                                   TotalLitros = TotalLitrosBarriles + TotalLitrosLatas,
                                    DiasEnTanque= diasEnTanque};
             ultimaCoccion.DetalleEmbarrilado = JsonConvert.SerializeObject(Rendimiento);
             ultimaCoccion.FechaFin = fechaFinEmbarrilado;
