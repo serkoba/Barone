@@ -360,11 +360,22 @@ namespace Barone.api.Controllers
         public IHttpActionResult DeleteMovimientosModel(long id)
         {
             MovimientosModel movimientosModel = db.MovimientosModels.Find(id);
+            
             if (movimientosModel == null)
             {
                 return NotFound();
             }
-
+            //remove all barril related
+            var barrilToUpdate = db.BarrilModels.Where(x => x.idEntrega == movimientosModel.idEntrega);
+            if (barrilToUpdate != null)
+            {
+                barrilToUpdate.ForEachAsync(barril =>
+                {
+                    barril.idEntrega = null;
+                    barril.Entrega = null;
+                    barril.idEstado = 1;
+                });
+            }
             db.MovimientosModels.Remove(movimientosModel);
             db.SaveChanges();
 

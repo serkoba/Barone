@@ -61,8 +61,10 @@ namespace Barone.api.Controllers
             var barriles = db.BarrilModels.Where(x => x.Coccion_id == ultimaCoccion.id);
             var latas = db.StockProductoModels.Where(x => x.Coccion.id == ultimaCoccion.id);
             var TotalLitrosBarriles = barriles.ToList().Sum(x => long.Parse(x.CantidadLitros));
-            var TotalLitrosLatas = latas.Sum(x => x.Producto.Litros * x.Cantidad);
-            var Rendimiento = new {Latas=latas.Sum(x=>x.Cantidad),
+            var hayLatas = latas.Any();
+            var TotalLitrosLatas = hayLatas ? latas.Sum(x => x.Producto.Litros * x.Cantidad):0;
+            var CantidadLatas = hayLatas ? latas.Sum(x => x.Cantidad) : 0;
+            var Rendimiento = new {Latas= CantidadLatas,
                                    Barriles =barriles.Count(),
                                    TotalLitros = TotalLitrosBarriles + TotalLitrosLatas,
                                    DiasEnTanque= diasEnTanque};
