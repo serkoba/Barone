@@ -21,7 +21,7 @@ namespace Barone.api.DTO
     public class GroupByEstilo
     {
         public string Estilo { get; set; }
-        public int CantidadLitros { get; set; }
+        public double CantidadLitros { get; set; }
         public int CantidadBarriles { get; set; }
     }
 

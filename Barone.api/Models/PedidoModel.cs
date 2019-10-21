@@ -12,6 +12,8 @@ namespace Barone.api.Models
         public DateTime fechaPedido { set; get; }
         public DateTime fechaPactada { set; get; }
         public string DetallePedido { set; get; }
+        public string DetallePedidoProducto { set; get; }
+        public int TotalLatas { get; set; }
         public string TotalBarriles { set; get; }
         public string Estado { set; get; }
         public long? idEntrega { set; get; }

@@ -34,6 +34,15 @@
               </mat-select>
               </mat-form-field>
 
+              <mat-form-field *ngIf="column.template==='Producto'" floatLabel="never">
+                <mat-select [compareWith]="compareFn" name="element[column.variable]" placeholder="Productos" formControlName="{{column.variable}}"
+                [(ngModel)]="element[column.variable]">
+                <mat-option *ngFor="let producto of productos" [value]="producto">
+                  {{producto.Nombre}}
+                </mat-option>
+              </mat-select>
+              </mat-form-field>
+
               <!-- <ng-container *ngTemplateOutlet="this[column.template]; context: {column:column, element:element,formGroupName:index}"></ng-container> -->
 
             </td>

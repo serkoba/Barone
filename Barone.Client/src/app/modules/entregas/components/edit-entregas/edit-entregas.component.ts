@@ -10,8 +10,8 @@ import { ItemChip } from '../../../shared/models/item-chip';
 import { BarrilesService } from '../../../barriles/services/barriles.service';
 import { FormControl } from '@angular/forms';
 import { Observable, from, of, concat } from 'rxjs';
-import { startWith, map, concatMap, mergeMap, last, switchMap } from 'rxjs/operators';
-import { RowEntrega } from '../../../shared/models/row-entrega';
+import { startWith, map, concatMap, mergeMap, last, switchMap, zip } from 'rxjs/operators';
+import { RowEntrega, RowEntregaLata } from '../../../shared/models/row-entrega';
 import { AddEntregaComponent } from '../add-entrega/add-entrega.component';
 import { EstilosModel } from '../../../shared/models/estilos.model';
 import { DBOperation } from '../../../../core/enum/enum.enum';
@@ -20,6 +20,7 @@ import { SnackManagerService } from '../../../../core/services/snack-manager.ser
 import { PedidosService } from 'src/app/modules/pedidos/services/pedidos.service';
 import { SelectItem } from 'src/app/core/models/select-item';
 import { TipoEstadoBarril } from 'src/app/modules/shared/enum/enums';
+import { ProductosService } from 'src/app/modules/productos/services/productos.service';
 
 @Component({
     selector: 'edit-entregas',
@@ -46,7 +47,7 @@ export class EditEntregasComponent implements OnInit {
     enabled: boolean;
     removable = true;
     public rowSelected: RowEntrega;
-
+    isREADONLY: boolean = false;
     @ViewChild('fruitInput') fruitInput: ElementRef;
     visible = true;
     selectable = true;
@@ -71,7 +72,9 @@ export class EditEntregasComponent implements OnInit {
         public pedidosServices: PedidosService,
         public dialog: MatDialog,
         private barrilesServices: BarrilesService,
-        private clientesServices: ClientsService, public dialogRef: MatDialogRef<EditEntregasComponent>) {
+        private clientesServices: ClientsService,
+        private productosServices:ProductosService,
+        public dialogRef: MatDialogRef<EditEntregasComponent>) {
 
 
         this.barrilesServices.getAll().subscribe(barriles => {
@@ -99,6 +102,38 @@ export class EditEntregasComponent implements OnInit {
         });
 
     }
+
+    gridbtns = [
+       
+        {
+          title: 'Borrar',
+          icon: 'clear',
+          keys: ["id"],
+          action: DBOperation.delete,
+          ishide: this.isREADONLY
+        }];
+
+    columnProductos: any[] =
+    [{
+      display: 'Producto',
+      variable: 'Productos',
+      filter: 'text',
+      template: 'producto'
+    },
+    {
+      display: 'Cantidad',
+      variable: 'Cantidad',
+      filter: 'text',
+      template: 'text'
+    },
+    {
+        display: 'Acciones',
+        variable: 'acciones',
+        filter: 'text',
+        template: 'acciones',
+        Sumarizable:false
+      }];
+
     public openDialog() {
         let dialogRef = null;
 
@@ -163,13 +198,20 @@ export class EditEntregasComponent implements OnInit {
                 detalleEntrega.forEach(entrega => BarrilesAfectados = BarrilesAfectados.concat(entrega.BarrilesEntrega));
                 //BarrilesAfectados
 
-                return from(BarrilesAfectados).pipe(concatMap(barrilEntregado => {
-                    const barril = this.barriles.find(x => x.NroBarril === barrilEntregado.nombre);
-                    barril.idEstado = 2;
-                    barril.idEntrega = this.entrega.idEntrega;
-                    return this.barrilesServices.updatePartial(barril)
+                   return this.updateBarriles(BarrilesAfectados)
+                .pipe(zip(
+                    this.updateProductos(),
+                    (resultBarriles:Observable<any>,resultProductos:Observable<any>)=>{
+                        return resultBarriles;
+                    }))
 
-                }));
+                // return from(BarrilesAfectados).pipe(concatMap(barrilEntregado => {
+                //     const barril = this.barriles.find(x => x.NroBarril === barrilEntregado.nombre);
+                //     barril.idEstado = 2;
+                //     barril.idEntrega = this.entrega.idEntrega;
+                //     return this.barrilesServices.updatePartial(barril)
+
+                // }));
 
 
 
@@ -238,6 +280,9 @@ export class EditEntregasComponent implements OnInit {
         this.reCalculateBarriles();
 
     }
+    public changeCantidadLata(value:any){
+        this.reCalculateBarriles();
+    }
     private reCalculateBarriles() {
         let disCountClient = this.entrega.Cliente ? Number(this.entrega.Cliente.margen) : 0;
         let TotalBarriles = 0;
@@ -246,21 +291,70 @@ export class EditEntregasComponent implements OnInit {
         this.rowCollection.forEach(row => {
             TotalBarriles += row.BarrilesEntrega.length;
             let precio = 0;
-            const TotalLitrosByTipo = row.BarrilesEntrega.
+            let TotalLitrosByTipo=0;
+            if (row.BarrilesEntrega.length!=0){
+             TotalLitrosByTipo = row.BarrilesEntrega.
                 map(barril => {
+                    if (this.barriles!= undefined){
                     const barrilSelected = this.barriles.find(x => x.NroBarril === barril.nombre);
                     precio = Number(barrilSelected.Estilo.rangoPrecio.precio) - ((disCountClient * Number(barrilSelected.Estilo.rangoPrecio.precio)) / 100);///precio del litro de barril - bonificacion del cliente.
                     return Number(barrilSelected.CantidadLitros);
+                }
+                else
+                {
+                    precio=0;
+                    return 0;
+                }
                 }).
                 reduce((sum, current) => sum + current);
-
+            }
             TotalImporte += TotalLitrosByTipo * precio;
             TotalLitros += TotalLitrosByTipo;
-        })
+        });
+        let TotalLatas=0;
+        let TotalImporteLatas=0;
+        let TotalLitrosLatas=0;
+        this.entrega.DetalleProducto.forEach(latas=>{
+            TotalLatas +=+latas.Cantidad;
+           
+                    TotalImporteLatas +=Number(latas.Productos.Precio) * +latas.Cantidad;
+                    TotalLitrosLatas +=latas.Productos.Litros * +latas.Cantidad;
+        });
+        
         this.entrega.TotalBarriles = TotalBarriles.toString();
-        this.entrega.TotalImporte = TotalImporte.toString();
-        this.entrega.TotalLitros = TotalLitros.toString();
+        this.entrega.TotalImporte = (TotalImporte + TotalImporteLatas).toString();
+        this.entrega.TotalLitros = (TotalLitros + TotalLitrosLatas).toString();
+        //this.entrega.TotalImporteLata=TotalImporteLatas.toString();
+        //this.entrega.TotalLitrosLata= TotalLitrosLatas.toString();
+        this.entrega.TotalLatas=TotalLatas.toString();
     }
+
+    
+  gridaction(gridaction: any): void {
+
+    switch (gridaction.action) {
+      case DBOperation.create:
+      //  this.addCoccion();
+        break;
+      case DBOperation.update:
+        this.enabled = true;
+      //  this.EditCoccion(gridaction.values[0].value);
+        break;
+      case DBOperation.delete:
+        this.DeleteProducto(gridaction.values[0].value);
+        break;
+    
+
+    }
+
+  }
+
+  private DeleteProducto(id:number){
+
+    this.entrega.DetalleProducto=this.entrega.DetalleProducto.slice(id,-1);
+
+
+  }
 
 
 
@@ -290,7 +384,8 @@ export class EditEntregasComponent implements OnInit {
                 Cliente: this.pedido.Cliente,
                 IdCliente: this.pedido.IdCliente,
                 Estado: 1,
-                EstadoDelivery: 1
+                EstadoDelivery: 1,
+                DetalleProducto:this.generateDetalleEnvasado(JSON.parse(this.pedido.DetallePedidoProducto))
             });
         }
         else {
@@ -301,7 +396,8 @@ export class EditEntregasComponent implements OnInit {
                     Cliente: null,
                     IdCliente: null,
                     Estado: 1,
-                    EstadoDelivery: 1
+                    EstadoDelivery: 1,
+                    DetalleProducto:[RowEntregaLata.empty()]
                 });
             }
         }
@@ -310,8 +406,8 @@ export class EditEntregasComponent implements OnInit {
 
     onSubmit() {
 
-        var currentDate = new Date();
-        this.entrega.fecha = currentDate.getFullYear().toString() + "/" + currentDate.getMonth().toString() + "/" + currentDate.getDay().toString();
+      //  var currentDate = new Date();
+      //  this.entrega.fecha = currentDate.getFullYear().toString() + "/" + currentDate.getMonth().toString() + "/" + currentDate.getDay().toString();
         switch (this.dbops) {
             case DBOperation.create:
                 this.saveEntrega(false);
@@ -346,10 +442,19 @@ export class EditEntregasComponent implements OnInit {
             return new RowEntrega({ id: 0, Tipo: pedido.nombre, Cantidad: pedido.cantidad, Barriles: [] })
         })
     }
+    private generateDetalleEnvasado(detalleEnvasado: RowEntregaLata[]): RowEntregaLata[] {
+        if (detalleEnvasado == null) {
+            return [];
+        }
+        return detalleEnvasado.map(pedido => {
+            return new RowEntregaLata({ id: pedido.id,  Cantidad: pedido.Cantidad, Productos: pedido.Productos })
+        })
+    }
     private saveEntrega(actualiza: boolean) {
         const HayPedido = this.pedido != undefined;
         this.entrega.Estado = 2;
         this.entrega.DetallePedido = JSON.stringify(this.rowCollection);
+        this.entrega.DetallePedidoProducto=JSON.stringify(this.entrega.DetalleProducto);
         const operacionEntrega = actualiza ? this.entregaServices.update(this.entrega) : this.entregaServices.insert(this.entrega);
         operacionEntrega
             .pipe(concatMap((entregaInserted) => {
@@ -363,8 +468,20 @@ export class EditEntregasComponent implements OnInit {
                 }
             }), switchMap((detalleEntrega) => {
                 let BarrilesAfectados: ItemChip[] = [];
+                if (detalleEntrega.length!=0)
                 detalleEntrega.forEach(entrega => BarrilesAfectados = BarrilesAfectados.concat(entrega.BarrilesEntrega));
                 //  BarrilesAfectados
+                // return this.updateBarriles(BarrilesAfectados)
+                // .pipe(zip(
+                //     this.updateProductos(),
+                //     (resultBarriles:Observable<any>,resultProductos:Observable<any>)=>{
+                //         return resultBarriles;
+                //     }))
+                //return zip((this.updateBarriles(BarrilesAfectados),this.updateProductos()),result =>{return of(true)});
+
+                if (BarrilesAfectados.length==0){
+                    return of(true);
+                }
 
                 return from(BarrilesAfectados).pipe(concatMap(barrilEntregado => {
                     const barril = this.barriles.find(x => x.NroBarril === barrilEntregado.nombre);
@@ -390,6 +507,39 @@ export class EditEntregasComponent implements OnInit {
                 this.dialogRef.close("error");
 
             });
+    }
+
+    private updateBarriles(BarrilesAfectados:ItemChip[]):Observable<any>{
+        if (BarrilesAfectados.length==0){
+            return of(true);
+        }
+
+        return from(BarrilesAfectados).pipe(mergeMap(barrilEntregado => {
+            const barril = this.barriles.find(x => x.NroBarril === barrilEntregado.nombre);
+            barril.idEstado = 2;
+            barril.idEntrega = this.entrega.idEntrega;
+            return this.barrilesServices.updatePartial(barril)
+
+        }));
+
+        
+
+    }
+    private updateProductos():Observable<any>{
+
+        if (this.entrega.DetalleProducto.length==0){
+            return of(true);
+        }
+
+        return from(this.entrega.DetalleProducto).pipe(mergeMap(productos => {
+
+            if (productos.Productos ==null || productos.Productos.id==0)
+            return of(true);
+            productos.Productos.Stock=productos.Productos.Stock- +productos.Cantidad;
+            return this.productosServices.updatePartial(productos.Productos)
+            
+        }));
+
     }
 
 }

@@ -34,7 +34,16 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-
+                    <mat-accordion multi="true">
+                            <mat-expansion-panel [expanded]="true" class="no-shadow">
+                                <mat-expansion-panel-header fxLayout="row">
+                                  <mat-panel-title>
+                        
+                        
+                                    <h1><span>Barriles</span></h1>
+                        
+                                  </mat-panel-title>
+                                </mat-expansion-panel-header>
 
                 <div class="form-group">
                     <div class="col-lg-12">
@@ -95,9 +104,41 @@
                 </div>
 
                 <div style="padding-bottom:1px;background-color:#d8d8d8"></div>
+                            </mat-expansion-panel>
+                    </mat-accordion>
             </div>
         </div>
+        <div class="row">
+        <div class="col-sm-12">
+            <mat-accordion multi="true">
+                <mat-expansion-panel [expanded]="true" class="no-shadow">
+                    <mat-expansion-panel-header fxLayout="row">
+                      <mat-panel-title>
+            
+            
+                        <h1><span>Productos</span></h1>
+            
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+            <div id="LupulosForm" class="row">
+              <div class="col-sm-12 inline">
 
+               
+                 
+                  <div class="row">
+                    <div class="col">
+                      <grid-prod [gridbtns]="gridbtns" (btnclick)="gridaction($event)" (changeText)="changeCantidadLata($event)"
+                        [Title]="'Productos'" [isForProduct]="true"
+                         [data]="entrega.DetalleProducto" [columnsToDisplay]="columnProductos"></grid-prod>
+                    </div>
+                  </div>
+
+              </div>
+            </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </div>
 
         <div class="row mt-5">
             <div class="col-sm-12">
@@ -115,25 +156,31 @@
             </div>
         </div>
         <div class="row mt-5">
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <label>Total Barriles</label>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <label>Total Litros</label>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <label>Total Importe</label>
+            </div>
+            <div class="col-sm-3">
+                <label>Total Latas</label>
             </div>
         </div>
         <div class="row ">
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <input matInput disabled placeholder="Total Barriles" name="TotalBarriles" [(ngModel)]="entrega.TotalBarriles" />
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <input matInput disabled placeholder="Total de Litros" name="TotalLitros" [(ngModel)]="entrega.TotalLitros" />
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <input matInput disabled placeholder="Total de importe" name="TotalImporte" [(ngModel)]="entrega.TotalImporte" />
+            </div>
+            <div class="col-sm-3">
+                <input matInput disabled placeholder="Total latas" name="TotalLatas" [(ngModel)]="entrega.TotalLatas" />
             </div>
         </div>
 

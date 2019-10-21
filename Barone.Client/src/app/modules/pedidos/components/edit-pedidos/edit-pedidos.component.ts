@@ -17,6 +17,7 @@ import { PedidosService } from '../../services/pedidos.service';
 import { DBOperation } from '../../../../core/enum/enum.enum';
 import { SnackManagerService, SelectItem } from '../../../../core/core.module.export';
 import { ItemChip } from '../../../shared/models/item-chip';
+import { RowEntregaLata } from 'src/app/modules/shared/models/row-entrega';
 
 
 
@@ -60,8 +61,39 @@ export class EditPedidosComponent implements OnInit {
 
   filteredEstilos: Observable<EstilosModel[]>;
   barrilesPedidos: ItemChip[] = [];
-
+  isREADONLY: boolean = false;
   @ViewChild('fruitInput') fruitInput: ElementRef;
+
+  gridbtns = [
+       
+    {
+      title: 'Borrar',
+      icon: 'clear',
+      keys: ["id"],
+      action: DBOperation.delete,
+      ishide: this.isREADONLY
+    }];
+
+columnProductos: any[] =
+[{
+  display: 'Producto',
+  variable: 'Productos',
+  filter: 'text',
+  template: 'producto'
+},
+{
+  display: 'Cantidad',
+  variable: 'Cantidad',
+  filter: 'text',
+  template: 'text'
+},
+{
+    display: 'Acciones',
+    variable: 'acciones',
+    filter: 'text',
+    template: 'acciones',
+    Sumarizable:false
+  }];
 
   constructor(private pedidosServices: PedidosService, private _snack: SnackManagerService,
     private estilosServices: EstilosService, private clientesServices: ClientsService, public dialogRef: MatDialogRef<EditPedidosComponent>) {
@@ -140,10 +172,17 @@ export class EditPedidosComponent implements OnInit {
   }
   private reCalculateBarriles() {
     let cantidad = 0;
+    let TotalLatas=0;
     this.barrilesPedidos.forEach(barril => {
       cantidad += barril.cantidad;
-    })
+    });
+
+    this.pedido.DetalleProducto.forEach(latas=>{
+      TotalLatas +=+latas.Cantidad;
+  });
+
     this.pedido.TotalBarriles = cantidad;
+    this.pedido.TotalLatas=TotalLatas;
   }
 
   private _filter(value: string): EstilosModel[] {
@@ -154,10 +193,18 @@ export class EditPedidosComponent implements OnInit {
 
   ngOnInit() {
     if (typeof (this.pedido) == "undefined")
+    {
       this.pedido = new PedidoModel();
+      this.pedido.DetalleProducto=[RowEntregaLata.empty()]
+    }
 
-    if (typeof (this.pedido) != "undefined" && this.pedido.DetallePedido != '')
+    if (typeof (this.pedido) != "undefined" && this.pedido.DetallePedido != ''){
       this.barrilesPedidos = JSON.parse(this.pedido.DetallePedido);
+    }
+    if (typeof (this.pedido) != "undefined" && this.pedido.DetallePedidoProducto != ''){
+      this.pedido.DetalleProducto= JSON.parse(this.pedido.DetallePedidoProducto);
+    }
+      
 
 
 
@@ -165,6 +212,7 @@ export class EditPedidosComponent implements OnInit {
 
   onSubmit() {
     this.pedido.DetallePedido = JSON.stringify(this.barrilesPedidos);
+    this.pedido.DetallePedidoProducto=JSON.stringify(this.pedido.DetalleProducto);
     switch (this.dbops) {
       case DBOperation.create:
         this.pedido.Estado = "1";
@@ -207,6 +255,29 @@ export class EditPedidosComponent implements OnInit {
         break;
 
     }
+
+  }
+  public changeCantidadLata(value:any){
+    this.reCalculateBarriles();
+  }
+   
+  gridaction(gridaction: any): void {
+
+    switch (gridaction.action) {
+     
+      case DBOperation.delete:
+        this.DeleteProducto(gridaction.values[0].value);
+        break;
+    
+
+    }
+
+  }
+
+  private DeleteProducto(id:number){
+
+    this.pedido.DetalleProducto=this.pedido.DetalleProducto.slice(id,-1);
+
 
   }
 }

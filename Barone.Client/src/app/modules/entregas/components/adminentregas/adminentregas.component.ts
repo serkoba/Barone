@@ -191,6 +191,7 @@ export class AdminentregasComponent implements OnInit {
 
     this.entrega = this.entregas.find(x => x.idEntrega === id);
     this.entrega.DetalleEntrega = JSON.parse(this.entrega.DetallePedido.toString());
+    this.entrega.DetalleProducto=JSON.parse(this.entrega.DetallePedidoProducto.toString());
     this.openDialog();
     
   }

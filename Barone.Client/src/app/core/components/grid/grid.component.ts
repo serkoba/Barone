@@ -27,8 +27,7 @@ export class GridComponent implements OnInit {
   @ViewChild('estado') public estado: TemplateRef<ElementRef>;
   @ViewChild('detallePedido') public detallePedido: TemplateRef<ElementRef>;
   @ViewChild('acciones') public acciones: TemplateRef<ElementRef>;
-  @Output()
-  btnclick: EventEmitter<GridAction> = new EventEmitter<GridAction>();
+  @Output() btnclick: EventEmitter<GridAction> = new EventEmitter<GridAction>();
   constructor(private _ref: ChangeDetectorRef) {
 
   }

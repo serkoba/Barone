@@ -105,3 +105,4 @@ export * from './productos/components/adminproductos/adminproductos.component';
 export * from './productos/components/edit-productos/edit-productos.component';
 export * from './productos/services/productos.service';
 export * from './productos/components/producto-estilo/producto-estilo.component';
+export * from './shared/components/grid-prod/grid-prod.component';

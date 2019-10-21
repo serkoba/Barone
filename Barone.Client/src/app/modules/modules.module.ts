@@ -8,7 +8,8 @@ import {
   MatRadioModule, MatNativeDateModule, MatChipsModule, MatSidenavModule, MatBadgeModule, MatAccordion, MatExpansionModule,
   MatTableModule,
   MatCheckboxModule,
-  MatStepperModule
+  MatStepperModule,
+  MatTooltipModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -78,6 +79,7 @@ import { CoreModule } from '../core/core.module';
 import { AdminestilosComponent } from './estilos/components/adminestilos/adminestilos.component';
 import { EditEstilosComponent } from './estilos/components/edit-estilos/edit-estilos.component';
 import { EstilosPipe } from './shared/filters/estilos.pipe';
+import { GridProdComponent } from './shared/components/grid-prod/grid-prod.component';
 
 
 
@@ -105,6 +107,7 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     MatExpansionModule,
     MatTableModule,
     MatCheckboxModule,
+    MatTooltipModule,
     MatStepperModule,
     CalendarModule.forRoot(
       {
@@ -174,7 +177,8 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     RendimientoComponent,
     AdminproductosComponent,
     EditProductosComponent,
-    ProductoEstiloComponent
+    ProductoEstiloComponent,
+    GridProdComponent
   ],
   exports: [
     EditUserComponent,
@@ -225,7 +229,8 @@ import { EstilosPipe } from './shared/filters/estilos.pipe';
     RendimientoComponent,
     AdminproductosComponent,
     EditProductosComponent,
-    ProductoEstiloComponent
+    ProductoEstiloComponent,
+    GridProdComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [EditUserComponent, EditClientsComponent, EditBarrilesComponent, EditRangosComponent, EditPagosComponent,

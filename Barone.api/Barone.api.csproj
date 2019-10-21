@@ -230,6 +230,7 @@
     <Compile Include="DTO\MovimientosXEstilos.cs" />
     <Compile Include="DTO\MovimientosXFecha.cs" />
     <Compile Include="DTO\NotificationsDTO.cs" />
+    <Compile Include="DTO\ProductsDTO.cs" />
     <Compile Include="DTO\ReportFilterViewModel.cs" />
     <Compile Include="Extension\intExtension.cs" />
     <Compile Include="formats\CustomJwtFormat.cs" />
@@ -284,6 +285,14 @@
     <Compile Include="Migrations\201910131316254_update_cantidad_stock.cs" />
     <Compile Include="Migrations\201910131316254_update_cantidad_stock.Designer.cs">
       <DependentUpon>201910131316254_update_cantidad_stock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910201450075_Change_TotalLitros.cs" />
+    <Compile Include="Migrations\201910201450075_Change_TotalLitros.Designer.cs">
+      <DependentUpon>201910201450075_Change_TotalLitros.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910211710070_add_Producto_Pedido.cs" />
+    <Compile Include="Migrations\201910211710070_add_Producto_Pedido.Designer.cs">
+      <DependentUpon>201910211710070_add_Producto_Pedido.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Audience.cs" />
@@ -374,6 +383,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910131316254_update_cantidad_stock.resx">
       <DependentUpon>201910131316254_update_cantidad_stock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910201450075_Change_TotalLitros.resx">
+      <DependentUpon>201910201450075_Change_TotalLitros.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910211710070_add_Producto_Pedido.resx">
+      <DependentUpon>201910211710070_add_Producto_Pedido.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

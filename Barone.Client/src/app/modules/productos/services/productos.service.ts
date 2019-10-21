@@ -13,6 +13,9 @@ export class ProductosService {
   public getAll(): Observable<ProductosModel[]> {
     return this._httpClient.get<ProductosModel[]>('ProductoModels');
   }
+  public getAllDetail():Observable<ProductosModel[]>{
+    return this._httpClient.get<ProductosModel[]>('ProductoModelsDetail');
+  }
   public filtrar(model: ReportFilterModel): Observable<ProductosModel[]> {
     return this._httpClient.post<ReportFilterModel, ProductosModel[]>('ProductoModels', model);
   }

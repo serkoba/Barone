@@ -344,6 +344,7 @@ namespace Barone.api.Controllers
         [ResponseType(typeof(MovimientosModel))]
         public IHttpActionResult PostMovimientosModel([FromBody] MovimientosModel movimientosModel)
         {
+            movimientosModel.fecha = DateTime.UtcNow;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

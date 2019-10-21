@@ -1,0 +1,114 @@
+<div class="row">
+  <!--MALTA------------------->
+  <div class="col-sm-12">
+
+
+    <div class="row">
+      <div class="col-sm-12">
+        <label class="control-label">{{Title}}</label>
+        <button mat-icon-button color="primary" (click)="addRow()">
+          <mat-icon>add_shopping_cart</mat-icon>
+        </button>
+
+      </div>
+    </div>
+    <form [formGroup]="dataForm">
+
+      <ng-container formArrayName="dataArray">
+        <table mat-table [dataSource]="dataSource ">
+          <ng-container *ngFor="let column of columnsToDisplay" matColumnDef="{{column.variable}}">
+            <th mat-header-cell *matHeaderCellDef> {{column.display}} </th>
+            <!-- <td mat-cell *matCellDef="let element;let index=index;let formGroupName=index" >
+              <ng-container *ngTemplateOutlet="this[column.template]; context: {column:column, element:element}"></ng-container>
+              
+            </td> -->
+          <ng-container *matCellDef="let element;let index=index">
+            <td *ngIf="column.template==='text'" mat-cell  [formGroupName]="index">
+
+              <mat-form-field  class="mat-form-field-infix">
+                <input type="text" matInput placeholder="{{column.display}}" formControlName="{{column.variable}}" 
+                  [(ngModel)]="element[column.variable]" name="{{column.variable}}" (ngModelChange)="changeValue($event)" />
+              </mat-form-field>
+            </td>
+              <!-- <mat-form-field *ngIf="column.template==='dropdown'" floatLabel="never">
+                <mat-select [compareWith]="compareFn" name="element[column.variable]" placeholder="Insumo" formControlName="{{column.variable}}"
+                [(ngModel)]="element[column.variable]">
+                <mat-option *ngFor="let insumo of insumos" [value]="insumo">
+                  {{insumo.Nombre}}
+                </mat-option>
+              </mat-select>
+              </mat-form-field> -->
+              <td *ngIf="column.template==='producto'" mat-cell  [formGroupName]="index">
+              <mat-form-field  floatLabel="never">
+                <mat-select [compareWith]="compareFn" name="element[column.variable]" placeholder="Productos" formControlName="{{column.variable}}"
+                [(ngModel)]="element[column.variable]">
+                <mat-option *ngFor="let producto of productos" [value]="producto">
+                  {{producto.Nombre}}
+                </mat-option>
+              </mat-select>
+              </mat-form-field>
+            </td>
+              <!-- <ng-container *ngTemplateOutlet="this[column.template]; context: {column:column, element:element,formGroupName:index}"></ng-container> -->
+
+           
+              <td *ngIf="column.template==='acciones'" mat-cell  [formGroupName]="index">
+            <ng-container *ngFor="let btn of gridbtns">
+  
+                <button *ngIf="!btn.ishide" mat-icon-button (click)="click(btn,index)" matTooltip="{{btn.title}}">
+                  <mat-icon>{{btn.icon}}</mat-icon>
+                </button>
+              </ng-container>
+              </td>
+            </ng-container>
+            <!-- <td mat-cell *matCellDef="let element;let index=index">
+              <button  mat-icon-button (click)="click(element)" matTooltip="Borrar">
+                <mat-icon>clear</mat-icon>
+              </button>
+            </td> -->
+          </ng-container>
+
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </ng-container>
+    </form>
+    <div style="padding-bottom:1px;background-color:#d8d8d8"></div>
+  </div>
+</div>
+
+
+<ng-template #text let-column="column" let-element="element" let-formGroupName="formGroupName">
+
+  <mat-form-field class="mat-form-field-infix" formControlName="formGroupName">
+    <input type="number" matInput placeholder="{{column.display}}" formControlName="{{column.variable}}" [(ngModel)]="element[column.variable]"
+      name="{{column.variable}}" />
+  </mat-form-field>
+
+</ng-template>
+
+
+
+<ng-template #producto let-column="column" let-element="element">
+
+  <mat-form-field *ngIf="column.template==='Producto'" floatLabel="never">
+    <mat-select [compareWith]="compareFn" name="element[column.variable]" placeholder="Productos" formControlName="{{column.variable}}"
+    [(ngModel)]="element[column.variable]">
+    <mat-option *ngFor="let producto of productos" [value]="producto">
+      {{producto.Nombre}}
+    </mat-option>
+  </mat-select>
+  </mat-form-field>
+
+</ng-template>
+
+<ng-template #acciones let-column="column" let-element="element">
+
+    <ng-container *ngFor="let btn of gridbtns">
+  
+      <button *ngIf="!btn.ishide" mat-icon-button (click)="click(btn,element)" matTooltip="{{btn.title}}">
+        <mat-icon>{{btn.icon}}</mat-icon>
+      </button>
+    </ng-container>
+  </ng-template>

@@ -1,7 +1,7 @@
 import { ClientsModel } from "./clients.model";
 import { BarrilModel } from "./barril.model";
 import { PedidoModel } from "./pedido.model";
-import { RowEntrega } from "./row-entrega";
+import { RowEntrega, RowEntregaLata } from "./row-entrega";
 import { Constructable } from "../../../core/models/constructable";
 
 export class EntregaModel extends Constructable<Partial<EntregaModel>> {
@@ -16,8 +16,13 @@ export class EntregaModel extends Constructable<Partial<EntregaModel>> {
     TotalBarriles: string;
     TotalLitros: string;
     TotalImporte: string;
+    TotalLatas:string;
+    TotalLitrosLata:string;
+    TotalImporteLata:string;
     Pedido: PedidoModel;
     DetallePedido: string;
     DetalleEntrega: RowEntrega[];
+    DetalleProducto: RowEntregaLata[];
+    DetallePedidoProducto:string;
 
 }

@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Core;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Barone.api.DTO;
 using Barone.api.Models;
 
 namespace Barone.api.Controllers
@@ -17,9 +19,40 @@ namespace Barone.api.Controllers
         private BaroneapiContext db = new BaroneapiContext();
 
         // GET: api/ProductoModels
+
         public IQueryable<ProductoModel> GetProductoModels()
         {
             return db.ProductoModels;
+        }
+        [Route("api/ProductoModelsDetail")]
+        public IQueryable<ProductsDTO> GetProductoModelsDetail()
+        {
+            var stockmodelsAll = db.StockProductoModels
+                         .Include(x => x.Coccion).Include(x => x.Producto)
+                         .Include(x => x.Coccion.Receta).Include(x => x.Coccion.Receta.Estilo).Include(x => x.Coccion.Receta.Estilo.rangoPrecio);
+
+            var result = from p in db.ProductoModels
+                         join st in
+                         (from stock in stockmodelsAll
+                          select new {
+                              Producto= stock.Producto,
+                              Fecha= stock.Fecha,
+                              Precio = stock.Coccion.Receta.Estilo.rangoPrecio.precio
+                          })
+                         .OrderByDescending(x => x.Fecha).DefaultIfEmpty() on p.id equals st.Producto.id into joinSt
+                         from st in joinSt
+                          .Take(1)
+                         
+                         
+                         select new ProductsDTO()
+                         {
+                             id = p.id,
+                             Litros = p.Litros,
+                             Nombre = p.Nombre,
+                             Stock = p.Stock,
+                             Precio = st.Precio
+                         };
+            return result;
         }
 
         // GET: api/ProductoModels/5
@@ -141,6 +174,35 @@ namespace Barone.api.Controllers
             db.SaveChanges();
 
             return Ok(productoModel);
+        }
+
+        [AcceptVerbs("PATCH")]
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PatchProductoModel([FromBody] ProductoModel producto)
+        {
+
+
+            try
+            {
+                ProductoModel serverDocument = db.ProductoModels.Find(producto.id);
+
+                //   serverDocument.SaldoCuenta = cliente.SaldoCuenta;
+                // db.Entry(serverDocument).State = EntityState.Modified;
+
+                dynamic changedData = new { Stock = producto.Stock };
+                db.Entry(serverDocument).CurrentValues.SetValues(changedData);
+
+
+
+
+                db.SaveChanges();
+            }
+            catch (OptimisticConcurrencyException ex)
+            {
+
+                var result = ex.Data;
+            }
+            return StatusCode(HttpStatusCode.OK);
         }
 
         protected override void Dispose(bool disposing)
